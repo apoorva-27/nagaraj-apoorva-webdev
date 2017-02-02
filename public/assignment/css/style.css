@@ -86,3 +86,7 @@ body a:hover {
 .seven-padding{
     padding-top: 7px;
 }
+
+.padding-on-left {
+    padding-left: 7px;
+}
