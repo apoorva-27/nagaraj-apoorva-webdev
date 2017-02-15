@@ -7,11 +7,19 @@
         .module("WebAppMaker")
         .controller("WebsiteListController", WebSiteListController);
 
+
     function WebSiteListController($routeParams, WebsiteService) {
-        var userId = $routeParams.uid;
-        var websites = WebsiteService.findAllWebsites(userId);
+        // var userId =
+        // var websites =
         var vm = this;
-        vm.websites = websites;
-        vm.userId = userId;
+
+        function init() {
+
+
+            vm.userId = $routeParams.uid;
+            vm.websites = WebsiteService.findWebsiteByUser(vm.userId);
+        }
+        init();
+
     }
 })();

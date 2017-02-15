@@ -3,7 +3,7 @@
     <div class="row container-fluid bg-primary">
         <div class="col-sm-4 hidden-xs">
             <div class="navbar-text pull-left">
-                <a href="website-list.view.client.html">
+                <a href="#/user/{{model.userId}}/website">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
@@ -13,14 +13,14 @@
                 </a>
             </div>
             <div class="navbar-text pull-right">
-                <a href="website-new.view.client.html">
+                <a href="#/user/{{model.userId}}/website/new">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="navbar-text pull-right">
-                <a href="website-list.view.client.html">
+                <a ng-click="model.createWebsite(website)">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -39,10 +39,10 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-xs-10">
-                        <a href="../../page/page-list.html">Blogging App</a>
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page">Blogging App</a>
                     </div>
                     <div class="col-xs-2">
-                        <a href="../../page/page-list.html">
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page.html">
                             <span class="glyphicon glyphicon-cog pull-right"></span>
                         </a>
                     </div>
@@ -51,10 +51,10 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-xs-10">
-                        <a href="../../page/page-list.html">Address Book App</a>
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page">Address Book App</a>
                     </div>
                     <div class="col-xs-2">
-                        <a href="../../page/page-list.html">
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page.html">
                         <span class="glyphicon glyphicon-cog pull-right"></span>
                         </a>
                     </div>
@@ -63,10 +63,10 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-xs-10">
-                        <a href="../../page/page-list.html">Script Testing App</a>
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page">Script Testing App</a>
                     </div>
                     <div class="col-xs-2">
-                        <a href="../../page/page-list.html">
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page">
                             <span class="glyphicon glyphicon-cog pull-right"></span>
                         </a>
                     </div>
@@ -75,10 +75,10 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-xs-10">
-                        <a href="../../page/page-list.html">Blogger</a>
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page">Blogger</a>
                     </div>
                     <div class="col-xs-2">
-                        <a href="../../page/page-list.html">
+                        <a href="#/user/{{model.userId}}/website/{{model.website._id}}/page">
                             <span class="glyphicon glyphicon-cog pull-right"></span>
                         </a>
                     </div>
@@ -89,22 +89,27 @@
     <div class="col-sm-8">
         <label for="website-name">Name</label>
         <input placeholder="Name"
+               ng-model="website.name"
                type="text"
+               id="website-name"
                class="form-control"
-               id="website-name"/>
+               />
 
         <label for="website-description">Description</label>
         <textarea rows="3"
+
+                  id="website-description"
+                  ng-model="website.description"
                 placeholder="Description"
                   class="form-control"
-                  id="website-description"></textarea>
+                  ></textarea>
     </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
         <div class="navbar-text pull-right">
-            <a href="#/profile">
+            <a href="#/user/{{model.userID}}">
                 <span class="glyphicon glyphicon-user "></span>
             </a>
         </div>

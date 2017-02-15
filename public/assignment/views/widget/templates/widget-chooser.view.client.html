@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <meta charset="UTF-8">
-    <title>Widget Chooser</title>
-</head>
-<body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="row container-fluid bg-primary">
         <div class="col-xs-4 ">
             <div class="navbar-text pull-left ">
-                <a href="widget-list.html">
+                <a href="/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}/widget">
                     <span class="glyphicon glyphicon-chevron-left "></span>
                 </a>
             </div>
@@ -42,7 +32,7 @@
 <div class="container-fluid col-xs-4 hidden-xs">
     <div>
         <div class="jga-toolbar">
-            <a href="widget-heading.html">
+            <a href="widget-heading.view.client.html">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
             <span class="glyphicon glyphicon-align-justify"></span>
@@ -54,7 +44,7 @@
     </div>
     <div>
         <div class="jga-toolbar">
-            <a href="widget-image.html">
+            <a href="widget-image.view.client.html">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
             <span class="glyphicon glyphicon-align-justify"></span>
@@ -73,7 +63,7 @@
         <p>At the Environmental Protection Agency, it’s typical for an incoming administration to implement a realignment of sorts—with some grants or contracts, for instance, being frozen temporarily—but a decision by President Donald Trump’s staff to <a href="http://www.latimes.com/politics/washington/la-na-trailguide-updates-trump-administration-orders-media-1485281190-htmlstory.html" target="_blank" rel="noopener">order a total media blackout</a>, as well as ban any new spending, has left some employees rattled. <br></p>    </div>
     <div>
         <div class="jga-toolbar">
-            <a href="widget-youtube.html">
+            <a href="widget-youtube.view.client.html">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
             <span class="glyphicon glyphicon-align-justify"></span>
@@ -87,7 +77,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="widget-heading.html">Header</a>
+                    <a href="widget-heading.view.client.html">Header</a>
                 </div>
 
             </div>
@@ -135,7 +125,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="widget-image.html">Image</a>
+                    <a href="widget-image.view.client.html">Image</a>
                 </div>
 
             </div>
@@ -143,7 +133,7 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="widget-youtube.html">Youtube</a>
+                    <a href="widget-youtube.view.client.html">Youtube</a>
                 </div>
             </div>
         </li>
@@ -169,13 +159,9 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
         <div class="navbar-text pull-right">
-            <a href="widget-list.html">
+            <a href="widget-list.view.client.html">
                 <span class="glyphicon glyphicon-user "></span>
             </a>
         </div>
     </div>
 </nav>
-
-
-</body>
-</html>

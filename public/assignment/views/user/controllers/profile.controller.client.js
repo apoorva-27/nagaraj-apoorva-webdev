@@ -1,9 +1,9 @@
 (function () {
     angular
         .module("WebAppMaker")
-        .controller("ProfileController", ProfileController);
+        .controller("profileController", profileController);
 
-    function ProfileController($routeParams, UserService) {
+    function profileController($routeParams, userService) {
         var vm = this;
 
         // event handlers
@@ -11,15 +11,16 @@
         // vm.deleteUser = deleteUsers;
 
         var userId = $routeParams['uid'];
+        vm.userId=userId;
 
         function init() {
-            var user = UserService.findUserById(userId);
+            var user = userService.findUserById(userId);
             vm.user = user;
         }
         init();
 
         function updateUser(newUser) {
-            var user = UserService.updateUser(userId, newUser);
+            var user = userService.updateUser(userId, newUser);
             if(user != null) {
                 vm.message = "User Successfully Updated!"
             } else {

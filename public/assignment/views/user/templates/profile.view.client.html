@@ -2,7 +2,7 @@
     <div class="container-fluid bg-primary ">
 
         <div class="navbar-text pull-right ">
-            <a href="#/profile" class="navbar-link ">
+            <a ng-click="model.updateUser(model.user)" class="navbar-link ">
                 <span class="glyphicon glyphicon-ok make-white"></span>
             </a>
         </div>
@@ -15,35 +15,41 @@
 </nav>
 
     <div class="container-fluid">
+        <div CLASS="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
 
+        <div class="alert alert-success" ng-show="model.message">
+            {{model.message}}
+        </div>
         <form>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Username">
+                <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username">
             </div>
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com">
+                <input ng-model="model.user.email" type="email" class="form-control" id="email" placeholder="alice@wonderland.com">
             </div>
             <div class="form-group">
                 <label for="first-name">First Name</label>
-                <input type="text" class="form-control" id="first-name" placeholder="Alice">
+                <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name" placeholder="Alice">
             </div>
             <div class="form-group">
                 <label for="last-name">Last Name</label>
-                <input type="text" class="form-control" id="last-name" placeholder="Wonderland">
+                <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name" placeholder="Wonderland">
             </div>
         </form>
 
         <a class="btn btn-primary btn-block"
-           href="#/user/{{model.user._id}}/website">Websites</a>
+           href="#/user/{{model.userId}}/website">Websites</a>
         <a class="btn btn-danger  btn-block"
            href="#/login">Logout</a>
     </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
-        <a href="#/profile" class=" navbar-link navbar-text pull-right ">
+        <a href="#/user/{{model.user._id}}" class=" navbar-link navbar-text pull-right ">
                 <span class="glyphicon glyphicon-user make-white "></span>
         </a>
 

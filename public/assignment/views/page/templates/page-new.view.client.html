@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <script
-            src="https://code.jquery.com/jquery-2.2.4.min.js"
-            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>website-new</title>
-</head>
-<body>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="row container-fluid bg-primary">
         <div class="col-xs-4 ">
             <div class="navbar-text pull-left">
-                <a href="page-list.html">
+                <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
@@ -27,14 +13,14 @@
                 </a>
             </div>
             <div class="navbar-text pull-right hidden-xs">
-                <a href="page-new.html">
+                <a href="/user/{{model.user._id}}/website/{{model.website._id}}/page/new">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
         </div>
         <div class="col-xs-8">
             <div class="navbar-text pull-right">
-                <a href="page-list.html">
+                <a ng-click="model.createPage(page)">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -53,10 +39,10 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="../views/widget/widget-list.html">Blog Post</a>
+                    <a href="/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}/widget">Blog Post</a>
                 </div>
                 <div class="col-xs-2">
-                    <a href="page-edit.html">
+                    <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}">
                         <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                 </div>
@@ -65,10 +51,10 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="../views/widget/widget-list.html">Blogs</a>
+                    <a href="/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}/widget">Blogs</a>
                 </div>
                 <div class="col-xs-2">
-                    <a href="page-edit.html">
+                    <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}">
                         <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                 </div>
@@ -77,10 +63,10 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="../views/widget/widget-list.html">Home</a>
+                    <a href="/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}/widget">Home</a>
                 </div>
                 <div class="col-xs-2">
-                    <a href="page-edit.html">
+                    <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}">
                         <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                 </div>
@@ -89,10 +75,10 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="../views/widget/widget-list.html">About</a>
+                    <a href="/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}/widget">About</a>
                 </div>
                 <div class="col-xs-2">
-                    <a href="page-edit.html">
+                    <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}">
                     <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                 </div>
@@ -101,10 +87,10 @@
         <li class="list-group-item">
             <div class="row">
                 <div class="col-xs-10">
-                    <a href="../views/widget/widget-list.html">Contact us</a>
+                    <a href="/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}/widget">Contact us</a>
                 </div>
                 <div class="col-xs-2">
-                    <a href="page-edit.html">
+                    <a href="#/user/{{model.user._id}}/website/{{model.website._id}}/page/{{model.page._id}}">
                         <span class="glyphicon glyphicon-cog pull-right"></span>
                     </a>
                 </div>
@@ -116,12 +102,14 @@
     <label for="website-name">Name</label>
     <input placeholder="Name"
            type="text"
+           ng-model="page.name"
            class="form-control"
            id="website-name"/>
 
     <label for="website-name">Title</label>
     <input placeholder="Title"
            type="text"
+           ng-model="page.description"
               class="form-control"
            />
 
@@ -131,12 +119,9 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
         <div class="navbar-text pull-right">
-            <a href="../views/user/templates/profile.view.client.html">
+            <a href="#/user/:uid">
                 <span class="glyphicon glyphicon-user "></span>
             </a>
         </div>
     </div>
 </nav>
-
-</body>
-</html>

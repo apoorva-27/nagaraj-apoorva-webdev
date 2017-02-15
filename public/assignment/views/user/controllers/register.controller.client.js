@@ -7,14 +7,29 @@
         .module("WebAppMaker")
         .controller("registerController", registerController);
 
-    function registerController() {
+    function registerController($location,userService) {
         var vm = this;
-
-        // event handlers
+        // var userId = $routeParams['uid'];
+        // var user = userService.findUserById(userId);
 
         function init() {
+
+            // vm.user = user;
         }
         init();
+
+        vm.create=create;
+        // event handlers
+        function create(user) {
+            var newuser = userService
+                .createUser(user);
+            if(newuser) {
+                $location.url("/user/"+newuser._id);
+            } else {
+                vm.error = 'User not found';
+            }
+        }
+        // vm.userId=userId;
 
     }
 })();
