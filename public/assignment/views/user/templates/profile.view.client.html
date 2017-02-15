@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>profile</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid bg-primary ">
 
         <div class="navbar-text pull-right ">
-            <a href="profile.html" class="navbar-link ">
+            <a href="#/profile" class="navbar-link ">
                 <span class="glyphicon glyphicon-ok make-white"></span>
             </a>
         </div>
@@ -47,19 +36,17 @@
         </form>
 
         <a class="btn btn-primary btn-block"
-           href="../website/website-list.html">Websites</a>
+           href="#/user/{{model.user._id}}/website">Websites</a>
         <a class="btn btn-danger  btn-block"
-           href="login.html">Logout</a>
+           href="#/login">Logout</a>
     </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
-        <a href="profile.html" class=" navbar-link navbar-text pull-right ">
+        <a href="#/profile" class=" navbar-link navbar-text pull-right ">
                 <span class="glyphicon glyphicon-user make-white "></span>
         </a>
 
     </div>
 </nav>
 
-</body>
-</html>
