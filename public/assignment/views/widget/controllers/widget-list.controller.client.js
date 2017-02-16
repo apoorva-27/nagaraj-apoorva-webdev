@@ -17,7 +17,6 @@
             //vm.widgetId = $routeParams.wgid;
             vm.pageId = $routeParams.pid;
             vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-            // console.log(vm.widgets)
             vm.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
             vm.getTrustedHtml = getTrustedHtml;
             vm.getWidgetTemplateUrl = getWidgetTemplateUrl;
@@ -44,11 +43,7 @@
         function getEditorTemplateUrl(ID) {
             console.log(ID)
             $location.url('/user/'+vm.userID+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget/'+ID)
-            // $location.url('/user/'+vm.userID+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget/' +
-            //     'editors/widget-'+type+'-editor.view.client.html');
-            //user/:uid/website/:wid/page/:pid/widget/:wgid
 
         }
-
     }
 })();

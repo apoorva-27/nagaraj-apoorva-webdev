@@ -20,16 +20,12 @@
 
         function createWebsite(website) {
                var newwebsite= WebsiteService.createWebsite(vm.userId,website);
-                //console.log("hhhhhhhhh");
+
                 console.log(newwebsite);
-            //if(newwebsite) {
+
                 $location.url("/user/"+vm.userId+"/website");
-            //} else {
-               // vm.error = 'User not found';
-           // }
+
         }
-        // vm.websites = websites;
-        // vm.userId = userId;
 
     }
 })();

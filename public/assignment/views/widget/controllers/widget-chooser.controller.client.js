@@ -13,12 +13,13 @@
         vm.websiteId = $routeParams.wid;
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
+        vm.createWidget=createWidget;
         function init() {
             vm.widget = WidgetService.findWidgetById(vm.widgetId);
         }
         init();
-        console.log(vm.widget)
-        vm.createWidget=createWidget;
+        // console.log(vm.widget)
+
         function createWidget(widgetType) {
             newWidget = {};
             newWidget._id = (new Date()).getTime();

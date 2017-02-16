@@ -9,8 +9,7 @@
 
 
     function WebSiteListController($routeParams, WebsiteService) {
-        // var userId =
-        // var websites =
+
         var vm = this;
 
         function init() {
