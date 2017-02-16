@@ -53,7 +53,7 @@
     </div>
     <div class="col-sm-8  ">
         <label class="seven-padding" for="website-name">Website Name</label>
-        <input placeholder="Blogger"
+        <form><input placeholder="Blogger"
                ng-model="model.website.name"
                class="form-control"
                type="text"
@@ -65,6 +65,7 @@
                   ng-model="model.website.description"
                   class="form-control"
                   id="website-description"></textarea>
+        </form>
         <a ng-click="model.deleteSite(website)" type="button" class="btn btn-danger btn-block">
             Delete
         </a>

@@ -1,7 +1,7 @@
 
     <div class="container-fluid">
         <h1>Register</h1>
-        <input type="text"
+        <form><input type="text"
                ng-model="user.username"
                class="form-control"
                placeholder="username"/>
@@ -25,7 +25,7 @@
                ng-model="user.email"
                class="form-control"
                placeholder="email"/>
-
+        </form>
 
         <a class="btn btn-primary btn-block"
            ng-click="model.create(user)">Register</a>

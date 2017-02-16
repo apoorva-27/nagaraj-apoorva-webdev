@@ -6,7 +6,6 @@
         .module("WebAppMaker")
         .controller("pageEditController", pageEditController);
 
-
     function pageEditController($routeParams, PageService,$location) {
 
         var vm = this;
@@ -23,12 +22,9 @@
         init();
 
         vm.update = update;
-        //console.log();
-
         function update(page) {
             PageService.updatePage(ID, page);
             $location.url("/user/" + vm.userId + "/website/"+ vm.websiteId+"/page");
-
         }
         vm.deletePage = deletePage;
         function deletePage(page) {
@@ -36,7 +32,5 @@
             console.log(vm.websiteId)
             $location.url("/user/" + vm.userId + "/website/"+ vm.websiteId+"/page");
         }
-
-
     }
 })();
