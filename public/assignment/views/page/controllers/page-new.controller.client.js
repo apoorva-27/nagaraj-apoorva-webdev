@@ -14,7 +14,7 @@
         vm.createPage=createPage;
 
         function  init() {
-            //vm.websites = WebsiteService.findWebsiteByUser(vm.userId);
+            vm.pages=PageService.findPageByWebsiteId(vm.websiteId);
         }
         init();
 
