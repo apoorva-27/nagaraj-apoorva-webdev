@@ -7,76 +7,37 @@
         .module("WebAppMaker")
         .service("WebsiteService", WebsiteService);
 
-    function WebsiteService() {
-        var websites = [
-            { "_id": "123", "name": "Facebook", update: new Date(),    "developerId": "456", "description": "Lorem" },
-            { "_id": "234", "name": "Tweeter", update: new Date(),     "developerId": "456", "description": "Lorem" },
-            { "_id": "456", "name": "Gizmodo", update: new Date(),     "developerId": "456", "description": "Lorem" },
-            { "_id": "567", "name": "Tic Tac Toe", update: new Date(), "developerId": "123", "description": "Lorem" },
-            { "_id": "678", "name": "Checkers", update: new Date(),    "developerId": "123", "description": "Lorem" },
-            { "_id": "789", "name": "Chess", update: new Date(),       "developerId": "234", "description": "Lorem" }
-        ];
+    function WebsiteService($http) {
+
         var api = {
             "createWebsite": createWebsite,
             "findWebsiteById": findWebsiteById,
             "deleteWebsite": deleteWebsite,
             "updateWebsite": updateWebsite,
-            "findWebsiteByUser": findWebsiteByUser
+            "findAllWebsitesForUser": findAllWebsitesForUser
         };
         return api;
 
 
         function createWebsite(userID,website){
-
-                website._id = (new Date()).getTime().toString();
-
-                website.developerId = userID.toString();
-
-                websites.push(website);
-
-          return websites;
+            return $http.post("/api/user/"+userID+"/website",website);
         }
 
-        function findWebsiteByUser(userId) {
-            var sites = [];
-
-            for(var w in websites) {
-
-                if(userId === websites[w].developerId) {
-
-                    sites.push(websites[w]);
-                }
-            }
-            return sites;
+        function findAllWebsitesForUser(userId) {
+            return $http.get("/api/user/"+userId+"/website");
         }
 
         function findWebsiteById(websiteId) {
-            for(var w in websites) {
-                if(websiteId === websites[w]._id) {
-                    return websites[w];
-                }
-            }
-            return null;
+            // console.log("do i come to client service");
+            return $http.get("/api/website/"+websiteId);
         }
         function updateWebsite(websiteId,website) {
+            return $http.put("/api/website/"+websiteId,website);
 
-            for (var w in websites) {
-                if (websiteId === websites[w]._id) {
-                    websites[w].name=website.name
-                    websites[w].description=website.description
-
-                }
-            }
         }
 
         function deleteWebsite(websiteId) {
-            for(var w in websites) {
-                if (websites[w]._id === websiteId) {
-                    websites.splice(w,1)
-                }
-            }
+            return $http.delete("/api/website/"+websiteId);
         }
-
-
     }
 })();

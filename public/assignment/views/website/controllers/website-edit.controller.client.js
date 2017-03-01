@@ -8,32 +8,61 @@
         .controller("WebsiteEditController", WebsiteEditController);
 
     function WebsiteEditController($routeParams, WebsiteService, $location) {
-        var ID = $routeParams['wid'];
-
         var vm = this;
+        vm.websiteId=$routeParams['wid'];
+        // console.log(vm.websiteId);
+
         vm.userId = $routeParams['uid'];
         vm.deleteSite = deleteSite;
         vm.update = update;
 
         function init() {
-            vm.websites = WebsiteService.findWebsiteByUser(vm.userId);
-            vm.website = WebsiteService.findWebsiteById(ID);
+
+            WebsiteService
+                .findWebsiteById(vm.websiteId)
+                .success(function (website) {
+                    vm.website=website
+                    console.log(vm.website);
+                });
+                WebsiteService
+                .findAllWebsitesForUser(vm.userId)
+                    .success(function (websites) {
+                        vm.websites=websites
+                    });
+
+            // vm.websites = WebsiteService.findAllWebsitesForUser(vm.userId);
+            // vm.website = WebsiteService.findWebsiteById(ID);
         }
+        init();
 
         function update(website) {
-            WebsiteService.updateWebsite(ID, website);
-            $location.url("/user/" + vm.userId + "/website");
+            console.log(website);
+            WebsiteService
+                .updateWebsite(vm.websiteId, website)
+                .success(function (website) {
+                    if (website != null) {
+                        vm.message = "Website Successfully Updated!"
+                        $location.url("/user/"+vm.userId+"/website");
+                    } else {
+                        vm.error = "Unable to update website";
+                        $location.url("/user/"+vm.userId+"/website");
 
+                    }
+                });
         }
 
         function deleteSite(website) {
-            WebsiteService.deleteWebsite(vm.website._id);
-            console.log(vm.website._id)
-            $location.url("/user/" + vm.userId + "/website");
-
-
+            WebsiteService
+                .deleteWebsite(vm.website._id)
+                .success(function (user) {
+                    if (user != null) {
+                        vm.message = "Website Successfully Updated!"
+                        $location.url("/user/"+vm.userId+"/website");
+                    } else {
+                        vm.error = "Unable to update website";
+                        $location.url("/user/"+vm.userId+"/website");
+                    }
+            });
         }
-
-
     }
 })();

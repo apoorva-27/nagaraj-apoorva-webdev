@@ -10,15 +10,17 @@
     function pageListController($routeParams, PageService) {
 
         var vm = this;
+        vm.websiteId=$routeParams['wid'];
+        vm.userId=$routeParams['uid'];
 
         function init() {
 
-            vm.userId = $routeParams.uid;
-            vm.websiteId=$routeParams.wid;
-            vm.pages =PageService.findPageByWebsiteId(vm.websiteId);
-            console.log(vm.pages)
+            PageService
+                .findAllPagesForWebsite(vm.websiteId)
+                .success(function(pages){
+                    vm.pages = pages
+                });
         }
         init();
-
     }
 })();

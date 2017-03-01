@@ -12,21 +12,34 @@
 
         vm.create = create;
         function init() {
-
-
         }
 
         init();
 
         // event handlers
+
+
+
+
         function create(user) {
+            userService
+                .findUserByUsername(user.username)
+                .success(function (user) {
+                    vm.message = "That username is already taken";
+                })
+                .error(function(err) {
+                    vm.message = "Available";
+                });
             var newuser = userService
-                .createUser(user);
-            if (newuser) {
-                $location.url("/user/" + newuser._id);
-            } else {
-                vm.error = 'User not found';
-            }
+                .createUser(user)
+                .success(function (newuser) {
+                    $location.url("/user/" + newuser._id);
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                    console.log("error");
+                })
+
         }
     }
 })();

@@ -11,12 +11,15 @@
     function WebSiteListController($routeParams, WebsiteService) {
 
         var vm = this;
+        var userId = $routeParams.uid;
+        vm.userId = userId;
 
         function init() {
-
-
-            vm.userId = $routeParams.uid;
-            vm.websites = WebsiteService.findWebsiteByUser(vm.userId);
+            WebsiteService
+                .findAllWebsitesForUser(userId)
+                .success(function(websites){
+                    vm.websites = websites
+                });
         }
         init();
 
