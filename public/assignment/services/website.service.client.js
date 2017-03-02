@@ -28,7 +28,6 @@
         }
 
         function findWebsiteById(websiteId) {
-            // console.log("do i come to client service");
             return $http.get("/api/website/"+websiteId);
         }
         function updateWebsite(websiteId,website) {

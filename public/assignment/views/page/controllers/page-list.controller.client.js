@@ -18,7 +18,7 @@
             PageService
                 .findAllPagesForWebsite(vm.websiteId)
                 .success(function(pages){
-                    vm.pages = pages
+                        vm.pages = pages
                 });
         }
         init();
