@@ -13,15 +13,18 @@
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
         vm.updateWidget=updateWidget;
+        // vm.widgetType=widgetType;
         vm.getEditorTemplateUrl = getEditorTemplateUrl;
         vm.deleteW = deleteW;
 
         function init() {
+            console.log("widgets!!"+vm.widgetId);
             WidgetService
                 .findWidgetById(vm.widgetId)
                 .success(function (widget) {
                     vm.widget=widget;
-                    console.log(vm.widget);
+                    vm.widgetType=widget.widgetType;
+                    console.log("here "+vm.widget.widgetType);
                 });
             WidgetService
                 .findAllWidgetsForPage(vm.pageId)
@@ -33,7 +36,9 @@
 
         function getEditorTemplateUrl(type) {
             console.log(type);
-            return 'views/widget/templates/editors/widget-'+type+'-editor.view.client.html';
+            console.log("in gettemplateurl");
+            console.log(vm.widgetType);
+            return 'views/widget/templates/editors/widget-'+vm.widgetType+'-editor.view.client.html';
         }
 
         function updateWidget(widget) {

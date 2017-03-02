@@ -29,14 +29,16 @@
         }
 
         function createWidget(pageId, widget) {
-            var newwidget = {
-                _id:(new Date()).getTime().toString(),
+            return $http.post("/api/page/"+pageId+"/widget",widget);
 
-            pageId:pageId,
-                widgetType:widget.widgetType
-            }
-            widgets.push(newwidget)
-            return newwidget
+            // var newwidget = {
+            //     _id:(new Date()).getTime().toString(),
+            //
+            // pageId:pageId,
+            //     widgetType:widget.widgetType
+            // }
+            // widgets.push(newwidget)
+            // return newwidget
         }
 
         function findAllWidgetsForPage(pageId) {

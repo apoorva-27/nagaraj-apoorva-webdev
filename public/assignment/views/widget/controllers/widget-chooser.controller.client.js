@@ -15,19 +15,39 @@
         vm.widgetId = $routeParams.wgid;
         vm.createWidget=createWidget;
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.widgetId);
+
+            // WidgetService
+            //     .findWidgetById(vm.widgetId)
+            //     .success (function (widget) {
+            //         vm.widget=widget;
+            // })
         }
         init();
-        // console.log(vm.widget)
 
-        function createWidget(widgetType) {
+            function createWidget(widgetType) {
             newWidget = {};
+            console.log("do i come here?")
+            // var typeOfWidget=widgetType.toString();
             newWidget._id = (new Date()).getTime();
+            console.log("widget type"+widgetType);
             newWidget.widgetType = widgetType;
             newWidget.pageId = vm.pageId;
 
-            WidgetService.createWidget(vm.pageId, newWidget);
-            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+            WidgetService
+                .createWidget(vm.pageId,newWidget)
+                .success(function (widget) {
+                    console.log(widget)
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
+
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to create website';
+                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
+
+                })
+
+            // WidgetService.createWidget(vm.pageId, newWidget);
+            // $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
         }
 
     }
