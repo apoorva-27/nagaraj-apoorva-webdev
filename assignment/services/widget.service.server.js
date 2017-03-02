@@ -9,6 +9,23 @@ module.exports = function(app) {
     app.put('/api/widget/:widgetId', updateWidget);
     app.delete('/api/widget/:widgetId', deleteWidget);
     app.post('/api/page/:pageId/widget', createWidget);
+    app.put("/page/:pageId/widget", sortWidget);
+
+                        var multer = require('multer');
+
+    var storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, __dirname + "/../../public/uploads")
+        },
+        filename: function (req, file, cb) {
+            var extArray = file.mimetype.split("/");
+            var extension = extArray[extArray.length - 1];
+            cb(null, 'widget_image_' + Date.now() + '.' + extension)
+        }
+    });
+    var upload = multer({storage: storage});
+    app.post("/api/upload", upload.single('myFile'), uploadImage);
+
 
     var widgets = [
         {"_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO", "name": "Lorem"},
@@ -54,34 +71,28 @@ module.exports = function(app) {
     }
 
     function updateWidget(req,res) {
-        var widgetId=req.params.widgetId;
-        var widget=req.body;
-        for(var w in widgets) {
-            if(widgets[w]._id === widgetId) {
-                widgets[w].text=widget.text;
-                widgets[w].url=widget.url;
-                widgets[w].name=widget.name;
-                widgets[w].size=widget.size;
-                widgets[w].width=widget.width;
-                return;
+
+            var widgetId=req.params['widgetId'];
+            var widget=req.body;
+            for(var w in widgets){
+                var widget_var=widgets[w];
+                if(widget_var._id === widgetId){
+                    widgets[w].widgetType = widget.widgetType;
+                    widgets[w].size = widget.size;
+                    widgets[w].text = widget.text;
+                    //return widgets[w];
+                    res.send(widgets[w]);
+                    return;
+                }
             }
+
         }
-        return null;
-    }
 
     function createWidget(req,res) {
         var newWid=req.body;
-        console.log("the whoewidget?" + newWid)
-
-        var newwidget = {
-            _id:newWid.id,//(new Date()).getTime().toString(),
-
-        pageId:newWid.pageId,
-            widgetType:newWid.widgetType
-        }
-        widgets.push(newwidget)
-        console.log("newwidget"+newwidget)
-        res.json(newwidget);
+        newWid.pageId = req.params['pageId'];
+        widgets.push(newWid);
+        res.sendStatus(200);
     }
 
     function deleteWidget(req,res) {
@@ -96,4 +107,59 @@ module.exports = function(app) {
         }
         res.sendStatus(404);
     }
+
+    function sortWidget(req, res) {
+            var pid = req.params['pageId'];
+            var i1 = parseInt(req.query.initial);
+            var i2 = parseInt(req.query.final);
+
+            var widgetsForGivenPage = [];
+            for (var index in widgets) {
+                if (widgets[index].pageId === pid) {
+                    widgetsForGivenPage.push(index);
+                }
+            }
+
+            for (var i = i1; i < i2; i++) {
+                var temp = widgets[widgetsForGivenPage[i]];
+                widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i+1]];
+                widgets[widgetsForGivenPage[i+1]] = temp;
+            }
+
+            for (var i = i1; i > i2; i--) {
+                var temp = widgets[widgetsForGivenPage[i]];
+                widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i-1]];
+                widgets[widgetsForGivenPage[i-1]] = temp;
+            }
+
+            res.sendStatus(200);
+        }
+
+    function uploadImage(req, res) {
+            var pageId = null;
+            var widgetId = req.body.widgetId;
+            var width = req.body.width;
+            var userId = req.body.userId;
+            var websiteId = req.body.websiteId;
+
+            if (req.file != null) {
+                var myFile = req.file;
+                var destination = myFile.destination; // folder where file is saved to
+
+                for (var i in widgets) {
+                    if (widgets[i]._id === widgetId) {
+                        widgets[i].width = width;
+                        widgets[i].url = req.protocol + '://' + req.get('host') + "/uploads/" + myFile.filename;
+
+                        pageId = widgets[i].pageId;
+                    }
+                }
+
+                res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
+            }
+            else{
+                pageId = req.body.pageId;
+                res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/"+widgetId);
+            }
+        }
 }

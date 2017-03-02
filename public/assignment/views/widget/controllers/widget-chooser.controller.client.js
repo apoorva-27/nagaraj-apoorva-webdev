@@ -15,40 +15,45 @@
         vm.widgetId = $routeParams.wgid;
         vm.createWidget=createWidget;
         function init() {
-
-            // WidgetService
-            //     .findWidgetById(vm.widgetId)
-            //     .success (function (widget) {
-            //         vm.widget=widget;
-            // })
+            var promise= WidgetService.findAllWidgetsForPage(vm.pageId)
+                .success(function (widget) {
+                    vm.widgets=widget;
+                });
         }
         init();
 
             function createWidget(widgetType) {
-            newWidget = {};
-            console.log("do i come here?")
-            // var typeOfWidget=widgetType.toString();
-            newWidget._id = (new Date()).getTime();
-            console.log("widget type"+widgetType);
-            newWidget.widgetType = widgetType;
-            newWidget.pageId = vm.pageId;
 
-            WidgetService
-                .createWidget(vm.pageId,newWidget)
-                .success(function (widget) {
-                    console.log(widget)
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
+                newWidget = {};
+                newWidget._id = (new Date()).getTime().toString();
+                newWidget.widgetType = widgetType;
+                newWidget.pageId = vm.pageId;
+                switch (widgetType) {
+                    case "HEADER":
+                        newWidget.text = "Default Text";
+                        newWidget.size = 3;
+                        break;
+                    case "IMAGE":
+                        newWidget.url = "https://i.ytimg.com/vi/fFi4BhD_DUw/maxresdefault.jpg";
+                        newWidget.width = "100%";
+                        break;
+                    case "YOUTUBE":
+                        newWidget.url = "https://i.ytimg.com/vi/fFi4BhD_DUw/maxresdefault.jpg";
+                        newWidget.width = "100%";
+                        break;
+                    case "HTML":
+                        newWidget.text = "Default Text";
+                        break;
+                }
 
-                })
-                .error(function (err) {
-                    vm.error = 'Unable to create website';
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+widget._id);
+                WidgetService.createWidget(vm.pageId, newWidget)
 
-                })
+                    .success(function (widget) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+                    });
 
-            // WidgetService.createWidget(vm.pageId, newWidget);
-            // $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
-        }
+
+    }
 
     }
 })();

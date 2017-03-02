@@ -1,11 +1,11 @@
-<form>
-        <label for="website-name">Name</label>
+<form action="/api/upload"   method="post" enctype="multipart/form-data">
+        <label >Name</label>
         <input placeholder="Name"
                class="form-control"
                ng-model="model.widget.name"
                type="text"
                id="name"/>
-        <label for="website-name">Text</label>
+        <label >Text</label>
         <input placeholder="Blog Post"
                class="form-control"
                ng-model="model.widget.text"
@@ -17,20 +17,21 @@
                class="form-control"
                ng-model="model.widget.url"
                id="website-description"></input>
-        <label for="website-name">Width</label>
+        <label >Width</label>
         <input placeholder="Width"
                class="form-control"
                ng-model="model.widget.width"
                type="number"
                id="width"/>
-        <label for="website-name">Upload</label>
-        <input type="file"
-               class="form-control"
+        <label >Upload</label>
 
-               id="website-name"/>
-        <a  type="button" class="btn btn-primary btn-block">
-            Upload Image
-        </a>
+        <input  name="myFile"    type="file" class="form-control"/>
+        <input  name="width"     value="{{model.widget.width}}" style="display: none"/>
+        <input  name="userId"    value="{{model.userId}}"   style="display: none"/>
+        <input  name="websiteId" value="{{model.websiteId}}"   style="display: none"/>
+        <input  name="pageId"    value="{{model.pageId}}"   style="display: none"/>
+        <input  name="widgetId"  value="{{model.widget._id}}"   style="display: none"/>
+        <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
 
 </form>
 

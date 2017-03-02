@@ -45,7 +45,6 @@
         }
 
         function getEditorTemplateUrl(ID) {
-            console.log(ID)
             $location.url('/user/'+vm.userID+'/website/'+vm.websiteId+'/page/'+vm.pageId+'/widget/'+ID)
         }
     }
