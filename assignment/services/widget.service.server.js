@@ -11,7 +11,7 @@ module.exports = function(app) {
     app.post('/api/page/:pageId/widget', createWidget);
     app.put("/page/:pageId/widget", sortWidget);
 
-                        var multer = require('multer');
+    var multer = require('multer');
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -56,37 +56,33 @@ module.exports = function(app) {
     }
 
     function findWidgetById(req,res) {
-        console.log("did itworktill here?")
         widgetId=req.params.widgetId;
-        // console.log(widgetId)
         for(var w in widgets) {
             if(widgets[w]._id === widgetId) {
                 res.json(widgets[w]);
-                console.log("fin d widget by id"+widgets[w])
                 return;
             }
         }
        res.sendStatus(404);
-
     }
 
     function updateWidget(req,res) {
-
             var widgetId=req.params['widgetId'];
             var widget=req.body;
             for(var w in widgets){
                 var widget_var=widgets[w];
                 if(widget_var._id === widgetId){
                     widgets[w].widgetType = widget.widgetType;
-                    widgets[w].size = widget.size;
+                    widgets[w].width = widget.width;
                     widgets[w].text = widget.text;
+                    widgets[w].size=widget.size;
+                    widgets[w].url=widget.url;
                     //return widgets[w];
                     res.send(widgets[w]);
                     return;
                 }
             }
-
-        }
+    }
 
     function createWidget(req,res) {
         var newWid=req.body;
@@ -131,8 +127,7 @@ module.exports = function(app) {
                 widgets[widgetsForGivenPage[i]] = widgets[widgetsForGivenPage[i-1]];
                 widgets[widgetsForGivenPage[i-1]] = temp;
             }
-
-            res.sendStatus(200);
+        res.sendStatus(200);
         }
 
     function uploadImage(req, res) {
@@ -154,7 +149,6 @@ module.exports = function(app) {
                         pageId = widgets[i].pageId;
                     }
                 }
-
                 res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/");
             }
             else{

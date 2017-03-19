@@ -16,11 +16,6 @@
 
         init();
 
-        // event handlers
-
-
-
-
         function create(user) {
             userService
                 .findUserByUsername(user.username)

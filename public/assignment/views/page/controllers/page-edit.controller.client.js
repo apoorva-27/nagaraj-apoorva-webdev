@@ -30,8 +30,7 @@
         init();
 
         function update(page) {
-            console.log(page);
-            console.log("updTE at pageedit controller");
+
             PageService
                 .updatePage(vm.pageId,page)
                 .success(function (page) {
@@ -45,10 +44,6 @@
                 });
         }
 
-        // function update(page) {
-        //     PageService.updatePage(ID, page);
-        //     $location.url("/user/" + vm.userId + "/website/"+ vm.websiteId+"/page");
-        // }
         function deletePage(page) {
             PageService
                 .deletePage(vm.pageId)
@@ -62,10 +57,5 @@
                     }
                 });
         }
-    //     function deletePage(page) {
-    //         PageService.deletePage(vm.pageId);
-    //         console.log(vm.websiteId)
-    //         $location.url("/user/" + vm.userId + "/website/"+ vm.websiteId+"/page");
-    //     }
-    // }
+
 }})();

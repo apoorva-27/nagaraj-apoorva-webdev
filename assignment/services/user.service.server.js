@@ -16,7 +16,6 @@ module.exports = function (app) {
         {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" ,email:"jannnuzi@jannuzi.com"}
     ];
 
-    // console.log("message three");
     function deleteUser(req,res) {
         var userId = req.params.userId;
         for(var u in users) {

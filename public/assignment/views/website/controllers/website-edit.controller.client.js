@@ -29,14 +29,11 @@
                     .success(function (websites) {
                         vm.websites=websites
                     });
-
-            // vm.websites = WebsiteService.findAllWebsitesForUser(vm.userId);
-            // vm.website = WebsiteService.findWebsiteById(ID);
         }
         init();
 
         function update(website) {
-            console.log(website);
+            // console.log(website);
             WebsiteService
                 .updateWebsite(vm.websiteId, website)
                 .success(function (website) {

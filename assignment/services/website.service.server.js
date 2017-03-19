@@ -27,8 +27,7 @@ module.exports = function(app) {
                 sites=websites[w];
             }
         }
-        // console.log("server side")
-        // console.log(sites);
+
         res.json(sites);
     }
 
