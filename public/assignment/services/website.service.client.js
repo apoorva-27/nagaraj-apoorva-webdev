@@ -19,8 +19,16 @@
         return api;
 
 
-        function createWebsite(userID,website){
-            return $http.post("/api/user/"+userID+"/website",website);
+        function createWebsite(userId,website){
+            var newsite=
+                {
+                    _user: userId,
+                    name: website.name,
+                    //_id: (new Date()).getTime().toString(),
+                    description:website.description
+                }
+
+            return $http.post("/api/user/"+userId+"/website",newsite);
         }
 
         function findAllWebsitesForUser(userId) {

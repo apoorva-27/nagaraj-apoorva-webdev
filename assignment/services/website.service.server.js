@@ -2,7 +2,7 @@
  * Created by hiresave on 3/1/2017.
  */
 
-module.exports = function(app) {
+module.exports = function(app,WebsiteModel) {
 
     app.get('/api/user/:userId/website', findAllWebsitesForUser);
     app.get('/api/website/:websiteId',findWebsiteById);
@@ -20,56 +20,62 @@ module.exports = function(app) {
     ];
 
     function findWebsiteById(req,res) {
+        var userId=req.params.userId;
         var websiteId=req.params.websiteId;
-        var sites;
-        for(var w in websites) {
-            if(websiteId === websites[w]._id) {
-                sites=websites[w];
-            }
-        }
-
-        res.json(sites);
+        // console.log("userid find by id"+userId);
+        // console.log("req.params"+req.body)
+        WebsiteModel
+            .findWebsiteById(websiteId)
+            .then (function (web) {
+                    // console.log("user object at user service 3"+user)
+                    res.json(web);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
 
     function findAllWebsitesForUser(req, res) {
         var userId = req.params.userId;
-
-        var sites = [];
-        for(var w in websites) {
-            if(userId === websites[w].developerId) {
-                sites.push(websites[w]);
-            }
-        }
-        res.json(sites);
+        console.log("findallwebsites for user in server"+userId)
+        WebsiteModel
+            .findAllWebsitesForUser(userId)
+            .then (function (websites) {
+                    // console.log("user object at user service"+user)
+                    res.json(websites);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
     function updateWebsite(req,res) {
-        console.log(req.body);
+        var userId=req.params.userId;
         var websiteId=req.params.websiteId;
-        var newSite=req.body;
-        for(var w in websites) {
-            if( websites[w]._id === websiteId ) {
-                websites[w].name = newSite.name;
-                websites[w].description = newSite.description;
-                console.log(websites[w]);
-                res.json(websites[w]);
-                return;
-            }
-        }
-        return null;
+        var website=req.body;
+        console.log("website  in request  body"+website);
+
+        WebsiteModel
+            .updateWebsite(websiteId,website)
+            .then (function (web) {
+                    console.log("user object at user service 4"+web)
+                    res.json(web);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
 
     function createWebsite(req,res) {
-        console.log(req.body);
-        var userID=req.params.userId;
-        var newW = {
-            _id:(new Date()).getTime().toString(),
-            developerId : userID,
-            description : req.body.description,
-            name : req.body.name
+        var newWebsite=req.body;
+        WebsiteModel
+            .createWebsite(newWebsite)
+            .then(function (website) {
+                    res.json(website);
 
-        };
-        websites.push(newW);
-        res.send(newW);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
 
     function deleteWebsite(req,res) {
