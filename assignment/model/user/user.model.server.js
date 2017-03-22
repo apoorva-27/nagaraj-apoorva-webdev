@@ -51,7 +51,7 @@ module.exports = function () {
     }
 
     function findUserById(userId) {
-        // console.log("finduser by ID in user model : "+userId)
+        console.log("finduser by ID in user model : "+userId)
         // console.log(UserModel.findById(userId))
         // return UserModel.findById(userId);
 

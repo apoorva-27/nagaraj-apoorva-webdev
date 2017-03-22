@@ -29,7 +29,7 @@ module.exports = function(app,PageModel) {
                     res.json(page);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
 
@@ -45,7 +45,7 @@ module.exports = function(app,PageModel) {
                     res.json(pages);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
     function updatePage(req,res) {
@@ -62,20 +62,21 @@ module.exports = function(app,PageModel) {
                     res.json(page);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
 
     function createPage(req,res) {
         var newPage=req.body;
+        var websiteId=req.params.websiteId;
         PageModel
-            .createPage(newPage)
+            .createPage(websiteId,newPage)
             .then(function (page) {
                     res.json(page);
 
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
 

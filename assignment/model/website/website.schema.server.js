@@ -12,7 +12,7 @@ module.exports = function () {
         _user: String,
         name : String,
         description : String,
-        //pages : [Page],
+        pages : [{type: mongoose.Schema.Types.String, ref:'PageModel'}],
         dateCreated :  {type: Date, default: Date.now()}
 
     }, {collection: 'websites'});

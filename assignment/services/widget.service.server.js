@@ -2,7 +2,7 @@
  * Created by hiresave on 3/1/2017.
  */
 
-module.exports = function(app) {
+module.exports = function(app,WidgetModel) {
 
     app.get('/api/page/:pageId/widget', findAllWidgetsForPage);
     app.get('/api/widget/:widgetId', findWidgetById);
@@ -44,51 +44,71 @@ module.exports = function(app) {
     ];
 
     function findAllWidgetsForPage(req, res) {
-        var pageId = req.params.pageId;
-
-        var wigen=[]
-        for(var w in widgets) {
-            if(widgets[w].pageId === pageId) {
-                wigen.push(widgets[w]);
-            }
-        }
-        res.json(wigen);
+        var userId=req.params.userId;
+        var websiteId=req.params.websiteId;
+        var pageId=req.params.pageId;
+        // console.log("findall pages for website"+websiteId);
+        // console.log("req.params"+req.body)
+        WidgetModel
+            .findAllWidgetsForPage(pageId)
+            .then (function (widgets) {
+                    // console.log("wid object at service :"+widgets)
+                    res.json(widgets);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
 
     function findWidgetById(req,res) {
-        widgetId=req.params.widgetId;
-        for(var w in widgets) {
-            if(widgets[w]._id === widgetId) {
-                res.json(widgets[w]);
-                return;
-            }
-        }
-       res.sendStatus(404);
+        var userId=req.params.userId;
+        var websiteId=req.params.websiteId;
+        var widgetId=req.params.widgetId;
+        // console.log("userid find by id"+userId);
+        // console.log("req.params"+req.body)
+        WidgetModel
+            .findWidgetById(widgetId)
+            .then (function (widget) {
+                    // console.log("user object at user service 3"+user)
+                    res.json(widget);
+                },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                });
     }
 
     function updateWidget(req,res) {
-            var widgetId=req.params['widgetId'];
-            var widget=req.body;
-            for(var w in widgets){
-                var widget_var=widgets[w];
-                if(widget_var._id === widgetId){
-                    widgets[w].widgetType = widget.widgetType;
-                    widgets[w].width = widget.width;
-                    widgets[w].text = widget.text;
-                    widgets[w].size=widget.size;
-                    widgets[w].url=widget.url;
-                    //return widgets[w];
-                    res.send(widgets[w]);
-                    return;
-                }
-            }
+        var userId=req.params.userId;
+        var websiteId=req.params.websiteId;
+        var pageId=req.params.pageId;
+        var widgetId=req.params.widgetId;
+        var widget=req.body;
+        // console.log("website  in request  body"+website);
+
+        WidgetModel
+            .updateWidget(widgetId,widget)
+            .then (function (widget) {
+                    // console.log("user object at user service 4"+web)
+                    res.json(widget);
+                },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                });
     }
 
     function createWidget(req,res) {
-        var newWid=req.body;
-        newWid.pageId = req.params['pageId'];
-        widgets.push(newWid);
-        res.sendStatus(200);
+        var newWidget=req.body;
+        var pageId=req.params.pageId;
+        console.log("newwidget:"+newWidget)
+        WidgetModel
+            .createWidget(pageId,newWidget)
+            .then(function (widget) {
+                    res.send(widget);
+
+                },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                });
     }
 
     function deleteWidget(req,res) {
@@ -106,6 +126,7 @@ module.exports = function(app) {
 
     function sortWidget(req, res) {
             var pid = req.params['pageId'];
+            // var pageId=pid;
             var i1 = parseInt(req.query.initial);
             var i2 = parseInt(req.query.final);
 

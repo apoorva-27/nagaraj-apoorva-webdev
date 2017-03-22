@@ -29,34 +29,60 @@ module.exports = function () {
         model=models;
     }
 
-    function createWebsite(site) {
-        // console.log("site")
-        // console.log(site._user)
-        var deffered = q.defer();
-        WebsiteModel
-            .create(site,function (err,site) {
-            if (site) {
-                // console.log("entering create"+site._user)
-                model.UserModel
-                    .findUserById(site._user)
-                    .then( function (err,usr) {
-                        if (usr._id.length>0) {
-                            // console.log("create website user push"+usr._id)
-                            site._user=usr._id;
-                            usr.websites.push(site._id)
-                            usr.save()
-                            site.save()
-                        }
-                        else {
-                            console.log("error"+usr);
-                        }
-                    });
-                // console.log("user " + site);
-                deffered.resolve(site);
-            }
-        });
-        return deffered.promise;
+    function createWebsite(userId, website) {
+        return WebsiteModel
+            .create(website)
+            .then(
+
+                function(website){
+                    // console.log("Created Webssite:"+website+" user : "+userId)
+                    return model.UserModel
+                        .findUserById(userId)
+                        .then(function (user) {
+                            // console.log("Found user : "+user)
+                            website._user = user._id;
+                            user.websites.push(website._id);
+                            website.save();
+                            user.save();
+                            return website;
+                        },function (err) {
+                            return err;
+                        })
+                },
+                function(err){
+                    return err;
+                });
     }
+
+
+    // function createWebsite(site) {
+    //     // console.log("site")
+    //     // console.log(site._user)
+    //     var deffered = q.defer();
+    //     WebsiteModel
+    //         .create(site,function (err,site) {
+    //         if (site) {
+    //             // console.log("entering create"+site._user)
+    //             model.UserModel
+    //                 .findUserById(site._user)
+    //                 .then( function (err,usr) {
+    //                     if (usr._id.length>0) {
+    //                         // console.log("create website user push"+usr._id)
+    //                         site._user=usr._id;
+    //                         usr.websites.push(site._id)
+    //                         usr.save()
+    //                         site.save()
+    //                     }
+    //                     else {
+    //                         console.log("error"+usr);
+    //                     }
+    //                 });
+    //             // console.log("user " + site);
+    //             deffered.resolve(site);
+    //         }
+    //     });
+    //     return deffered.promise;
+    // }
 
 
     function updateWebsite(websiteId,new_site) {

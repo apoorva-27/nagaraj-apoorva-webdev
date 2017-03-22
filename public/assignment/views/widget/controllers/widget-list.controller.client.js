@@ -23,6 +23,7 @@
             WidgetService
                 .findAllWidgetsForPage(vm.pageId)
                 .success(function(widgets){
+                    console.log(widgets)
                     vm.widgets = widgets
                 });
         }

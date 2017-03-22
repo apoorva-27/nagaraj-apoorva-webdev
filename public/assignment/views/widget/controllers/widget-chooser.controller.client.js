@@ -25,31 +25,40 @@
             function createWidget(widgetType) {
 
                 newWidget = {};
-                newWidget._id = (new Date()).getTime().toString();
-                newWidget.widgetType = widgetType;
-                newWidget.pageId = vm.pageId;
+                // newWidget._id = (new Date()).getTime().toString();
+                newWidget.type = widgetType;
+                // newWidget.pageId = vm.pageId;
+                newWidget._page=vm.pageId
                 switch (widgetType) {
                     case "HEADER":
-                        newWidget.text = "Default Text";
-                        newWidget.size = 3;
+                        newWidget.text = "test";
+                        newWidget.size = "3";
                         break;
                     case "IMAGE":
                         newWidget.url = "https://i.ytimg.com/vi/fFi4BhD_DUw/maxresdefault.jpg";
-                        newWidget.width = "100%";
+                        // newWidget.width = "100%";
                         break;
                     case "YOUTUBE":
-                        newWidget.url = "https://i.ytimg.com/vi/fFi4BhD_DUw/maxresdefault.jpg";
-                        newWidget.width = "100%";
+                        newWidget.url = "https://youtu.be/AM2Ivdi9c4E";
+                        newWidget.width = "100";
                         break;
                     case "HTML":
                         newWidget.text = "Default Text";
+                        break;
+                    case "TEXT":
+                        newWidget.text="Default Text";
+                        newWidget.formatted="True";
+                        newWidget.placeholder="placeholder";
+                        newWidget.rows="3"
                         break;
                 }
 
                 WidgetService.createWidget(vm.pageId, newWidget)
 
                     .success(function (widget) {
-                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + newWidget._id);
+                        console.log("widget :"+widget)
+                        console.log("widget Id:"+widget._id)
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widget._id);
                     });
     }
     }

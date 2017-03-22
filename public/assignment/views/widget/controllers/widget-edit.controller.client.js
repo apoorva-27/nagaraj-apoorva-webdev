@@ -21,13 +21,16 @@
                 .findWidgetById(vm.widgetId)
                 .success(function (widget) {
                     vm.widget=widget;
-                    vm.widgetType=widget.widgetType;
+                    console.log("success:"+widget.width)
+                    vm.widgets=widget;
+                    vm.widget.type=widget.type;
+                    vm.widgets.type=widget.type;
                 });
-            WidgetService
-                .findAllWidgetsForPage(vm.pageId)
-                .success(function (widgets) {
-                    vm.widgets=widgets;
-                });
+            // WidgetService
+            //     .findAllWidgetsForPage(vm.pageId)
+            //     .success(function (widgets) {
+            //         vm.widgets=widgets;
+            //     });
         }
         init();
 
@@ -36,7 +39,20 @@
         }
 
         function updateWidget(){
-            WidgetService.updateWidget(vm.widgetId,vm.widget)
+
+            console.log("vm widget text"+vm.widgets.text)
+            console.log("vm widget size"+vm.widgets.size)
+
+            var newW = {
+
+                text:vm.widgets.text,
+                url:vm.widgets.url,
+                size:vm.widgets.size,
+                name:vm.widgets.name,
+                width:vm.widgets.width,
+            }
+
+            WidgetService.updateWidget(vm.widgetId,newW)
                 .success(function (widget) {
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
                 });

@@ -65,20 +65,41 @@ module.exports = function () {
 
     }
 
-    function createPage(page) {
-        var deffered = q.defer();
-        // console.log("Inserting Page :"+page)
-        PageModel.create(page,function (err,page) {
-            if(err){
-                // console.log("hello   "+err);
-                deffered.reject(err);
-            }
-            else{
-                // console.log("user " + page);
-                deffered.resolve(page);
-            }
-        });
-        return deffered.promise;
+    // function createPage(page) {
+    //     var deffered = q.defer();
+    //     // console.log("Inserting Page :"+page)
+    //     PageModel.create(page,function (err,page) {
+    //         if(err){
+    //             // console.log("hello   "+err);
+    //             deffered.reject(err);
+    //         }
+    //         else{
+    //             // console.log("user " + page);
+    //             deffered.resolve(page);
+    //         }
+    //     });
+    //     return deffered.promise;
+    // }
+
+    function createPage(websiteId, newPage){
+        return PageModel
+            .create(newPage)
+            .then(function (page) {
+                return model
+                    .WebsiteModel
+                    .findWebsiteById(websiteId)
+                    .then(function (website) {
+                        website.pages.push(page._id);
+                        page._website = website._id;
+                        website.save();
+                        page.save();
+                        return page;
+                    }, function (err) {
+                        return err;
+                    });
+            }, function (err) {
+                return err;
+            });
     }
 
     function findAllPagesForWebsite(websiteId) {

@@ -67,8 +67,9 @@ module.exports = function(app,WebsiteModel) {
 
     function createWebsite(req,res) {
         var newWebsite=req.body;
+        var userId=req.params.userId;
         WebsiteModel
-            .createWebsite(newWebsite)
+            .createWebsite(userId,newWebsite)
             .then(function (website) {
                     res.json(website);
 
