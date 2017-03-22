@@ -2,7 +2,7 @@
  * Created by hiresave on 3/1/2017.
  */
 
-module.exports = function(app) {
+module.exports = function(app,PageModel) {
 
     app.get('/api/website/:websiteId/page', findAllPagesForWebsite);
     app.get('/api/page/:pageId',findPageById);
@@ -17,61 +17,66 @@ module.exports = function(app) {
     ];
 
     function findPageById(req,res) {
+        var userId=req.params.userId;
+        var websiteId=req.params.websiteId;
         var pageId=req.params.pageId;
-        var pagel;
-        console.log(pageId);
-        for(var w in pages) {
-            if(pageId === pages[w]._id) {
-                pagel=pages[w];
-            }
-        }
-        console.log(pagel)
-        res.json(pagel);
+        // console.log("userid find by id"+userId);
+        // console.log("req.params"+req.body)
+        PageModel
+            .findPageById(pageId)
+            .then (function (page) {
+                    // console.log("user object at user service 3"+user)
+                    res.json(page);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
 
     function findAllPagesForWebsite(req, res) {
-        var websiteId = req.params.websiteId;
-
-
-        var pagen = [];
-        for(var w in pages) {
-            if(websiteId === pages[w].websiteId) {
-                pagen.push(pages[w]);
-            }
-        }
-        // console.log(pagen);
-        res.json(pagen);
+        var userId=req.params.userId;
+        var websiteId=req.params.websiteId;
+        // console.log("findall pages for website"+websiteId);
+        // console.log("req.params"+req.body)
+        PageModel
+            .findAllPagesForWebsite(websiteId)
+            .then (function (pages) {
+                    // console.log("user object at user service 3"+user)
+                    res.json(pages);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
     function updatePage(req,res) {
-        console.log(req.body);
-        console.log("updatepahe in pege server");
+        var userId=req.params.userId;
+        var websiteId=req.params.websiteId;
         var pageId=req.params.pageId;
         var page=req.body;
+        // console.log("website  in request  body"+website);
 
-        for(var w in pages) {
-            if( pages[w]._id === pageId ) {
-                pages[w].name = page.name;
-                pages[w].description = page.description;
-                console.log(pages[w]);
-                res.json(pages[w]);
-                return;
-            }
-        }
-        return null;
+        PageModel
+            .updatePage(pageId,page)
+            .then (function (page) {
+                    // console.log("user object at user service 4"+web)
+                    res.json(page);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
 
     function createPage(req,res) {
-        console.log(req.body);
-        var websiteID=req.params.websiteId;
-        var newW = {
-            _id:(new Date()).getTime().toString(),
-            websiteId : websiteID,
-            description : req.body.description,
-            name : req.body.name
+        var newPage=req.body;
+        PageModel
+            .createPage(newPage)
+            .then(function (page) {
+                    res.json(page);
 
-        };
-        pages.push(newW);
-        res.send(newW);
+                },
+                function (err) {
+                    res.sendStatus(500).send(err);
+                });
     }
 
     function deletePage(req,res) {

@@ -5,7 +5,7 @@
 
 module.exports = function () {
 
-    console.log('website.model.server.js');
+    // console.log('website.model.server.js');
 
     var q = require('q');
     var mongoose = require('mongoose');
@@ -13,6 +13,7 @@ module.exports = function () {
     // mongoose.Promise=global.Promise;
     var WebsiteSchema = require('./website.schema.server.js')();
     var WebsiteModel = mongoose.model('websites', WebsiteSchema);
+    var model=null;
 
     var api = {
         findAllWebsitesForUser:findAllWebsitesForUser,
@@ -29,14 +30,28 @@ module.exports = function () {
     }
 
     function createWebsite(site) {
+        // console.log("site")
+        // console.log(site._user)
         var deffered = q.defer();
-        WebsiteModel.create(site,function (err,usr) {
-            if(err){
-                console.log("hello   "+err);
-                deffered.reject(err);
-            }
-            else{
-                console.log("user " + site);
+        WebsiteModel
+            .create(site,function (err,site) {
+            if (site) {
+                // console.log("entering create"+site._user)
+                model.UserModel
+                    .findUserById(site._user)
+                    .then( function (err,usr) {
+                        if (usr._id.length>0) {
+                            // console.log("create website user push"+usr._id)
+                            site._user=usr._id;
+                            usr.websites.push(site._id)
+                            usr.save()
+                            site.save()
+                        }
+                        else {
+                            console.log("error"+usr);
+                        }
+                    });
+                // console.log("user " + site);
                 deffered.resolve(site);
             }
         });
@@ -45,17 +60,17 @@ module.exports = function () {
 
 
     function updateWebsite(websiteId,new_site) {
-        console.log("update user  in user model server.js"+new_site);
+        // console.log("update user  in user model server.js"+new_site);
         var deffered = q.defer();
         WebsiteModel
             .update(
                 {_id: websiteId},{$set : new_site},function(err,web) {
                     if(err){
-                        console.log("hello   "+err);
+                        // console.log("hello   "+err);
                         deffered.reject(err);
                     }
                     else{
-                        console.log("user :" + web);
+                        // console.log("user :" + web);
                         deffered.resolve(web);
                     }
                 });
@@ -81,15 +96,15 @@ module.exports = function () {
     }
 
     function findAllWebsitesForUser(userId) {
-        console.log("find websites by user model.server "+typeof (userId));
+        // console.log("find websites by user model.server "+typeof (userId));
         var deffered = q.defer();
         WebsiteModel.find({_user:userId}, function (err,web) {
             if(err){
-                console.log("hello   "+err);
+                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                console.log("web " + web.length);
+                // console.log("web " + web.length);
                 deffered.resolve(web);
             }
         });

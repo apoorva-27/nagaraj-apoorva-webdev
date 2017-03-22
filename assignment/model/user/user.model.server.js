@@ -6,7 +6,7 @@
 
 module.exports = function () {
 
-    console.log('user.model.server.js');
+    // console.log('user.model.server.js');
 
     var q = require('q');
     var mongoose = require('mongoose');
@@ -14,6 +14,7 @@ module.exports = function () {
     // mongoose.Promise=global.Promise;
     var UserSchema = require('./user.schema.server.js')();
     var UserModel = mongoose.model('users', UserSchema);
+    var model=null;
 
     var api = {
         createUser: createUser,
@@ -37,12 +38,13 @@ module.exports = function () {
             .update(
                 {_id: userId},{$set : new_user},function(err,usr) {
                 if(err){
-                    console.log("hello   "+err);
+                    // console.log("hello   "+err);
                     deffered.reject(err);
                 }
                 else{
-                    console.log("user :" + usr);
-                    deffered.resolve(usr);
+                    // console.log("user :" + usr);
+                    // deffered.resolve(usr);
+                    return usr
                 }
             });
         return deffered.promise;
@@ -70,15 +72,15 @@ module.exports = function () {
     }
 
     function findUserByUsername(username) {
-        console.log("find by username model.server ")
+        // console.log("find by username model.server ")
         var deffered = q.defer();
         UserModel.find({username:username} ,function (err,usr) {
             if(err){
-                console.log("hello   "+err);
+                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                console.log("user " + usr);
+                // console.log("user " + usr);
                 deffered.resolve(usr);
             }
         });
@@ -90,11 +92,11 @@ module.exports = function () {
         var deffered = q.defer();
         UserModel.find({username:username,password:password} ,function (err,usr) {
             if(err){
-                console.log("hello   "+err);
+                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                console.log("user " + usr);
+                // console.log("user " + usr);
                 deffered.resolve(usr);
             }
         });
@@ -104,11 +106,11 @@ module.exports = function () {
         var deffered = q.defer();
         UserModel.create(user,function (err,usr) {
             if(err){
-                console.log("hello   "+err);
+                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                console.log("user " + usr);
+                // console.log("user " + usr);
                 deffered.resolve(usr);
             }
         });
