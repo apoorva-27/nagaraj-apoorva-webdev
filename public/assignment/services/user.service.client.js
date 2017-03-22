@@ -23,15 +23,27 @@
                 {
                     username: user.username,
                     password: user.password,
-                    _id: (new Date()).getTime().toString(),
-                    firstName: user.lastName ,
-                    lastName: user.firstName ,
+                    //_id: (new Date()).getTime().toString(),
+                    firstname: user.lastname ,
+                    lastname: user.firstname ,
                     email: user.email
                 }
            return $http.post("/api/user",newUser)
         }
 
-        function updateUser(userId, newUser) {
+        function updateUser(userId, user) {
+
+            var newUser=
+                {
+                    // username: user.username,
+                    // password: user.password,
+                    //_id: (new Date()).getTime().toString(),
+                    firstname: user.firstname ,
+                    lastname: user.lastname ,
+                    email: user.email
+                }
+
+            console.log("in update user client"+newUser);
             return $http.put("/api/user/"+userId,newUser);
         }
 
@@ -45,6 +57,7 @@
         }
 
         function findUserByCredentials(username, password) {
+            // console.log($http.get("/api/user?username="+username+"&password="+password))
             return $http.get("/api/user?username="+username+"&password="+password);
 
         }

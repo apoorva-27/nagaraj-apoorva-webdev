@@ -10,14 +10,20 @@
         function login(user) {
             var promise = userService
                 .findUserByCredentials(user.username, user.password);
-            promise.success( function(user){
+            promise
+                .success( function(usr) {
+                    // if (user) {
+                    //      /console.log("user login function in login controller"+usr)
+                    // console.log("user id:"+user._id)
+                    $location.url("/user/" + usr._id);
+                })
+                // } else {
+                .error (function(err) {
+                        vm.error="user not found";
+                    });
+                    // vm.error = 'User not found';
+                // }
+            };
 
-                if (user) {
-                    $location.url("/user/" + user._id);
-                } else {
-                    vm.error = 'User not found';
-                }
-            });
-        }
     }
 })();

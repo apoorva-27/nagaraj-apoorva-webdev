@@ -16,6 +16,7 @@
             var promise = userService.findUserById(userId);
             promise.success(function (user) {
                 vm.user = user;
+                console.log("vm user",vm.user);
             });
         }
         init();
@@ -36,19 +37,17 @@
             }
         }
 
-        function updateUser(newUser) {
+        function updateUser(newuser) {
+            console.log("newuser in profile controller"+newuser)
             userService
-                .updateUser(userId, newUser)
+                .updateUser(userId, newuser)
                 .success(function (user) {
                     if (user != null) {
                         vm.message = "User Successfully Updated!"
                     } else {
                         vm.error = "Unable to update user";
-
                     }
-
                 });
-
         }
     }
 })();
