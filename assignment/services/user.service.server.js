@@ -2,7 +2,7 @@
  * Created by hiresave on 3/1/2017.
  */
 
-console.log("user.service.server.js")
+// console.log("user.service.server.js")
 
 module.exports = function (app,UserModel) {
     app.get("/api/user", findUser);
@@ -97,7 +97,7 @@ module.exports = function (app,UserModel) {
     function updateUser(req,res) {
         var userId=req.params.userId;
         var user=req.body;
-        console.log("user  in request  body"+user);
+        // console.log("user  in request  body"+user);
 
         UserModel
             .updateUser(userId,user)

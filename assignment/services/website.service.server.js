@@ -49,7 +49,7 @@ module.exports = function(app,WebsiteModel) {
 
     function findAllWebsitesForUser(req, res) {
         var userId = req.params.userId;
-        console.log("findallwebsites for user in server"+userId)
+        // console.log("findallwebsites for user in server"+userId)
         WebsiteModel
             .findAllWebsitesForUser(userId)
             .then (function (websites) {
@@ -64,12 +64,12 @@ module.exports = function(app,WebsiteModel) {
         var userId=req.params.userId;
         var websiteId=req.params.websiteId;
         var website=req.body;
-        console.log("website  in request  body"+website);
+        // console.log("website  in request  body"+website);
 
         WebsiteModel
             .updateWebsite(websiteId,website)
             .then (function (web) {
-                    console.log("user object at user service 4"+web)
+                    // console.log("user object at user service 4"+web)
                     res.json(web);
                 },
                 function (err) {

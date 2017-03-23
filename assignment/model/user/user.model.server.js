@@ -49,7 +49,7 @@ module.exports = function () {
     }
 
     function updateUser(userId,new_user) {
-        console.log("update user  in user model server.js"+new_user.firstname,userId);
+        // console.log("update user  in user model server.js"+new_user.firstname,userId);
         var deffered = q.defer();
         UserModel
             .update(
@@ -68,7 +68,7 @@ module.exports = function () {
     }
 
     function findUserById(userId) {
-        console.log("finduser by ID in user model : "+userId)
+        // console.log("finduser by ID in user model : "+userId)
         // console.log(UserModel.findById(userId))
         // return UserModel.findById(userId);
 

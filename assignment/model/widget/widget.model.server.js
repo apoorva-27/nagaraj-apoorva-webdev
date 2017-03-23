@@ -50,8 +50,8 @@ module.exports = function () {
 
 
     function reOrderWidget(pageId, start, end) {
-        console.log(start);
-        console.log(end);
+        // console.log(start);
+        // console.log(end);
         return WidgetModel
             .find({_page: pageId}, function (err, widgets) {
                 widgets.forEach(function (widget) {
@@ -103,7 +103,7 @@ module.exports = function () {
     }
 
     function updateWidget(widgetId, new_widget) {
-        console.log("update widget  in user model server.js" + widgetId);
+        // console.log("update widget  in user model server.js" + widgetId);
         var deffered = q.defer();
         WidgetModel
             .update(
@@ -128,7 +128,7 @@ module.exports = function () {
                 deffered.reject(err);
             }
             else {
-                console.log("widget : " + widget);
+                // console.log("widget : " + widget);
                 // console.log("printing err also :" + err);
                 deffered.resolve(widget);
             }
@@ -158,7 +158,7 @@ module.exports = function () {
     // }
 
     function createWidget(pageId, widget) {
-        console.log(widget);
+        // console.log(widget);
         widget._page = pageId;
         return WidgetModel
             .find({"_page": pageId})
@@ -175,8 +175,8 @@ module.exports = function () {
                                     page.widgets.push(newWidget._id);
                                     page.save();
                                     newWidget.save();
-                                    console.log(newWidget._id);
-                                    console.log(newWidget);
+                                    // console.log(newWidget._id);
+                                    // console.log(newWidget);
                                     return newWidget;
                                 }, function (err) {
                                     res.sendStatus(404);
