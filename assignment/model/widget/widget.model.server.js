@@ -56,22 +56,22 @@ module.exports = function () {
             .find({_page: pageId}, function (err, widgets) {
                 widgets.forEach(function (widget) {
                     if (start < end) {
-                        if (widget.pos == start) {
-                            widget.pos = end;
+                        if (widget.position == start) {
+                            widget.position = end;
                             widget.save();
                         }
-                        else if (widget.pos > start && widget.pos <= end) {
-                            widget.pos = widget.pos - 1;
+                        else if (widget.position > start && widget.position <= end) {
+                            widget.position = widget.position - 1;
                             widget.save();
                         }
                     } else {
-                        if (widget.pos == start) {
-                            widget.pos = end;
+                        if (widget.position == start) {
+                            widget.position = end;
                             widget.save();
                         }
 
-                        else if (widget.pos < start && widget.pos >= end) {
-                            widget.pos = widget.pos + 1;
+                        else if (widget.position < start && widget.position >= end) {
+                            widget.position = widget.position + 1;
                             widget.save();
                         }
                     }
@@ -83,11 +83,11 @@ module.exports = function () {
         return WidgetModel.findByIdAndRemove(widgetId, function (err, widget) {
             if (widget != null) {
                 var pageId = widget._page;
-                var pos = widget.pos;
+                var pos = widget.position;
                 WidgetModel.find({_page: pageId}, function (err, widgets) {
                     widgets.forEach(function (widget) {
-                        if (widget.pos > pos) {
-                            widget.pos = widget.pos - 1;
+                        if (widget.position > position) {
+                            widget.position = widget.position - 1;
                             widget.save();
                         }
                     });
