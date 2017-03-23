@@ -15,14 +15,14 @@ module.exports = function () {
     var model = null;
 
     var api = {
-        findAllWidgetsForPage:findAllWidgetsForPage,
+        findAllWidgetsForPage: findAllWidgetsForPage,
         setModel: setModel,
-        createWidget:createWidget,
-        findWidgetById:findWidgetById,
-        updateWidget:updateWidget,
-        getModel:getModel,
-        deleteWidget:deleteWidget,
-        reOrderWidget:reOrderWidget
+        createWidget: createWidget,
+        findWidgetById: findWidgetById,
+        updateWidget: updateWidget,
+        getModel: getModel,
+        deleteWidget: deleteWidget,
+        reOrderWidget: reOrderWidget
 
     };
 
@@ -33,6 +33,7 @@ module.exports = function () {
         WidgetSchema = require('./widget.schema.server')(models);
         WidgetModel = mongoose.model("WidgetModel", WidgetSchema)
     }
+
 
     function getModel() {
         return WidgetModel;
@@ -52,7 +53,7 @@ module.exports = function () {
         console.log(start);
         console.log(end);
         return WidgetModel
-            .find({ _page: pageId}, function (err, widgets) {
+            .find({_page: pageId}, function (err, widgets) {
                 widgets.forEach(function (widget) {
                     if (start < end) {
                         if (widget.pos == start) {
@@ -79,8 +80,8 @@ module.exports = function () {
     }
 
     function deleteWidget(widgetId) {
-        return WidgetModel.findByIdAndRemove(widgetId,function(err,widget){
-            if(widget!=null){
+        return WidgetModel.findByIdAndRemove(widgetId, function (err, widget) {
+            if (widget != null) {
                 var pageId = widget._page;
                 var pos = widget.pos;
                 WidgetModel.find({_page: pageId}, function (err, widgets) {
@@ -101,17 +102,17 @@ module.exports = function () {
          });*/
     }
 
-    function updateWidget(widgetId,new_widget) {
-        console.log("update widget  in user model server.js"+widgetId);
+    function updateWidget(widgetId, new_widget) {
+        console.log("update widget  in user model server.js" + widgetId);
         var deffered = q.defer();
         WidgetModel
             .update(
-                {_id: widgetId},{$set : new_widget},function(err,widget) {
-                    if(err){
+                {_id: widgetId}, {$set: new_widget}, function (err, widget) {
+                    if (err) {
                         // console.log("hello   "+err);
                         deffered.reject(err);
                     }
-                    else{
+                    else {
                         // console.log("user :" + web);
                         deffered.resolve(widget);
                     }
@@ -121,12 +122,12 @@ module.exports = function () {
 
     function findWidgetById(widgetId) {
         var deffered = q.defer();
-        WidgetModel.findById(widgetId ,function (err,widget) {
-            if(err){
+        WidgetModel.findById(widgetId, function (err, widget) {
+            if (err) {
                 // console.log("hello   "+err);
                 deffered.reject(err);
             }
-            else{
+            else {
                 console.log("widget : " + widget);
                 // console.log("printing err also :" + err);
                 deffered.resolve(widget);
@@ -156,7 +157,7 @@ module.exports = function () {
     //         });
     // }
 
-    function createWidget(pageId,widget){
+    function createWidget(pageId, widget) {
         console.log(widget);
         widget._page = pageId;
         return WidgetModel
@@ -189,19 +190,32 @@ module.exports = function () {
                 });
     }
 
+    // function findAllWidgetsForPage(pageId) {
+    //     // console.log("find wid by user model.server " + pageId);
+    //     var deffered = q.defer();
+    //     WidgetModel.find( {_page:pageId},function (err, widgets) {
+    //         if (err) {
+    //             console.log("err " + err);
+    //             deffered.reject(err);
+    //         }
+    //         else {
+    //             // console.log("web : " + widgets);
+    //             deffered.resolve(widgets);
+    //         }
+    //     });
+    //     return deffered.promise;
+    // }
+
     function findAllWidgetsForPage(pageId) {
-        // console.log("find wid by user model.server " + pageId);
-        var deffered = q.defer();
-        WidgetModel.find( {_page:pageId},function (err, widgets) {
-            if (err) {
-                console.log("err " + err);
-                deffered.reject(err);
-            }
-            else {
-                // console.log("web : " + widgets);
-                deffered.resolve(widgets);
-            }
-        });
-        return deffered.promise;
+        return WidgetModel.find({"_page": pageId})
+            .sort('pos')
+            .exec(function (err, widgets) {
+                if (err) {
+                    return err;
+                } else {
+                    return widgets;
+                }
+            });
+
     }
 }
