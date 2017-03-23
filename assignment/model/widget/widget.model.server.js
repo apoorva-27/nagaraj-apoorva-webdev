@@ -163,7 +163,7 @@ module.exports = function () {
         return WidgetModel
             .find({"_page": pageId})
             .then(function (widgets) {
-                    widget.pos = widgets.length;
+                    widget.position = widgets.length;
                     return WidgetModel
                         .create(widget)
                         .then(function (newWidget) {
