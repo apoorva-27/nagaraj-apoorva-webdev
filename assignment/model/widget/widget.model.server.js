@@ -21,7 +21,8 @@ module.exports = function () {
         findWidgetById:findWidgetById,
         updateWidget:updateWidget,
         getModel:getModel,
-        deleteWidget:deleteWidget
+        deleteWidget:deleteWidget,
+        reOrderWidget:reOrderWidget
 
     };
 
@@ -37,13 +38,67 @@ module.exports = function () {
         return WidgetModel;
     }
 
+    // function deleteWidget(widgetId) {
+    //     console.log("deletewidget called");
+    //     return WidgetModel.findByIdAndRemove(widgetId, function (err,widget) {
+    //         if (widget!=null) {
+    //             widget.remove();
+    //         }
+    //     });
+    // }
+
+
+    function reOrderWidget(pageId, start, end) {
+        console.log(start);
+        console.log(end);
+        return WidgetModel
+            .find({ _page: pageId}, function (err, widgets) {
+                widgets.forEach(function (widget) {
+                    if (start < end) {
+                        if (widget.pos == start) {
+                            widget.pos = end;
+                            widget.save();
+                        }
+                        else if (widget.pos > start && widget.pos <= end) {
+                            widget.pos = widget.pos - 1;
+                            widget.save();
+                        }
+                    } else {
+                        if (widget.pos == start) {
+                            widget.pos = end;
+                            widget.save();
+                        }
+
+                        else if (widget.pos < start && widget.pos >= end) {
+                            widget.pos = widget.pos + 1;
+                            widget.save();
+                        }
+                    }
+                });
+            });
+    }
+
     function deleteWidget(widgetId) {
-        console.log("deletewidget called");
-        return WidgetModel.findByIdAndRemove(widgetId, function (err,widget) {
-            if (widget!=null) {
+        return WidgetModel.findByIdAndRemove(widgetId,function(err,widget){
+            if(widget!=null){
+                var pageId = widget._page;
+                var pos = widget.pos;
+                WidgetModel.find({_page: pageId}, function (err, widgets) {
+                    widgets.forEach(function (widget) {
+                        if (widget.pos > pos) {
+                            widget.pos = widget.pos - 1;
+                            widget.save();
+                        }
+                    });
+                });
                 widget.remove();
             }
         });
+
+        /* if(widget!=null){
+         widget.remove();
+         }
+         });*/
     }
 
     function updateWidget(widgetId,new_widget) {
@@ -80,25 +135,58 @@ module.exports = function () {
         return deffered.promise;
     }
 
-    function createWidget(pageId, newWidget){
+    // function createWidget(pageId, newWidget){
+    //     return WidgetModel
+    //         .create(newWidget)
+    //         .then(function (widget) {
+    //             return model
+    //                 .PageModel
+    //                 .findPageById(pageId)
+    //                 .then(function (page) {
+    //                     widget._page = page._id;
+    //                     page.widgets.push(widget._id);
+    //                     widget.save();
+    //                     page.save();
+    //                     return widget;
+    //                 }, function (err) {
+    //                     return err;
+    //                 });
+    //         }, function (err) {
+    //             return err;
+    //         });
+    // }
+
+    function createWidget(pageId,widget){
+        console.log(widget);
+        widget._page = pageId;
         return WidgetModel
-            .create(newWidget)
-            .then(function (widget) {
-                return model
-                    .PageModel
-                    .findPageById(pageId)
-                    .then(function (page) {
-                        widget._page = page._id;
-                        page.widgets.push(widget._id);
-                        widget.save();
-                        page.save();
-                        return widget;
-                    }, function (err) {
-                        return err;
-                    });
-            }, function (err) {
-                return err;
-            });
+            .find({"_page": pageId})
+            .then(function (widgets) {
+                    widget.pos = widgets.length;
+                    return WidgetModel
+                        .create(widget)
+                        .then(function (newWidget) {
+                            return model
+                                .PageModel
+                                .findPageById(pageId)
+                                .then(function (page) {
+                                    newWidget._page = page._id;
+                                    page.widgets.push(newWidget._id);
+                                    page.save();
+                                    newWidget.save();
+                                    console.log(newWidget._id);
+                                    console.log(newWidget);
+                                    return newWidget;
+                                }, function (err) {
+                                    res.sendStatus(404);
+                                });
+                        }, function (err) {
+                            res.sendStatus(404);
+                        });
+                },
+                function (err) {
+                    res.sendStatus(404).send(err);
+                });
     }
 
     function findAllWidgetsForPage(pageId) {
