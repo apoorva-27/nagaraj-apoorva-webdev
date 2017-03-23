@@ -11,19 +11,25 @@
             var promise = userService
                 .findUserByCredentials(user.username, user.password);
             promise
-                .success( function(usr) {
-                    // if (user) {
-                    //      /console.log("user login function in login controller"+usr)
-                    // console.log("user id:"+user._id)
-                    $location.url("/user/" + usr._id);
+                .success(function (usr) {
+                    if (usr) {
+                        $location.url("/user/" + usr._id);
+                    } else {
+                        vm.error = 'User not found';
+                    }
                 })
+        }}})();
+                //     if (user) {
+                //     //      /console.log("user login function in login controller"+usr)
+                //     // console.log("user id:"+user._id)
+                //     $location.url("/user/" + usr._id);
+                // }})
                 // } else {
-                .error (function(err) {
-                        vm.error="user not found";
-                    });
-                    // vm.error = 'User not found';
-                // }
-            };
-
-    }
-})();
+                // // .error (function(err) {
+                // //         vm.error="user not found";
+                // //     });
+                //     vm.error = 'User not found';
+//                 }
+//             };
+//     }
+// })();
