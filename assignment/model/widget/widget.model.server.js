@@ -216,6 +216,5 @@ module.exports = function () {
                     return widgets;
                 }
             });
-
     }
 }
