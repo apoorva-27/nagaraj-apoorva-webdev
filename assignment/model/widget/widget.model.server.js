@@ -208,7 +208,7 @@ module.exports = function () {
 
     function findAllWidgetsForPage(pageId) {
         return WidgetModel.find({"_page": pageId})
-            .sort('pos')
+            .sort('position')
             .exec(function (err, widgets) {
                 if (err) {
                     return err;
