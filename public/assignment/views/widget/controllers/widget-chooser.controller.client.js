@@ -49,7 +49,7 @@
                         newWidget.text="Default Text";
                         newWidget.formatted="True";
                         newWidget.placeholder="placeholder";
-                        newWidget.rows="3"
+                        newWidget.rows=3
                         break;
                 }
 

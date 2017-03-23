@@ -10,11 +10,9 @@ module.exports = function () {
     var mongoose = require('mongoose');
     // mongoose.connect(connectionString);
     // mongoose.Promise=global.Promise;
-    // var WidgetSchema = require('./widget.schema.server.js')();
-    // var WidgetModel = mongoose.model('widgets', WidgetSchema);
+    var WidgetSchema = require('./widget.schema.server.js')();
+    var WidgetModel = mongoose.model('widgets', WidgetSchema);
     var model = null;
-    var WidgetSchema;
-    var WidgetModel ;
 
     var api = {
         findAllWidgetsForPage:findAllWidgetsForPage,

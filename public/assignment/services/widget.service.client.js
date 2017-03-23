@@ -14,7 +14,8 @@
             "findAllWidgetsForPage":findAllWidgetsForPage,
             "updateWidget":updateWidget,
             "deleteWidget":deleteWidget,
-            "sortWidgets":sortWidgets
+            "sortWidgets":sortWidgets,
+            "updateWidgetOrder":updateWidgetOrder
         };
         return api;
 
@@ -28,6 +29,10 @@
             console.log("widget"+widget)
             return $http.post("/api/page/"+pageId+"/widget",widget);
 
+        }
+
+        function updateWidgetOrder(pageId, startIndex, endIndex) {
+            return $http.put("/page/" + pageId + "/widget?initial=" + startIndex + "&final=" + endIndex);
         }
 
         function findAllWidgetsForPage(pageId) {

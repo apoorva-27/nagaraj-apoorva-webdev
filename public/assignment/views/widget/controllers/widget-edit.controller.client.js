@@ -50,6 +50,8 @@
                 size:vm.widgets.size,
                 name:vm.widgets.name,
                 width:vm.widgets.width,
+                rows:vm.widgets.rows,
+                formatted:vm.widgets.formatted
             }
 
             WidgetService.updateWidget(vm.widgetId,newW)
