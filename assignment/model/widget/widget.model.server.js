@@ -10,9 +10,11 @@ module.exports = function () {
     var mongoose = require('mongoose');
     // mongoose.connect(connectionString);
     // mongoose.Promise=global.Promise;
-    var WidgetSchema = require('./widget.schema.server.js')();
-    var WidgetModel = mongoose.model('widgets', WidgetSchema);
+    // var WidgetSchema = require('./widget.schema.server.js')();
+    // var WidgetModel = mongoose.model('widgets', WidgetSchema);
     var model = null;
+    var WidgetSchema;
+    var WidgetModel ;
 
     var api = {
         findAllWidgetsForPage:findAllWidgetsForPage,
@@ -20,7 +22,8 @@ module.exports = function () {
         createWidget:createWidget,
         findWidgetById:findWidgetById,
         updateWidget:updateWidget,
-
+        getModel:getModel,
+        deleteWidget:deleteWidget
 
     };
 
@@ -28,6 +31,21 @@ module.exports = function () {
 
     function setModel(models) {
         model = models;
+        WidgetSchema = require('./widget.schema.server')(models);
+        WidgetModel = mongoose.model("WidgetModel", WidgetSchema)
+    }
+
+    function getModel() {
+        return WidgetModel;
+    }
+
+    function deleteWidget(widgetId) {
+        console.log("deletewidget called");
+        return WidgetModel.findByIdAndRemove(widgetId, function (err,widget) {
+            if (widget!=null) {
+                widget.remove();
+            }
+        });
     }
 
     function updateWidget(widgetId,new_widget) {

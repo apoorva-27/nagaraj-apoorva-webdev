@@ -10,9 +10,11 @@ module.exports = function () {
     var mongoose = require('mongoose');
     // mongoose.connect(connectionString);
     // mongoose.Promise=global.Promise;
-    var PageSchema = require('./page.schema.server.js')();
-    var PageModel = mongoose.model('pages', PageSchema);
+    // var PageSchema = require('./page.schema.server.js')();
+    // var PageModel = mongoose.model('pages', PageSchema);
     var model = null;
+    var PageSchema;
+    var PageModel;
 
     var api = {
         findAllPagesForWebsite:findAllPagesForWebsite,
@@ -20,6 +22,8 @@ module.exports = function () {
         createPage:createPage,
         findPageById:findPageById,
         updatePage:updatePage,
+        getModel:getModel,
+        deletePage:deletePage
 
     };
 
@@ -27,6 +31,21 @@ module.exports = function () {
 
     function setModel(models) {
         model = models;
+        PageSchema = require("./page.schema.server")(models);
+        PageModel = mongoose.model("PageModel", PageSchema);
+    }
+
+    function getModel() {
+        return PageModel;
+    }
+
+    function deletePage(pageId) {
+        return PageModel.findByIdAndRemove(pageId, function (err,page) {
+            if (page!=null) {
+                page.remove();
+            }
+        });
+
     }
 
     function updatePage(pageId,new_page) {

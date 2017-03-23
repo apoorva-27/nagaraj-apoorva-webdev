@@ -80,16 +80,14 @@ module.exports = function(app,PageModel) {
                 });
     }
 
-    function deletePage(req,res) {
+    function deletePage(req, res) {
         var pageId = req.params.pageId;
-        for(var w in pages) {
-            if(pages[w]._id === pageId) {
-                pages.splice(w, 1);
-                res.sendStatus(200);
-                // console.log("did it delete?")
-                return;
-            }
-        }
-        res.sendStatus(404);
+        PageModel
+            .deletePage(pageId)
+            .then(function (page) {
+                res.json(page);
+            }, function (error) {
+                res.sendStatus(400).send(error);
+            });
     }
 }

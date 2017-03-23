@@ -8,25 +8,39 @@ module.exports = function () {
     // console.log('website.model.server.js');
 
     var q = require('q');
-    var mongoose = require('mongoose');
-    // mongoose.connect(connectionString);
-    // mongoose.Promise=global.Promise;
-    var WebsiteSchema = require('./website.schema.server.js')();
-    var WebsiteModel = mongoose.model('websites', WebsiteSchema);
-    var model=null;
+    var model = null;
+    var mongoose = require("mongoose");
+    var WebsiteSchema;
+    var WebsiteModel;
 
     var api = {
         findAllWebsitesForUser:findAllWebsitesForUser,
         setModel:setModel,
         findWebsiteById:findWebsiteById,
         updateWebsite:updateWebsite,
-        createWebsite:createWebsite
+        createWebsite:createWebsite,
+        getModel:getModel,
+        deleteWebsite:deleteWebsite
     };
 
     return api;
 
     function setModel(models) {
         model=models;
+        WebsiteSchema = require('./website.schema.server')(models);
+        WebsiteModel = mongoose.model("WebsiteModel", WebsiteSchema);
+    }
+
+    function getModel() {
+        return WebsiteModel;
+    }
+
+    function deleteWebsite(websiteId) {
+        return WebsiteModel.findByIdAndRemove(websiteId, function (err, website) {
+            if(website != null) {
+                website.remove();
+            }
+        });
     }
 
     function createWebsite(userId, website) {

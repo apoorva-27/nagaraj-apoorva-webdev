@@ -18,18 +18,6 @@ module.exports = function (app,UserModel) {
          {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" ,email:"jannnuzi@jannuzi.com"}
      ];
 
-    function deleteUser(req,res) {
-        var userId = req.params.userId;
-        for(var u in users) {
-            if(users[u]._id === userId) {
-                users.splice(u, 1);
-                res.sendStatus(200);
-                console.log("did it delete?")
-                return;
-            }
-        }
-        res.sendStatus(404);
-    }
 
     function createUser(req,res) {
         var newU=req.body;
@@ -40,7 +28,7 @@ module.exports = function (app,UserModel) {
 
             },
             function (err) {
-                res.sendStatus(500).send(err);
+                res.sendStatus(400).send(err);
             });
         /*
         users.push(newU);
@@ -68,7 +56,7 @@ module.exports = function (app,UserModel) {
                 res.json(user[0]);
             },
             function (err) {
-                res.sendStatus(500).send(err);
+                res.sendStatus(400).send(err);
             });
 
         // var user = users.find(function(user){
@@ -87,7 +75,7 @@ module.exports = function (app,UserModel) {
                     res.json(user[0]);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
 
@@ -102,7 +90,7 @@ module.exports = function (app,UserModel) {
                     res.json(user);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(400).send(err);
                 });
     }
 
@@ -118,7 +106,17 @@ module.exports = function (app,UserModel) {
                     res.json(user);
                 },
                 function (err) {
-                    res.sendStatus(500).send(err);
+                    res.sendStatus(400).send(err);
                 });
+    }
+    function deleteUser(req, res) {
+        var userId = req.params.userId;
+        UserModel
+            .deleteUser(userId)
+            .then(function (user) {
+                res.json(user);
+            }, function (error) {
+                res.sendStatus(400).send(error);
+            });
     }
 };

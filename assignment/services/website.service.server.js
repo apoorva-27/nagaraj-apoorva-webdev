@@ -35,6 +35,18 @@ module.exports = function(app,WebsiteModel) {
                 });
     }
 
+    function deleteWebsite(req, res) {
+        var websiteId = req.params.websiteId;
+        console.log(websiteId);
+        WebsiteModel
+            .deleteWebsite(websiteId)
+            .then(function (website) {
+                res.json(website);
+            }, function (error) {
+                res.sendStatus(404).send(error);
+            });
+    }
+
     function findAllWebsitesForUser(req, res) {
         var userId = req.params.userId;
         console.log("findallwebsites for user in server"+userId)
@@ -77,19 +89,6 @@ module.exports = function(app,WebsiteModel) {
                 function (err) {
                     res.sendStatus(500).send(err);
                 });
-    }
-
-    function deleteWebsite(req,res) {
-        var websiteId = req.params.websiteId;
-        for(var w in websites) {
-            if(websites[w]._id === websiteId) {
-                websites.splice(w, 1);
-                res.sendStatus(200);
-                // console.log("did it delete?")
-                return;
-            }
-        }
-        res.sendStatus(404);
     }
 
 }

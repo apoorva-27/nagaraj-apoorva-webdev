@@ -9,12 +9,10 @@ module.exports = function () {
     // console.log('user.model.server.js');
 
     var q = require('q');
-    var mongoose = require('mongoose');
-    // mongoose.connect(connectionString);
-    // mongoose.Promise=global.Promise;
-    var UserSchema = require('./user.schema.server.js')();
-    var UserModel = mongoose.model('users', UserSchema);
-    var model=null;
+    var model = null;
+    var mongoose = require("mongoose");
+    var UserSchema;
+    var UserModel;
 
     var api = {
         createUser: createUser,
@@ -22,13 +20,32 @@ module.exports = function () {
         findUserByUsername:findUserByUsername,
         findUserById:findUserById,
         updateUser:updateUser,
-        setModel:setModel
+        setModel:setModel,
+        getModel:getModel,
+        deleteUser:deleteUser
     };
 
     return api;
 
     function setModel(models) {
         model=models;
+        UserSchema = require('./user.schema.server')(models);
+        UserModel = mongoose.model('UserModel', UserSchema);
+
+    }
+
+    function getModel() {
+        return UserModel;
+    }
+
+    function deleteUser(userId) {
+        return UserModel.findByIdAndRemove(userId, function (err, user) {
+            if (user != null)
+            {
+                user.remove();
+            }
+        });
+
     }
 
     function updateUser(userId,new_user) {
