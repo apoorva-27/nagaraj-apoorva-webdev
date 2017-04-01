@@ -27,10 +27,10 @@ app.use(express.static(__dirname + '/public'));
 
 require ("./test/app.js")(app);
 
-require("./assignment/model/user/user.model.server.js");
+// require("./assignment/model/user/user.model.server.js");
 // require("./assignment/model/models.server.js")();
 
-require ("./assignment/app.js")(app);
+require ("./project/app.js")(app);
 //assignment(app);
 
 var port = process.env.PORT || 3000;

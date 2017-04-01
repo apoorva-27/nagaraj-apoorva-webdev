@@ -1,0 +1,75 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid bg-primary">
+
+        <div class="navbar-text pull-left ">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left "></span>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                Choose Widgets
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-10">
+                    <a ng-click="model.createWidget('HEADER')"
+                       ng-model="Header">HEADER</a>
+                </div>
+
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-10">
+                    <a ng-click="model.createWidget('YOUTUBE')">YOUTUBE</a>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-10">
+                    <a ng-click="model.createWidget('IMAGE')">IMAGE</a>
+                </div>
+
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-10">
+                    <a ng-click="model.createWidget('HTML')">HTML</a>
+                </div>
+
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-10">
+
+                    <a  ng-click="model.createWidget('TEXT')">TEXT</a>
+                </div>
+
+            </div>
+        </li>
+
+
+
+
+    </ul>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid bg-primary">
+        <div class="navbar-text pull-right">
+            <a href="widget-list.view.client.html">
+                <span class="glyphicon glyphicon-user "></span>
+            </a>
+        </div>
+    </div>
+</nav>

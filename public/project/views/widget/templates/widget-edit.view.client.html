@@ -1,0 +1,56 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid bg-primary">
+        <div class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </div>
+        <div class="navbar-text pull-right">
+            <a ng-click="model.updateWidget(model.widget)">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Widget Editor</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+<div ng-switch="model.widget.type">
+
+    <div ng-switch-when="HEADER">
+        <div ng-include="model.getEditorTemplateUrl(model.widget.type)"></div>
+    </div>
+
+    <div ng-switch-when="IMAGE">
+        <div ng-include="model.getEditorTemplateUrl(model.widget.type)"></div>
+    </div>
+
+    <div ng-switch-when="HTML">
+        <div ng-include="model.getEditorTemplateUrl(model.widget.type)"></div>
+    </div>
+
+    <div ng-switch-when="YOUTUBE">
+        <div ng-include="model.getEditorTemplateUrl(model.widget.type)"></div>
+    </div>
+
+    <div ng-switch-when="TEXT">
+        <div ng-include="model.getEditorTemplateUrl(model.widget.type)"></div>
+    </div>
+
+</div>
+</div>
+
+<div class="container-fluid">
+    <a ng-click="model.deleteW(widget)" type="button" class="btn btn-danger btn-block">
+    Delete
+</a>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Footer</a>
+        </div>
+    </div>
+</nav>
