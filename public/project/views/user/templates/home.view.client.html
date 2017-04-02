@@ -15,9 +15,12 @@
 </nav>
 <div>
 
-<img src="./views/user/img/01.png">
+<img class ="an-background-image" src="./views/user/img/01.png">
+
     <a href="#/login">
         <button class="btn"> Login </button></a>
+    <input ng-model="model.search" type="text" placeholder="Search">
+    <button ng-click="model.searchPlace(model.search)" class="btn btn-default"> <span class="glyphicon glyphicon-search"> </span></button></input>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-faded">
