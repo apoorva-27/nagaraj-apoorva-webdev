@@ -1,5 +1,7 @@
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
+        <div>
+            <img class ="an-background-image" src="./views/user/img/01.png">
         <h1>Login</h1>
         <div ng-show="model.error" class="alert alert-danger" role="alert">
             {{model.error}}
@@ -15,8 +17,10 @@
                class="form-control"
                placeholder="password"/>
         </form>
-        <a class="btn btn-primary btn-block"
-           ng-click="model.login(user)">Login</a>
+        <a class="btn btn-primary btn-block"   href="#/home"> Login</a>
+           <!--ng-click="model.login(user)">Login</a>-->
+
         <a class="btn btn-success btn-block"
         href="#/register">Register</a>
+        </div>
     </div>

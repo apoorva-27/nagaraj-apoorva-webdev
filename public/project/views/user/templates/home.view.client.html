@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<nav class="navbar navbar-default navbar-fixed-top bg-faded">
+    <div class="container-fluid bg-faded">
+
+        <div class="navbar-text pull-right ">
+            <a ng-click="model.updateUser(model.user)" class="navbar-link ">
+                <span class="glyphicon glyphicon-ok "></span>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand no-left-margin">
+                Fables and Folklore
+            </a>
+        </div>
+    </div>
+</nav>
+<div>
+
+<img src="./views/user/img/01.png">
+    <a href="#/login">
+        <button class="btn"> Login </button></a>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid bg-faded">
+        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
+            <span class="glyphicon glyphicon-user  "></span>
+        </a>
+
+    </div>
+</nav>

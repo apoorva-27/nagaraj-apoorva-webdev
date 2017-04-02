@@ -4,7 +4,7 @@
 
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("Travelogue")
         .controller("registerController", registerController);
 
     function registerController($location, userService) {

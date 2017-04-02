@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("Travelogue")
         .controller("profileController", profileController);
 
     function profileController($routeParams, userService,$location) {

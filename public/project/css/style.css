@@ -26,6 +26,7 @@ body {
     padding-top: 15px;
     overflow: auto;
 }
+
 .wbdv-right-pane {
     position: absolute;
     top: 0px;
@@ -106,6 +107,7 @@ body a:hover {
     left: 0;
     height: 100%;
 }
+
 .text-editor-styling {
     width:100%
 }
@@ -114,9 +116,29 @@ body a:hover {
     background: #2f4357;
     margin-top: 20px;
 }
+
 .carousel .item img{
     margin: 0 auto; /* Align slide image horizontally center */
 }
+
 .bs-example{
     margin: 20px;
 }
+
+.an-background-image {
+
+    min-height: 100%;
+    min-width: 1024px;
+    opacity:0.5;
+    z-index:-1;
+
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+

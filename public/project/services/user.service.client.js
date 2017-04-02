@@ -3,7 +3,7 @@
  */
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("Travelogue")
         .factory("userService", userService);
 
     function userService($http) {

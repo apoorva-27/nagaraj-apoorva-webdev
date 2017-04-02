@@ -4,7 +4,7 @@
 
 (function () {
     angular
-        .module('WebAppMaker')
+        .module('Travelogue')
         .directive('wbdvSortable', sortableDir);
 
     function sortableDir(WidgetService,$routeParams) {

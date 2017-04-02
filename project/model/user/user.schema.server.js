@@ -14,7 +14,7 @@ module.exports = function (model) {
         email : String,
         phone : String,
         //_id:String,
-        websites :  [{type: mongoose.Schema.Types.String, ref:'WebsiteModel'}],
+        entries :  [{type: mongoose.Schema.Types.String, ref:'EntryModel'}],
         dateCreated :  {type: Date, default: Date.now()}
 
     }, {collection: 'users'});

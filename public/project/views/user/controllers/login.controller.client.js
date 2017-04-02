@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("Travelogue")
         .controller("loginController", loginController);
 
     function loginController($location, userService) {
