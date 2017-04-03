@@ -7,7 +7,7 @@ module.exports = function (model) {
 
     var EntrySchema = mongoose.Schema({
 
-        content: String,
+        story: String,
         placeId: String,
         date:Date,
         title:String,

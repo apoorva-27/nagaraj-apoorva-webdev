@@ -14,13 +14,13 @@
                 controllerAs: "model"
             })
             .when("/home", {
-                templateUrl: "views/user/templates/userhome.view.client.html",
-                controller: "userhomeController",
+                templateUrl: "views/user/templates/home.view.client.html",
+                controller: "homeController",
                 controllerAs: "model"
             })
             .when("/default", {
-                templateUrl: "views/user/templates/login.view.client.html",
-                controller: "loginController",
+                templateUrl: "views/user/templates/home.view.client.html",
+                controller: "homeController",
                 controllerAs: "model"
             })
             .when("/login", {
@@ -28,22 +28,43 @@
                 controller: "loginController",
                 controllerAs: "model"
             })
-            .when("/user/:uid", {
-                templateUrl: "views/user/templates/profile.view.client.html",
-                controller: "profileController",
-                controllerAs: "model"
-            })
             .when("/register", {
                 templateUrl: "views/user/templates/register.view.client.html",
                 controller: "registerController",
                 controllerAs: "model"
             })
-            .when("/placedetails/:pid", {
-                templateUrl: "views/place/templates/placedetails.view.client.html",
-                controller: "placedetailsController",
+            .when("/user/:uid", {
+                templateUrl: "views/user/templates/userhome.view.client.html",
+                controller: "userhomeController",
                 controllerAs: "model"
             })
-            .when("/entry", {
+            .when("/user/:uid/settings", {
+                templateUrl: "views/user/templates/settings.view.client.html",
+                controller: "settingsController",
+                controllerAs: "model"
+            })
+            .when("/attraction", {
+                templateUrl: "views/user/templates/home.view.client.html",
+                controller: "homeController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/attraction", {
+                templateUrl: "views/user/templates/home.view.client.html",
+                controller: "homeController",
+                controllerAs: "model"
+            })
+            .when("/attraction/:aid", {
+                templateUrl: "views/attraction/templates/attractiondetails.view.client.html",
+                controller: "attractiondetailsController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/attraction/:aid", {
+                templateUrl: "views/attraction/templates/attractiondetails.view.client.html",
+                controller: "attractiondetailsController",
+                controllerAs: "model"
+            })
+
+            .when("/user/:uid/attraction/:aid/entry", {
                 templateUrl: "views/entry/templates/diaryentry.view.client.html",
                 controller: "diaryentryController",
                 controllerAs: "model"

@@ -16,7 +16,7 @@
 
         function detailsPage(cityId) {
             console.log("details page home controller")
-            $location.url("/placedetails/"+cityId);
+            $location.url("/attractiondetails/"+cityId);
         }
 
         function searchPlace(searchText) {

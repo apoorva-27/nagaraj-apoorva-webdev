@@ -16,16 +16,21 @@
 
 
 <lablel>Title</lablel>
-<input type="text"
-       ng-model="title"/>
+<input type="entry.text"
+       ng-model="entry.title"/>
 <label> My Story</label>
 <textarea rows="5"
           type="text"
-          ng-model="story"></textarea>
+          ng-model="entry.story"></textarea>
 <input type="date"
 
-       ng-model="date"/>
-<
+       ng-model="entry.date"/>
+
+<a class="btn btn-primary btn-block"
+   ng-click="model.createEntry(entry)">Create Entry</a>
+
+
+
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
         <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">

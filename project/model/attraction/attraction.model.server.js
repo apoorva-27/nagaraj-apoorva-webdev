@@ -23,7 +23,7 @@ module.exports = function () {
 
     function setModel(models) {
         model=models;
-        PlaceSchema = require('./place.schema.server')(models);
+        PlaceSchema = require('./attraction.schema.server.js')(models);
         PlaceModel = mongoose.model('PlaceModel', PlaceSchema);
 
     }

@@ -10,7 +10,8 @@ module.exports = function (app) {
 
     // var UserModel = require('./model/user/user.model.server')();
     require("./services/user.service.server") (app,models.UserModel);
-    require("./services/place.service.server") (app,models.PlaceModel);
+    // require("./services/attraction.service.server.js") (app,models.AttractionModel);
+    require("./services/entry.service.server.js") (app,models.EntryModel);
 
 }
 

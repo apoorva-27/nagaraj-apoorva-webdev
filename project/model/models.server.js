@@ -11,17 +11,17 @@ module.exports = function () {/*
     UserModel.create({username:'bob',password:'bob',firstname:'Bob', lastname:'Marley'});
 */
     var UserModel       = require("./user/user.model.server")();
-    var PlaceModel    = require("./place/place.model.server")();
+    var EntryModel    = require("./entry/entry.model.server.js")();
 
 
     var model = {
         UserModel: UserModel,
-        PlaceModel: PlaceModel,
+        EntryModel: EntryModel,
 
     };
 
     UserModel.setModel(model);
-    PlaceModel.setModel(model);
+    EntryModel.setModel(model);
     // PageModel.setModel(model);
     // WidgetModel.setModel(model);
 

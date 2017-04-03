@@ -5,7 +5,7 @@
 module.exports = function (model) {
     var mongoose = require('mongoose');
 
-    var PlaceSchema = mongoose.Schema({
+    var AttractionSchema = mongoose.Schema({
 
         name: String,
         tripId: Number,
@@ -15,7 +15,7 @@ module.exports = function (model) {
         opening_hours: String,
         // entries : diary entries
         reviews: [{type: String}]
-    }, {collection: 'places'});
+    }, {collection: 'attractions'});
 
-    return PlaceSchema;
-}
+    return AttractionSchema;
+};

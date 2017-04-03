@@ -5,9 +5,9 @@
 (function () {
     angular
         .module("Travelogue")
-        .controller("placedetailsController", placedetailsController);
+        .controller("attractiondetailsController", attractiondetailsController);
 
-    function placedetailsController($location, placeService,$routeParams) {
+    function attractiondetailsController($location, placeService,$routeParams) {
         var vm = this;
         // vm.login = login;
         vm.attractionId=$routeParams['pid']

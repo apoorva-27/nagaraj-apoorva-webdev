@@ -12,8 +12,8 @@ module.exports = function (app,PlaceModel) {
         console.log("server search text: ",searchParam)
         PlaceModel
             .findPlaceByText(searchParam);
-            // .then(function (place) {
-            //         res.json(place);
+            // .then(function (attraction) {
+            //         res.json(attraction);
             //
             //     },
             //     function (err) {
