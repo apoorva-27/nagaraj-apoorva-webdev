@@ -11,10 +11,16 @@
 
         var vm = this;
         vm.searchPlace = searchPlace;
+        vm.detailsPage=detailsPage;
         var idfound;
 
+        function detailsPage(cityId) {
+            console.log("details page home controller")
+            $location.url("/placedetails/"+cityId);
+        }
+
         function searchPlace(searchText) {
-            console.log("ontroller : findplacebytext")
+            console.log("controller : findplacebytext")
             console.log("searchtext ",searchText)
 
             var promise = placeService
@@ -30,10 +36,24 @@
                         array.forEach( function(i){
                             // console.log(i)
                             console.log("vm.searchplace : ",searchText)
-                            if (i.name==searchText) {
+                            if (i.name.toLowerCase()==searchText.toLowerCase()) {
                                 console.log(i.name);
                                 idfound=i.id;
-                                console.log("match");
+                                console.log("match :",i);
+
+                                var promise2=placeService
+                                    .findAttractionsInCity(i.id)
+                                promise2
+                                    .success( function (places) {
+                                        if (places) {
+                                            console.log("places found")
+                                            console.log(places)
+                                            vm.attractions=places.response.venues;
+                                        }
+                                        else {
+                                            vm.error ="Attractions not found"
+                                        }
+                                    })
                                 // break;
                             }
                         })

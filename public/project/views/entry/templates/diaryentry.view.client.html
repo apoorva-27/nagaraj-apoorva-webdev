@@ -1,29 +1,36 @@
-<nav class="navbar navbar-default navbar-fixed-top bg-faded">
-    <div class="container-fluid bg-faded">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid bg-primary ">
 
         <div class="navbar-text pull-right ">
             <a ng-click="model.updateUser(model.user)" class="navbar-link ">
-                <span class="glyphicon glyphicon-ok "></span>
+                <span class="glyphicon glyphicon-ok make-white"></span>
             </a>
         </div>
         <div class="navbar-header">
             <a class="navbar-brand no-left-margin">
-                Travelogue
+                Diary Entry
             </a>
         </div>
     </div>
 </nav>
 
 
-<h1> User Home with feed</h1>
+<lablel>Title</lablel>
+<input type="text"
+       ng-model="title"/>
+<label> My Story</label>
+<textarea rows="5"
+          type="text"
+          ng-model="story"></textarea>
+<input type="date"
 
-<a class="btn btn-primary btn-block"
-   href="#/entry">New Entry</a>
-
+       ng-model="date"/>
+<
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
         <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
             <span class="glyphicon glyphicon-user make-white "></span>
         </a>
+
     </div>
 </nav>

@@ -22,6 +22,19 @@
     <input ng-model="model.search" type="text" placeholder="Search">
     <button ng-click="model.searchPlace(model.search)" class="btn btn-default"> <span class="glyphicon glyphicon-search"> </span></button></input>
 </div>
+
+<div class="container-fluid">
+    <ul class="list-group"  >
+        <li  class="list-group-item" ng-repeat="attraction in model.attractions">
+               <span class="glyphicon glyphicon-cog"></span>
+            <textarea ng-model="attraction.name"></textarea>
+            <textarea ng-model="attraction.tripexpert_score"></textarea>
+           <a ng-click="model.detailsPage(attraction.id)"> <img  src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.id}}.jpg?1402340533">
+            </a>
+        </li>
+    </ul>
+</div>
+
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-faded">
         <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">

@@ -9,12 +9,10 @@ module.exports = function (model) {
 
         name: String,
         tripId: Number,
-        score: Number,
-        lat: Number,
-        long: Number,
+        tripexpert_score: Number,
         address: String,
         website: String,
-        hours: String,
+        opening_hours: String,
         // entries : diary entries
         reviews: [{type: String}]
     }, {collection: 'places'});

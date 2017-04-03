@@ -1,0 +1,61 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid bg-primary ">
+
+        <div class="navbar-text pull-right ">
+            <a ng-click="model.updateUser(model.user)" class="navbar-link ">
+                <span class="glyphicon glyphicon-ok make-white"></span>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand no-left-margin">
+                Profile
+            </a>
+        </div>
+    </div>
+</nav>
+
+<h1>place details view</h1>
+
+<div class="panel panel-default">
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="panel panel-default panel-body">
+                {{model.name}}</div>
+            <div class="panel panel-default panel-body">
+
+            {{model.opening_hours}}</div>
+                <div class="panel panel-default panel-body">
+                {{model.address}}</div>
+                    <div class="panel panel-default panel-body">
+                {{model.tripexpert_score}}</div>
+                        <div class="panel panel-default panel-body">
+                {{model.website}}</div>
+
+        </div>
+        <div class="col-xs-4 hidden-xs">
+            <img class ="pull-right" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
+        </div>
+    </div>
+
+            <div class="panel-header"> Reviews </div>
+    <div class="panel panel-default" ng-repeat="review in model.reviews">
+    <div class="panel-body" >
+        {{review.extract}}
+
+    </div>
+    </div>
+
+</div>
+
+
+<!--<textarea ng-model="model.name"></textarea>-->
+<!--<textarea ng-model="model.reviews"></textarea>-->
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid bg-primary">
+        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
+            <span class="glyphicon glyphicon-user make-white "></span>
+        </a>
+
+    </div>
+</nav>

@@ -38,6 +38,16 @@
                 controller: "registerController",
                 controllerAs: "model"
             })
+            .when("/placedetails/:pid", {
+                templateUrl: "views/place/templates/placedetails.view.client.html",
+                controller: "placedetailsController",
+                controllerAs: "model"
+            })
+            .when("/entry", {
+                templateUrl: "views/entry/templates/diaryentry.view.client.html",
+                controller: "diaryentryController",
+                controllerAs: "model"
+            })
 
     }
 })();
