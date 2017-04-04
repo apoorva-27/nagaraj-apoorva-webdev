@@ -19,7 +19,8 @@ module.exports = function () {
         findEntriesByAttraction:findEntriesByAttraction,
         findEntryByEntryId:findEntryByEntryId,
         updateEntry:updateEntry,
-        deleteEntry:deleteEntry
+        deleteEntry:deleteEntry,
+        getModel:getModel
 
     };
 
@@ -111,5 +112,9 @@ module.exports = function () {
         EntrySchema = require('./entry.schema.server')(models);
         EntryModel = mongoose.model('EntryModel', EntrySchema);
 
+    }
+
+    function getModel() {
+        return EntryModel;
     }
 }
