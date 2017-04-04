@@ -8,7 +8,7 @@ module.exports = function (model) {
     var EntrySchema = mongoose.Schema({
 
         story: String,
-        placeId: String,
+        attractionId: String,
         date:Date,
         title:String,
         // entries : diary entries

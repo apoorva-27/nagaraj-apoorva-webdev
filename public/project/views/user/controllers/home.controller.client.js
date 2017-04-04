@@ -7,16 +7,22 @@
         .module("Travelogue")
         .controller("homeController", homeController);
 
-    function homeController($location,placeService) {
+    function homeController($location,placeService,$routeParams) {
 
         var vm = this;
         vm.searchPlace = searchPlace;
         vm.detailsPage=detailsPage;
+        vm.userId=$routeParams['uid']
         var idfound;
 
-        function detailsPage(cityId) {
+        function detailsPage(attractionId) {
             console.log("details page home controller")
-            $location.url("/attractiondetails/"+cityId);
+            if (vm.userId.length==0) {
+                $location.url("/attraction/"+attractionId);
+            }
+            else {
+                $location.url("/user/"+vm.userId+"/attraction/"+attractionId);
+            }
         }
 
         function searchPlace(searchText) {

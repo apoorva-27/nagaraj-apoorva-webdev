@@ -17,14 +17,7 @@
         init();
 
         function create(user) {
-            /*userService
-                .findUserByUsername(user.username)
-                .success(function (user) {
-                    vm.message = "That username is already taken";
-                })
-                .error(function(err) {
-                    vm.message = "Available";
-                });*/
+
             var newuser = userService
                 .createUser(user)
                 .success(function (newuser) {

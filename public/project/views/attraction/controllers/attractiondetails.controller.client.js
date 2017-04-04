@@ -7,10 +7,13 @@
         .module("Travelogue")
         .controller("attractiondetailsController", attractiondetailsController);
 
-    function attractiondetailsController($location, placeService,$routeParams) {
+    function attractiondetailsController($location,entryService, placeService,$routeParams) {
         var vm = this;
         // vm.login = login;
-        vm.attractionId=$routeParams['pid']
+        vm.attractionId=$routeParams['aid']
+        vm.userId=$routeParams['uid']
+        vm.entries;
+        vm.entry;
 
     function init() {
         var newplace = placeService
@@ -29,6 +32,28 @@
                 vm.error = 'Unable to register';
                 //console.log("error");
             })
+
+        var entries = entryService
+            .findEntriesByAttraction(vm.userId,vm.attractionId)
+            .success(function (entries) {
+                vm.entries=entries;
+            })
+            .error (function (err) {
+                vm.error="error";
+            })
     }
     init();
-    }})();
+
+    function findEntryByEntryId(entryId) {
+        // var entry=
+        entryService
+            .findEntryByEntryId(vm.userId, vm.attractionId, entryId)
+            .success(function (entry) {
+                vm.entry = entry;
+            })
+            .error(function (error) {
+                vm.error = "error"
+            })
+    }
+    }
+})();

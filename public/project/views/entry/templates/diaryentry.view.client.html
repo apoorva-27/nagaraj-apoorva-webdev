@@ -1,8 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid bg-primary ">
-
         <div class="navbar-text pull-right ">
-            <a ng-click="model.updateUser(model.user)" class="navbar-link ">
+            <a ng-click="model.updateEntry(entry)" class="navbar-link ">
                 <span class="glyphicon glyphicon-ok make-white"></span>
             </a>
         </div>
@@ -13,23 +12,21 @@
         </div>
     </div>
 </nav>
-
-
+{{model.entry.date}}
 <lablel>Title</lablel>
-<input type="entry.text"
-       ng-model="entry.title"/>
+
+<input type="String"
+       ng-model="model.entry.title"/>
 <label> My Story</label>
 <textarea rows="5"
-          type="text"
-          ng-model="entry.story"></textarea>
+          type="String"
+          ng-model="model.entry.story"></textarea>
 <input type="date"
 
-       ng-model="entry.date"/>
+       ng-model="model.entry.date"/>
 
 <a class="btn btn-primary btn-block"
    ng-click="model.createEntry(entry)">Create Entry</a>
-
-
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">

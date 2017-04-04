@@ -7,7 +7,8 @@
         .module("Travelogue")
         .controller("userhomeController", userhomeController);
 
-    function userhomeController() {
-
+    function userhomeController($routeParams) {
+        var vm=this;
+         vm.userId=$routeParams['uid'];
     }
 })();

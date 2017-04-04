@@ -10,12 +10,14 @@
     function diaryentryController($location, placeService,entryService,$routeParams) {
         var vm = this;
         // vm.login = login;
-        vm.attractionId=$routeParams['pid']
-        vm.placeId=$routeParams['']
+        vm.attractionId=$routeParams['aid']
+        vm.userId=$routeParams['uid']
         var vm = this;
         vm.searchPlace = searchPlace;
         vm.detailsPage=detailsPage;
         vm.createEntry=createEntry;
+        vm.updateEntry=updateEntry;
+        vm.entryId=$routeParams['eid']
         var idfound;
 
         function detailsPage(cityId) {
@@ -23,23 +25,34 @@
             $location.url("/attractiondetails/"+cityId);
         }
 
+        function updateEntry(entry) {
+            entryService
+                .updateEntry(vm.userId,vm.attractionId,entry)
+                .success(function (entry) {
+                    // $location.url("/user/" + newuser._id);
+                    console.log(entry);
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                    //console.log("error");
+                })
+        }
+
         function init() {
-            // var newentry = entryService
-            //     .findAttraction(vm.attractionId)
-            //     .success(function (newuser) {
-            //         // $location.url("/user/" + newuser._id);
-            //         console.log(newuser);
-            //         vm.name=newuser.response.venues[0].name;
-            //         vm.reviews=newuser.response.venues[0].reviews;
-            //         vm.opening_hours=newuser.response.venues[0].opening_hours;
-            //         vm.address=newuser.response.venues[0].address;
-            //         vm.tripexpert_score=newuser.response.venues[0].tripexpert_score;
-            //         vm.website=newuser.response.venues[0].website;
-            //     })
-            //     .error(function (err) {
-            //         vm.error = 'Unable to register';
-            //         //console.log("error");
-            //     })
+
+            if  (vm.entryId.length>0) {
+
+                entryService
+                    .findEntryByEntryId(vm.userId,vm.attractionId,vm.entryId)
+                    .success(function (entry) {
+                        console.log("success init ",entry)
+                        vm.entry=entry[0];
+                    })
+                        .error(function (err) {
+                            vm.error="error"
+                        })
+                }
+
         }
         init();
 
@@ -51,7 +64,7 @@
                 story:entry.story,
             }
             entryService
-                .createEntry(newEntry)
+                .createEntry(vm.userId,vm.attractionId,newEntry)
                 .success(function (entry) {
                     // $location.url("/user/" + newuser._id);
                     console.log(entry);

@@ -69,6 +69,11 @@
                 controller: "diaryentryController",
                 controllerAs: "model"
             })
+            .when("/user/:uid/attraction/:aid/entry/:eid", {
+                templateUrl: "views/entry/templates/diaryentry.view.client.html",
+                controller: "diaryentryController",
+                controllerAs: "model"
+            })
 
     }
 })();

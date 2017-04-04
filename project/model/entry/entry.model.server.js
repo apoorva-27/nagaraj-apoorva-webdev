@@ -14,11 +14,63 @@ module.exports = function () {
 
     var api = {
         createEntry: createEntry,
-        setModel:setModel
+        setModel:setModel,
+        findEntriesByAttraction:findEntriesByAttraction,
+        findEntryByEntryId:findEntryByEntryId,
+        updateEntry:updateEntry,
 
     };
 
     return api;
+
+    function updateEntry(entryId,entry) {
+        var deffered = q.defer();
+        EntryModel
+            .update(
+                {_id: entryId},{$set : entry},function(err,usr) {
+                    if(err){
+                        // console.log("hello   "+err);
+                        deffered.reject(err);
+                    }
+                    else{
+                        // console.log("user :" + usr);
+                        // deffered.resolve(usr);
+                        return usr
+                    }
+                });
+        return deffered.promise;
+    }
+
+
+    function findEntryByEntryId(entryId) {
+        var deffered = q.defer();
+        EntryModel.find({_id:entryId}, function (err,entry) {
+            if(err){
+                // console.log("hello   "+err);
+                deffered.reject(err);
+            }
+            else{
+                // console.log("web " + web.length);
+                deffered.resolve(entry);
+            }
+        });
+        return deffered.promise;
+    }
+
+    function findEntriesByAttraction(attractionId) {
+        var deffered = q.defer();
+        EntryModel.find({attractionId:attractionId}, function (err,entry) {
+            if(err){
+                // console.log("hello   "+err);
+                deffered.reject(err);
+            }
+            else{
+                // console.log("web " + web.length);
+                deffered.resolve(entry);
+            }
+        });
+        return deffered.promise;
+    }
 
     function createEntry(entry) {
         console.log("entry model create server")
@@ -30,7 +82,7 @@ module.exports = function () {
                     deffered.reject(err);
                 }
                 else{
-                    console.log("entry model create success"+err);
+                    console.log("entry model create success"+en);
 
                     deffered.resolve(en);
                 }
