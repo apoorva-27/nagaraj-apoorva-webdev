@@ -7,14 +7,15 @@ module.exports = function (model) {
 
     var AttractionSchema = mongoose.Schema({
 
-        name: String,
-        tripId: Number,
-        tripexpert_score: Number,
-        address: String,
-        website: String,
-        opening_hours: String,
+        // name: String,
+        attractionId: String,
+        // tripexpert_score: Number,
+        // address: String,
+        // website: String,
+        // opening_hours: String,
         // entries : diary entries
-        reviews: [{type: String}]
+        // entries: [{type: String}],
+        favorited : [{type: mongoose.Schema.Types.String, ref:'UserModel'}]
     }, {collection: 'attractions'});
 
     return AttractionSchema;

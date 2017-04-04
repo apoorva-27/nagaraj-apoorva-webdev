@@ -2,8 +2,33 @@
  * Created by hiresave on 4/2/2017.
  */
 
-module.exports = function (app,PlaceModel) {
+module.exports = function (app,AttractionModel) {
     app.get("/api/name", findPlaceByText);
+    app.post("/api/user/:uid/attraction/:aid/status/:sid",favorite);
+
+    function favorite(req,res) {
+        console.log("favorite : attraction service server attraction :",req.body)
+
+        var userId=req.params.uid;
+        var attractionId=req.params.aid;
+        var status=req.params.sid;
+        var attraction=req.body;
+
+        console.log("aid",attractionId)
+        console.log("uid",userId)
+
+        console.log("status",status)
+
+        AttractionModel
+            .favorite(userId,attractionId,status,attraction)
+            .then (function (status) {
+                    console.log("fav updated at server service"+entry)
+                    res.json(status);
+                },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                });
+    }
 
     function findPlaceByText(req,res) {
         console.log("server : findplacebytext")
@@ -12,13 +37,7 @@ module.exports = function (app,PlaceModel) {
         console.log("server search text: ",searchParam)
         PlaceModel
             .findPlaceByText(searchParam);
-            // .then(function (attraction) {
-            //         res.json(attraction);
-            //
-            //     },
-            //     function (err) {
-            //         res.sendStatus(400).send(err);
-            //     });
-
     }
+
+
 }

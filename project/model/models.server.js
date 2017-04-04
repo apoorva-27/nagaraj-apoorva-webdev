@@ -12,16 +12,19 @@ module.exports = function () {/*
 */
     var UserModel       = require("./user/user.model.server")();
     var EntryModel    = require("./entry/entry.model.server")();
+    var AttractionModel=require("./attraction/attraction.model.server") ();
 
 
     var model = {
         UserModel: UserModel,
         EntryModel: EntryModel,
+        AttractionModel:AttractionModel
 
     };
 
     UserModel.setModel(model);
     EntryModel.setModel(model);
+    AttractionModel.setModel(model);
     // PageModel.setModel(model);
     // WidgetModel.setModel(model);
 

@@ -5,17 +5,29 @@
 (function () {
     angular
         .module("Travelogue")
-        .factory("placeService", placeService);
+        .factory("attractionService", attractionService);
 
-    function placeService($http) {
+    function attractionService($http) {
 
         var api = {
             "findPlaceByText": findPlaceByText,
             "findAttractionsInCity":findAttractionsInCity,
-            "findAttraction":findAttraction
+            "findAttraction":findAttraction,
+            "favorite":favorite
 
         };
         return api;
+
+        function favorite(userId,attractionId,status,attraction) {
+            console.log("fovorite in client service")
+
+            console.log("aid",attractionId)
+            console.log("uid",userId)
+
+            console.log("status",status)
+            return $http.post("/api/user/"+userId+"/attraction/"+attractionId+"/status/"+status,attraction)
+
+        }
 
         function findAttraction(attractionId) {
             console.log("client : findAttraction")

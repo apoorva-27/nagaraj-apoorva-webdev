@@ -15,7 +15,8 @@ module.exports = function (model) {
         phone : String,
         //_id:String,
         entries :  [{type: mongoose.Schema.Types.String, ref:'EntryModel'}],
-        dateCreated :  {type: Date, default: Date.now()}
+        dateCreated :  {type: Date, default: Date.now()},
+        // favorites : [{type: mongoose.Schema.Types.String, ref:'AttractionModel'}]
 
     }, {collection: 'users'});
 
@@ -24,13 +25,9 @@ module.exports = function (model) {
 
         EntryModel.find({_id: {$in: user.entries}},function(err, entries) {
             if(err == null) {
-                // widgetModel.remove({_page: {$in: pages}}).exec();
                 EntryModel.remove({_id: {$in: user.entries}}).exec();
             }
         });
-
-        // EntryModel.remove({_id: {$in: user.entries}}).exec();
-
     })
     return UserSchema;
 };

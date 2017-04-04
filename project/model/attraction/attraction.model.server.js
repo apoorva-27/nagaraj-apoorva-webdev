@@ -9,38 +9,56 @@ module.exports = function () {
     var q = require('q');
     var model = null;
     var mongoose = require("mongoose");
-    var PlaceSchema;
-    var PlaceModel;
-    // PlaceModel = mongoose.model('PlaceModel', PlaceSchema);
+    var AttractionSchema;
+    var AttractionModel;
 
     var api = {
-        findPlaceByText: findPlaceByText,
-        setModel:setModel
 
+        setModel:setModel,
+        getModel:getModel,
+        favorite:favorite
     };
-
     return api;
+
+    function favorite(userId,attractionId,status,attraction){
+        var deffered = q.defer();
+        var newattraction= {
+            attractionId: attractionId,
+            favorited: [userId]
+        }
+        console.log("newattraction object",attractionId)
+        AttractionModel.find({attractionId:attractionId},function (err,en) {
+            if (err) {
+                console.log("enter if part")
+                AttractionModel
+                    .create(newattraction)
+                    .then(function (succ) {
+                        console.log("sucess :",succ)
+                        deffered.resolve(succ);
+                    })
+            }
+            else {
+                console.log("error else part,push :",en)
+                en.favorited.push(userId);
+                en.save();
+                deffered.resolve(en);
+        }
+        });
+        console.log("the end")
+        return deffered.promise;
+    }
+
+    function getModel() {
+        return AttractionModel;
+    }
 
     function setModel(models) {
         model=models;
-        PlaceSchema = require('./attraction.schema.server.js')(models);
-        PlaceModel = mongoose.model('PlaceModel', PlaceSchema);
+        AttractionSchema = require('./attraction.schema.server.js')(models);
+        AttractionModel = mongoose.model('AttractionModel', AttractionSchema);
 
     }
 
-    function findPlaceByText(searchTerm) {
-        // model=models;
-        // UserSchema = require('./user.schema.server')(models);
-        var API_KEY="6ddc0c1237b6993533a2bb974dac23e6";
 
-
-        var urlBase = "https://api.tripexpert.com/v1/destinations?api_key=API_KEY";
-
-        console.log("serach term in service",searchTerm)
-        var results = urlBase.replace("API_KEY", API_KEY);
-        var response= $http.get(results);
-        console.log(response)
-
-    }
 };
 

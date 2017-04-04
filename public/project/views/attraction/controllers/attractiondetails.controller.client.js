@@ -7,20 +7,42 @@
         .module("Travelogue")
         .controller("attractiondetailsController", attractiondetailsController);
 
-    function attractiondetailsController($location,entryService, placeService,$routeParams) {
+    function attractiondetailsController($location,entryService, attractionService,$routeParams) {
         var vm = this;
         // vm.login = login;
         vm.attractionId=$routeParams['aid']
         vm.userId=$routeParams['uid']
         vm.entries;
         vm.entry;
+        vm.attraction;
+        vm.favorite=favorite;
+        vm.findEntryByEntryId=findEntryByEntryId;
+
+        function favorite(status) {
+            console.log(status)
+
+            attractionService
+                .favorite(vm.userId,vm.attractionId,status,vm.attraction)
+                .success(function (success) {
+                    // $location.url("/user/" + newuser._id);
+                    console.log(success);
+                    alert("Added to Favorites!")
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                    alert("Unable to add to Favorites!")
+
+                    //console.log("error");
+                })
+        }
 
     function init() {
-        var newplace = placeService
+        var newplace = attractionService
             .findAttraction(vm.attractionId)
             .success(function (newuser) {
                 // $location.url("/user/" + newuser._id);
                 console.log(newuser);
+                vm.attraction=newuser;
                 vm.name=newuser.response.venues[0].name;
                 vm.reviews=newuser.response.venues[0].reviews;
                 vm.opening_hours=newuser.response.venues[0].opening_hours;

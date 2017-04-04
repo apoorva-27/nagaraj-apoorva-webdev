@@ -16,6 +16,8 @@
 
 <h1>place details view</h1>
 
+
+
 <div class="panel panel-default">
     <div class="row">
         <div class="col-xs-8">
@@ -32,9 +34,17 @@
                 {{model.website}}</div>
 
         </div>
+<div>
+        <a ng-click="model.favorite('like')" ><span class="glyphicon glyphicon-star"></span></a>
+
+</div>
+
         <div class="col-xs-4 hidden-xs">
             <img class ="pull-right" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
+
         </div>
+
+
     </div>
     <div class="panel-header"> Reviews </div>
     <div class="panel panel-default" ng-repeat="review in model.reviews">
