@@ -20,6 +20,9 @@
 <a class="btn btn-primary btn-block"
    href="#/user/{{model.userId}}/attraction">Search For Places</a>
 
+<a class="btn btn-block btn-danger"
+   ng-click="model.deleteUser(model.userId)">Unregister</a>
+
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">
         <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">

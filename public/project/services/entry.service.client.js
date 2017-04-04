@@ -14,13 +14,19 @@
             "createEntry":createEntry,
             "findEntriesByAttraction":findEntriesByAttraction,
             "findEntryByEntryId":findEntryByEntryId,
-            "updateEntry":updateEntry
+            "updateEntry":updateEntry,
+            "deleteEntry":deleteEntry
 
         };
         return api;
 
-        function updateEntry(userId,attractionId,entry) {
-            return $http.put("/api/user/"+userId+"/attraction/"+attractionId+"/entry",entry)
+        function deleteEntry(userId,attractionId,entryId){
+            return $http.delete("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId);
+        }
+
+        function updateEntry(userId,attractionId,entryId,entry) {
+            console.log("update entry in entry service client")
+            return $http.put("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId,entry);
         }
 
         function findEntryByEntryId(userId,attractionId,entryId) {

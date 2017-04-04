@@ -19,5 +19,18 @@ module.exports = function (model) {
 
     }, {collection: 'users'});
 
+    UserSchema.post("remove", function(user) {
+        var EntryModel = require("../entry/entry.model.server");
+
+        EntryModel.find({entryId: {$in: user.entries}},function(err, entries) {
+            if(err == null) {
+                // widgetModel.remove({_page: {$in: pages}}).exec();
+                EntryModel.remove({_id: {$in: user.entries}}).exec();
+            }
+        });
+
+        EntryModel.remove({_id: {$in: user.entries}}).exec();
+
+    })
     return UserSchema;
 };

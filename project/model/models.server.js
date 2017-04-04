@@ -11,7 +11,7 @@ module.exports = function () {/*
     UserModel.create({username:'bob',password:'bob',firstname:'Bob', lastname:'Marley'});
 */
     var UserModel       = require("./user/user.model.server")();
-    var EntryModel    = require("./entry/entry.model.server.js")();
+    var EntryModel    = require("./entry/entry.model.server")();
 
 
     var model = {

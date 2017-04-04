@@ -6,9 +6,29 @@ module.exports = function (app,EntryModel) {
     app.post("/api/user/:uid/attraction/:aid/entry", createEntry);
     app.get("/api/user/:uid/attraction/:aid",findEntriesByAttraction);
     app.get("/api/user/:uid/attraction/:aid/entry/:eid",findEntryByEntryId);
-    app.put("/api/user/:uid/attraction/:aid/entry/:eid",updateEntry)
+    app.put("/api/user/:uid/attraction/:aid/entry/:eid",updateEntry);
+    app.delete("/api/user/:uid/attraction/:aid/entry/:eid",deleteEntry)
 
-    function updateEntry(userId,attractionId, entry) {
+    function deleteEntry(req,res) {
+        var userId=req.params.uid;
+        var attractionId=req.params.aid;
+        var entryId=req.params.eid;
+        EntryModel
+            .deleteEntry(entryId)
+            .then (function (entry) {
+                    console.log("entry delete at server service"+entry)
+                    res.json(entry);
+                },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                });
+    }
+
+    function updateEntry(req,res) {
+
+        console.log("update entry in entry service server object :",entry)
+
+
         var userId=req.params.uid;
         var attractionId=req.params.aid;
         var entryId=req.params.eid;

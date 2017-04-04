@@ -17,6 +17,7 @@
         vm.detailsPage=detailsPage;
         vm.createEntry=createEntry;
         vm.updateEntry=updateEntry;
+        vm.deleteEntry=deleteEntry;
         vm.entryId=$routeParams['eid']
         var idfound;
 
@@ -25,9 +26,26 @@
             $location.url("/attractiondetails/"+cityId);
         }
 
+        function deleteEntry() {
+            var answer = confirm("Are you sure?");
+            console.log(answer);
+            if(answer) {
+                entryService
+                    .deleteEntry(vm.userId,vm.attractionId,vm.entryId)
+                    .success(function () {
+                        console.log("entry deleted successfully")
+                        $location.url("/login");
+                    })
+                    .error(function () {
+                        vm.error = 'unable to remove entry';
+                    });
+            }
+        }
+
         function updateEntry(entry) {
+            console.log("update entry in controller :",entry)
             entryService
-                .updateEntry(vm.userId,vm.attractionId,entry)
+                .updateEntry(vm.userId,vm.attractionId,vm.entryId,entry)
                 .success(function (entry) {
                     // $location.url("/user/" + newuser._id);
                     console.log(entry);
@@ -40,7 +58,7 @@
 
         function init() {
 
-            if  (vm.entryId.length>0) {
+            if  (vm.entryId!=undefined) {
 
                 entryService
                     .findEntryByEntryId(vm.userId,vm.attractionId,vm.entryId)

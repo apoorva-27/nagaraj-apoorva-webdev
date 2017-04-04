@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid bg-primary ">
         <div class="navbar-text pull-right ">
-            <a ng-click="model.updateEntry(entry)" class="navbar-link ">
+            <a ng-click="model.updateEntry(model.entry)" class="navbar-link ">
                 <span class="glyphicon glyphicon-ok make-white"></span>
             </a>
         </div>
@@ -12,7 +12,8 @@
         </div>
     </div>
 </nav>
-{{model.entry.date}}
+<div>
+    <form>
 <lablel>Title</lablel>
 
 <input type="String"
@@ -24,9 +25,12 @@
 <input type="date"
 
        ng-model="model.entry.date"/>
-
+        <a ng-click="model.deleteEntry(model.entry)" >
+            <span class="glyphicon glyphicon-remove pull-right"></span></a>
+    </form>
+</div>
 <a class="btn btn-primary btn-block"
-   ng-click="model.createEntry(entry)">Create Entry</a>
+   ng-click="model.createEntry(model.entry)">Create Entry</a>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid bg-primary">

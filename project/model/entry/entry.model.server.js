@@ -11,6 +11,7 @@ module.exports = function () {
     var mongoose = require("mongoose");
     var EntrySchema;
     var EntryModel;
+    var UserModel=require("../user/user.model.server.js");
 
     var api = {
         createEntry: createEntry,
@@ -18,12 +19,26 @@ module.exports = function () {
         findEntriesByAttraction:findEntriesByAttraction,
         findEntryByEntryId:findEntryByEntryId,
         updateEntry:updateEntry,
+        deleteEntry:deleteEntry
 
     };
 
     return api;
 
+    function deleteEntry(entryId) {
+        return EntryModel.findByIdAndRemove(entryId, function (err, entry) {
+            if (entry != null)
+            {
+                entry.remove();
+            }
+        });
+
+    }
+
     function updateEntry(entryId,entry) {
+
+        console.log("update entry in entry model server,entry : ",entry)
+
         var deffered = q.defer();
         EntryModel
             .update(
@@ -73,17 +88,18 @@ module.exports = function () {
     }
 
     function createEntry(entry) {
-        console.log("entry model create server")
-
-            var deffered = q.defer();
+          var deffered = q.defer();
             EntryModel.create(entry,function (err,en) {
                 if(err){
-                    console.log("entry model create error"+err);
                     deffered.reject(err);
                 }
                 else{
-                    console.log("entry model create success"+en);
-
+                    model.UserModel
+                        .findUserById(en.userId)
+                        .then(function(user) {
+                            user.entries.push(en._id);
+                            user.save();
+                        })
                     deffered.resolve(en);
                 }
             });

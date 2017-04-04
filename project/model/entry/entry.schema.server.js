@@ -15,5 +15,19 @@ module.exports = function (model) {
         userId: String
     }, {collection: 'entries'});
 
+    EntrySchema.post("remove", function (entry) {
+        var UserModel = require("../user/user.model.server");
+        // var widgetModel = require("../widget/widget.model.server");
+
+        model.UserModel
+            .findUserById(entry.userId)
+            .then(function (user) {
+                var entry_index = user.entries.indexOf(entry._id);
+                user.entries.splice(entry_index, 1);
+                user.save();
+            });
+
+        // widgetModel.remove({_id: {$in: page.widgets}}).exec();
+    })
     return EntrySchema;
 }
