@@ -20,42 +20,41 @@
     <div class="row">
         <div class="col-xs-8">
             <div class="panel panel-default panel-body">
-                {{model.name}}</div>
+                {{model.name}}
+            </div>
             <div class="panel panel-default panel-body">
 
-            {{model.opening_hours}}</div>
-                <div class="panel panel-default panel-body">
-                {{model.address}}</div>
-                    <div class="panel panel-default panel-body">
-                {{model.tripexpert_score}}</div>
-                        <div class="panel panel-default panel-body">
+            {{model.opening_hours}}
+            </div>
+            <div class="panel panel-default panel-body">
+                {{model.address}}
+            </div>
+            <div class="panel panel-default panel-body">
+                {{model.tripexpert_score}}
+            </div>
+            <div class="panel panel-default panel-body">
                 {{model.website}}</div>
 
         </div>
-<div>
+    <div>
         <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change') " >
-
             <div ng-switch="model.favorited">
-                        <span>
-                        <div ng-switch-when="true">
-                                <span class="glyphicon glyphicon-star "></span>
-
-                        </div>
-                        </span>
                 <span>
-                        <div ng-switch-when="false">
+                    <div ng-switch-when="true">
+                        <span class="glyphicon glyphicon-star "></span>
 
-                                <span class="glyphicon glyphicon-star-empty "></span>
-
-                        </div>
-                        </span>
-
+                    </div>
+                </span>
+                <span>
+                    <div ng-switch-when="false">
+                        <span class="glyphicon glyphicon-star-empty "></span>
+                    </div>
+                </span>
             </div>
         </a>
-</div>
+    </div>
         <div class="col-xs-4 hidden-xs">
             <img class ="pull-right" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
-
         </div>
     </div>
     <div class="panel-header"> Reviews </div>
@@ -81,14 +80,14 @@
             <div ng-switch="entry.follow">
                         <span>
                         <div ng-switch-when='UNFOLLOW'>
-                                <button ng-click="model.changeFollow(entry.userId)"
+                                <button ng-click="model.changeFollow(entry.userId,entry)"
                                         class="btn btn-danger pull-right">Unfollow Author</button>
 
                         </div>
                         </span>
                         <span>
                         <div ng-switch-when='FOLLOW'>
-                            <button ng-click="model.changeFollow(entry.userId)"
+                        <button ng-click="model.changeFollow(entry.userId,entry)"
                                 class="btn btn-success pull-right">Follow Author</button>
 
                         </div>
@@ -101,22 +100,14 @@
 
                         </div>
                         </span>
-
             </div>
-
-
-            <!--<button ng-click="model.changeFollow(entry.userId)" class="btn btn-success pull-right">Follow Author</button>-->
-
-
-
             <Label> Written By</Label> {{entry.userId}}
-
-
-
-</div>
+        </div>
+    </div>
 
 <a class="btn btn-primary btn-block"
    href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry">New Entry</a>
+
 
 <nav class="navbar navbar-light navbar-fixed-bottom">
     <div class="container-fluid bg-info">

@@ -6,8 +6,6 @@
 
 module.exports = function () {
 
-    // console.log('user.model.server.js');
-
     var q = require('q');
     var model = null;
     var mongoose = require("mongoose");
@@ -48,16 +46,12 @@ module.exports = function () {
 
         UserModel.find({_id:userFollowing},function (err,en) {
             if (en[0]==undefined) {
-                // console.log("user doesnt exist, impossible error")
-                   deffered.reject(err);
+                deffered.reject(err);
             }
             else {
-                // console.log("the user following exists")
                 var i = en[0].following.indexOf(userToFollow);
                 if (i<0)
                 {
-                    // console.log("user.follower doesnt exists,impossible error")
-
                     UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
@@ -69,17 +63,16 @@ module.exports = function () {
                                 en[0].save();
                                 person[0].followers.push(userFollowing)
                                 person[0].save();
+                                deffered.resolve(en[0]);
                             }
                             else {
-                                console.log("User is already a follower")
+                                console.log("User is already a follower");
+                                deffered.reject(err);
                             }
                         }
-
                     })
                 }
                 else {
-                    // console.log("user follower existed, in which case remove from folloer list")
-
                     UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
@@ -94,11 +87,10 @@ module.exports = function () {
                                 en[0].save();
                                 person[0].followers.splice(j,1)
                                 person[0].save();
-                                // console.log("tried to delete from both")
+                                deffered.resolve(en[0]);
                             }
                         }
-                    })
-                    deffered.resolve(en[0]);
+                    });
                 }
             }
         });
@@ -122,7 +114,6 @@ module.exports = function () {
                 user.remove();
             }
         });
-
     }
 
     function updateUser(userId,new_user) {

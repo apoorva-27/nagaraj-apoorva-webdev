@@ -20,25 +20,25 @@
         vm.findFavoritesByUserId=findFavoritesByUserId;
         vm.changeFollow=changeFollow;
 
-        function changeFollow(userId) {
-            console.log("change follow in controller")
+        function changeFollow(userId,entry) {
+            console.log("change follow in controller",userId)
             userService
                 .changeFollow(vm.userId,userId)
                 .success(function (success) {
-                    console.log(success);
-                    if (success.follow=='FOLLOW') {
-                        success.follow='UNFOLLOW';
-                        console.log("Follow changed!")
+                    if(entry.follow == 'FOLLOW'){
+                        entry.follow='UNFOLLOW'
                     }
                     else {
-                        success.follow='FOLLOW'
-                        console.log("Follow changed!")
+                        entry.follow='FOLLOW'
                     }
+                    console.log("In success", success)
+
                 })
                 .error(function (err) {
+                    entry.follow = 'UNFOLLOW';
                     // vm.favorited=false;
                     // vm.error = 'Unable to register';
-                    alert("Unable to change Follow!")
+                    console.log("Unable to change Follow!",err)
                 })
         }
 
