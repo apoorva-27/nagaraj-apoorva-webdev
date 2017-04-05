@@ -28,7 +28,7 @@ module.exports = function () {
         }
         console.log("newattraction object",attractionId)
         AttractionModel.find({attractionId:attractionId},function (err,en) {
-            if (err) {
+            if (err==null&&en!=null) {
                 console.log("enter if part")
                 AttractionModel
                     .create(newattraction)
@@ -39,9 +39,9 @@ module.exports = function () {
             }
             else {
                 console.log("error else part,push :",en)
-                en.favorited.push(userId);
-                en.save();
-                deffered.resolve(en);
+                en[0].favorited.push(userId);
+                en[0].save();
+                deffered.resolve(en[0]);
         }
         });
         console.log("the end")
