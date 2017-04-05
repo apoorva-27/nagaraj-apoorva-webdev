@@ -14,8 +14,10 @@ module.exports = function (app,UserModel) {
 
     function changeFollow(req,res) {
         console.log("change follow in service server")
-        var userFollowing=req.query.uid;
-        var userToFollow=req.body;
+        var userFollowing=req.params.userId;
+        var userToFollow=req.body.usertofollow;
+        console.log("userToFollow :",userToFollow)
+        console.log("userfollowing :",userFollowing)
         UserModel
             .changeFollow(userFollowing,userToFollow)
             .then(function (user) {

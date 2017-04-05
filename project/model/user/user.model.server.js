@@ -31,24 +31,27 @@ module.exports = function () {
     function changeFollow(userFollowing,userToFollow) {
         var deffered = q.defer();
 
-        UserModel.findUserById(userFollowing,function (err,en) {
+        UserModel.find({_id:userFollowing},function (err,en) {
             if (en[0]==undefined) {
+                console.log("user doesnt exist, impossible error")
                    deffered.reject(err);
             }
             else {
+                console.log("the user following exists")
                 var i = en[0].following.indexOf(userToFollow);
                 if (i<0)
                 {
+                    console.log("user.follower doesnt exists,impossible error")
                     en[0].following.push(userToFollow);
                     en[0].save();
-                    UserModel.findUserById(userToFollow,function (err,person) {
+                    UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
                         }
                         else {
                             var j = person[0].followers.indexOf(userFollowing);
                             if (j < 0) {
-                                person[0].followers.push(UserFollowing)
+                                person[0].followers.push(userFollowing)
                                 person[0].save();
                             }
                             else {
@@ -59,9 +62,10 @@ module.exports = function () {
                     })
                 }
                 else {
+                    console.log("user follower existed, in which case remove from folloer list")
                     en[0].following.splice(i, 1);
                     en[0].save();
-                    UserModel.findUserById(userToFollow,function (err,person) {
+                    UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
                         }

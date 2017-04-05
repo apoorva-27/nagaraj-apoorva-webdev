@@ -20,10 +20,13 @@
         return api;
 
         function changeFollow(userFollowingOther,UserToFollow) {
-            console.log("change follow in service client")
-            console.log("userFollowing",userFollowingOther)
-            console.log("user to follow",UserToFollow)
-            return $http.post("/api/user/follow/"+userFollowingOther,UserToFollow);
+            console.log("change follow in service client");
+            console.log("userFollowing",userFollowingOther);
+            console.log("user to follow",UserToFollow);
+            var userToFollow={
+                usertofollow:UserToFollow
+            }
+            return $http.put("/api/user/follow/"+userFollowingOther,userToFollow);
         }
 
         function createUser(user) {
