@@ -42,8 +42,7 @@ module.exports = function () {
                 if (i<0)
                 {
                     console.log("user.follower doesnt exists,impossible error")
-                    en[0].following.push(userToFollow);
-                    en[0].save();
+
                     UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
@@ -51,6 +50,8 @@ module.exports = function () {
                         else {
                             var j = person[0].followers.indexOf(userFollowing);
                             if (j < 0) {
+                                en[0].following.push(userToFollow);
+                                en[0].save();
                                 person[0].followers.push(userFollowing)
                                 person[0].save();
                             }
@@ -63,8 +64,7 @@ module.exports = function () {
                 }
                 else {
                     console.log("user follower existed, in which case remove from folloer list")
-                    en[0].following.splice(i, 1);
-                    en[0].save();
+
                     UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
@@ -72,11 +72,14 @@ module.exports = function () {
                         else {
                             var j = person[0].followers.indexOf(userFollowing);
                             if (j < 0) {
-                                person[0].followers.splice(j,1)
-                                person[0].save();
+                                console.log("error")
                             }
                             else {
-                                console.log("error")
+                                en[0].following.splice(i, 1);
+                                en[0].save();
+                                person[0].followers.splice(j,1)
+                                person[0].save();
+                                console.log("tried to delete from both")
                             }
                         }
                     })
