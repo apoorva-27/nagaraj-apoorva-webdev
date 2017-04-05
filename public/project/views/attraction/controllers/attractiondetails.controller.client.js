@@ -26,12 +26,12 @@
                 .changeFollow(vm.userId,userId)
                 .success(function (success) {
                     console.log(success);
-                    if (vm.favorited==true) {
-                        vm.favorited = false;
+                    if (success.follow=='FOLLOW') {
+                        success.follow='UNFOLLOW';
                         console.log("Follow changed!")
                     }
                     else {
-                        vm.favorited=true
+                        success.follow='FOLLOW'
                         console.log("Follow changed!")
                     }
                 })
@@ -86,11 +86,41 @@
         var entries = entryService
             .findEntriesByAttraction(vm.userId,vm.attractionId)
             .success(function (entries) {
+
+                var i;
+                for (i=0;i<entries.length;i++){
+                    entries[i].follow='FOLLOW'
+                    console.log("vm.entries i",entries[i])
+                    if (entries[i].userId==vm.userId){
+                        entries[i].follow='NONE'
+                    }
+                    else {
+                        userService
+                            .findFollowing(vm.userId)
+                            .success(function (following) {
+                                console.log("following",following)
+                                var j;
+                                for (j=0;j<following.length;j++) {
+                                    console.log(entries[i])
+                                    if (entries[i].userId==following[j]) {
+                                        console.log("checking if followed")
+                                        entries[i].follow = 'UNFOLLOW';
+                                        continue;
+                                    }
+                                    console.log("else un followed")
+                                }
+                            })
+                            .error (function (err){
+                                console.log("err :",err)
+                            })
+                    }
+                }
                 vm.entries=entries;
             })
             .error (function (err) {
                 vm.error="error";
             })
+
         findFavoritesByUserId();
     }
     init();

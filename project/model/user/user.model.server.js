@@ -23,25 +23,40 @@ module.exports = function () {
         setModel:setModel,
         getModel:getModel,
         deleteUser:deleteUser,
-        changeFollow:changeFollow
+        changeFollow:changeFollow,
+        findFollowing:findFollowing
     };
 
     return api;
+
+    function findFollowing(userId) {
+        var deffered = q.defer();
+        UserModel
+            .find({_id:userId},function(err,user) {
+            if(user[0]==undefined) {
+                deffered.reject(err)
+            }
+            else {
+                deffered.resolve(user[0].following)
+            }
+            })
+        return deffered.promise;
+    }
 
     function changeFollow(userFollowing,userToFollow) {
         var deffered = q.defer();
 
         UserModel.find({_id:userFollowing},function (err,en) {
             if (en[0]==undefined) {
-                console.log("user doesnt exist, impossible error")
+                // console.log("user doesnt exist, impossible error")
                    deffered.reject(err);
             }
             else {
-                console.log("the user following exists")
+                // console.log("the user following exists")
                 var i = en[0].following.indexOf(userToFollow);
                 if (i<0)
                 {
-                    console.log("user.follower doesnt exists,impossible error")
+                    // console.log("user.follower doesnt exists,impossible error")
 
                     UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
@@ -63,7 +78,7 @@ module.exports = function () {
                     })
                 }
                 else {
-                    console.log("user follower existed, in which case remove from folloer list")
+                    // console.log("user follower existed, in which case remove from folloer list")
 
                     UserModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
@@ -79,7 +94,7 @@ module.exports = function () {
                                 en[0].save();
                                 person[0].followers.splice(j,1)
                                 person[0].save();
-                                console.log("tried to delete from both")
+                                // console.log("tried to delete from both")
                             }
                         }
                     })

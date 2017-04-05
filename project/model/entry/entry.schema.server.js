@@ -11,6 +11,7 @@ module.exports = function (model) {
         attractionId: String,
         date:Date,
         title:String,
+        follow:String,
         // entries : diary entries
         userId: String
     }, {collection: 'entries'});

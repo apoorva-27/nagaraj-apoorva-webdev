@@ -77,13 +77,41 @@
 
         </div>
         <div class="panel-body" >
-            <button ng-click="model.changeFollow(entry.userId)" class="btn btn-success pull-right">Follow Author</button>
+
+            <div ng-switch="entry.follow">
+                        <span>
+                        <div ng-switch-when='UNFOLLOW'>
+                                <button ng-click="model.changeFollow(entry.userId)"
+                                        class="btn btn-danger pull-right">Unfollow Author</button>
+
+                        </div>
+                        </span>
+                        <span>
+                        <div ng-switch-when='FOLLOW'>
+                            <button ng-click="model.changeFollow(entry.userId)"
+                                class="btn btn-success pull-right">Follow Author</button>
+
+                        </div>
+                        </span>
+                        <span>
+                        <div ng-switch-when="NONE">
+
+        <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry/{{entry._id}}">
+            <span class="glyphicon glyphicon-cog pull-right"> </span></a>
+
+                        </div>
+                        </span>
+
+            </div>
+
+
+            <!--<button ng-click="model.changeFollow(entry.userId)" class="btn btn-success pull-right">Follow Author</button>-->
+
+
 
             <Label> Written By</Label> {{entry.userId}}
 
-        </div>
-        <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry/{{entry._id}}"> <span class="glyphicon glyphicon-cog"> </span></a>
-    </div>
+
 
 </div>
 

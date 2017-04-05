@@ -11,13 +11,27 @@ module.exports = function (app,UserModel) {
     app.post("/api/user",createUser);
     app.delete("/api/user/:userId",deleteUser);
     app.put("/api/user/follow/:userId",changeFollow)
+    app.get("/api/user/follow/:userId",findFollowing)
+
+    function findFollowing(req,res) {
+        userId=req.params.userId
+        UserModel
+            .findFollowing(userId)
+            .then (function (array){
+                console.log(array)
+                res.json(array)
+                },
+            function(err){
+                res.sendStatus(400).send(err)
+            })
+    }
 
     function changeFollow(req,res) {
-        console.log("change follow in service server")
+        // console.log("change follow in service server")
         var userFollowing=req.params.userId;
         var userToFollow=req.body.usertofollow;
-        console.log("userToFollow :",userToFollow)
-        console.log("userfollowing :",userFollowing)
+        // console.log("userToFollow :",userToFollow)
+        // console.log("usuerfollowing :",userFollowing)
         UserModel
             .changeFollow(userFollowing,userToFollow)
             .then(function (user) {
