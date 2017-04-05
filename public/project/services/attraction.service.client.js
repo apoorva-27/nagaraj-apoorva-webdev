@@ -13,15 +13,18 @@
             "findPlaceByText": findPlaceByText,
             "findAttractionsInCity":findAttractionsInCity,
             "findAttraction":findAttraction,
-            "favorite":favorite
+            "favorite":favorite,
+            "findFavoritesByUserId":findFavoritesByUserId
 
         };
         return api;
 
+        function findFavoritesByUserId(userId,attractionId) {
+            return $http.get("/api/user/"+userId+"/attraction/"+attractionId+"/status")
+        }
+
         function favorite(userId,attractionId,status,attraction) {
-
             return $http.post("/api/user/"+userId+"/attraction/"+attractionId+"/status/"+status,attraction)
-
         }
 
         function findAttraction(attractionId) {

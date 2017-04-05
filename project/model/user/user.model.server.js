@@ -22,16 +22,71 @@ module.exports = function () {
         updateUser:updateUser,
         setModel:setModel,
         getModel:getModel,
-        deleteUser:deleteUser
+        deleteUser:deleteUser,
+        changeFollow:changeFollow
     };
 
     return api;
+
+    function changeFollow(userFollowing,userToFollow) {
+        var deffered = q.defer();
+
+        UserModel.findUserById(userFollowing,function (err,en) {
+            if (en[0]==undefined) {
+                   deffered.reject(err);
+            }
+            else {
+                var i = en[0].following.indexOf(userToFollow);
+                if (i<0)
+                {
+                    en[0].following.push(userToFollow);
+                    en[0].save();
+                    UserModel.findUserById(userToFollow,function (err,person) {
+                        if (person[0]==undefined) {
+                            deffered.reject(err);
+                        }
+                        else {
+                            var j = person[0].followers.indexOf(userFollowing);
+                            if (j < 0) {
+                                person[0].followers.push(UserFollowing)
+                                person[0].save();
+                            }
+                            else {
+                                console.log("User is already a follower")
+                            }
+                        }
+
+                    })
+                }
+                else {
+                    en[0].following.splice(i, 1);
+                    en[0].save();
+                    UserModel.findUserById(userToFollow,function (err,person) {
+                        if (person[0]==undefined) {
+                            deffered.reject(err);
+                        }
+                        else {
+                            var j = person[0].followers.indexOf(userFollowing);
+                            if (j < 0) {
+                                person[0].followers.splice(j,1)
+                                person[0].save();
+                            }
+                            else {
+                                console.log("error")
+                            }
+                        }
+                    })
+                    deffered.resolve(en[0]);
+                }
+            }
+        });
+        return deffered.promise;
+    }
 
     function setModel(models) {
         model=models;
         UserSchema = require('./user.schema.server')(models);
         UserModel = mongoose.model('UserModel', UserSchema);
-
     }
 
     function getModel() {
@@ -49,18 +104,14 @@ module.exports = function () {
     }
 
     function updateUser(userId,new_user) {
-        // console.log("update user  in user model server.js"+new_user.firstname,userId);
         var deffered = q.defer();
         UserModel
             .update(
                 {_id: userId},{$set : new_user},function(err,usr) {
                 if(err){
-                    // console.log("hello   "+err);
                     deffered.reject(err);
                 }
                 else{
-                    // console.log("user :" + usr);
-                    // deffered.resolve(usr);
                     return usr
                 }
             });
@@ -68,20 +119,14 @@ module.exports = function () {
     }
 
     function findUserById(userId) {
-        // console.log("finduser by ID in user model : "+userId)
-        // console.log(UserModel.findById(userId))
-        // return UserModel.findById(userId);
 
-        // console.log("find by id model.server id"+userId)
         var deffered = q.defer();
         UserModel.findById(userId ,function (err,usr) {
             if(err){
-                // console.log("hello   "+err);
-                deffered.reject(err);
+                 deffered.reject(err);
             }
             else{
-                // console.log("user : " + usr);
-                // console.log("printing err also :" + err);
+
                 deffered.resolve(usr);
             }
         });
@@ -89,15 +134,12 @@ module.exports = function () {
     }
 
     function findUserByUsername(username) {
-        // console.log("find by username model.server ")
         var deffered = q.defer();
         UserModel.find({username:username} ,function (err,usr) {
             if(err){
-                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                // console.log("user " + usr);
                 deffered.resolve(usr);
             }
         });
@@ -105,15 +147,12 @@ module.exports = function () {
     }
 
     function findUserByCredentials(username,password) {
-        // console.log("find by cred model.server")
         var deffered = q.defer();
         UserModel.find({username:username,password:password} ,function (err,usr) {
             if(err){
-                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                // console.log("user " + usr);
                 deffered.resolve(usr);
             }
         });
@@ -123,11 +162,11 @@ module.exports = function () {
         var deffered = q.defer();
         UserModel.create(user,function (err,usr) {
             if(err){
-                // console.log("hello   "+err);
+                console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                // console.log("user " + usr);
+                console.log("user " + usr);
                 deffered.resolve(usr);
             }
         });

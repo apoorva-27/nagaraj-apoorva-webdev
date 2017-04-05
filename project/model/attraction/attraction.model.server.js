@@ -4,8 +4,6 @@
 
 module.exports = function () {
 
-    // console.log('user.model.server.js');
-
     var q = require('q');
     var model = null;
     var mongoose = require("mongoose");
@@ -16,9 +14,33 @@ module.exports = function () {
 
         setModel:setModel,
         getModel:getModel,
-        favorite:favorite
+        favorite:favorite,
+        findFavoritesByUserId:findFavoritesByUserId
     };
     return api;
+
+    function findFavoritesByUserId(userId,attractionId){
+        var deffered = q.defer();
+        AttractionModel.find({attractionId:attractionId},function (err,en) {
+            if (en[0]==undefined) {
+                console.log("case 1")
+                deffered.reject();
+            }
+            else {
+                var i = en[0].favorited.indexOf(userId);
+                if (i<0)
+                {
+                    console.log("case 2")
+                    deffered.reject()
+                }
+                else {
+                    console.log("case 3 :",en[0])
+                    deffered.resolve(en[0]);
+                }
+            }
+            })
+        return deffered.promise;
+    }
 
     function favorite(userId,attractionId,status,attraction){
         var deffered = q.defer();
@@ -26,25 +48,29 @@ module.exports = function () {
             attractionId: attractionId,
             favorited: [userId]
         }
-        // console.log("newattraction object",attractionId)
         AttractionModel.find({attractionId:attractionId},function (err,en) {
             if (en[0]==undefined) {
-                // console.log("enter if part")
                 AttractionModel
                     .create(newattraction)
                     .then(function (succ) {
-                        console.log("sucess :",succ)
                         deffered.resolve(succ);
                     })
             }
             else {
-                console.log("error else part,push :",en)
-                en[0].favorited.push(userId);
+                var i = en[0].favorited.indexOf(userId);
+                if (i<0)
+                {
+                    en[0].favorited.push(userId);
+                    en[0].save();
+                    deffered.resolve(en[0]);
+                }
+                else {
+                en[0].favorited.splice(i, 1);
                 en[0].save();
                 deffered.resolve(en[0]);
+                }
         }
         });
-        console.log("the end")
         return deffered.promise;
     }
 
@@ -56,9 +82,6 @@ module.exports = function () {
         model=models;
         AttractionSchema = require('./attraction.schema.server.js')(models);
         AttractionModel = mongoose.model('AttractionModel', AttractionSchema);
-
     }
-
-
 };
 

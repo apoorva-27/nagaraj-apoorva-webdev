@@ -16,8 +16,6 @@
 
 <h1>place details view</h1>
 
-
-
 <div class="panel panel-default">
     <div class="row">
         <div class="col-xs-8">
@@ -35,16 +33,30 @@
 
         </div>
 <div>
-        <a ng-click="model.favorite('like')" ><span class="glyphicon glyphicon-star"></span></a>
+        <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change') " >
 
+            <div ng-switch="model.favorited">
+                        <span>
+                        <div ng-switch-when="true">
+                                <span class="glyphicon glyphicon-star "></span>
+
+                        </div>
+                        </span>
+                <span>
+                        <div ng-switch-when="false">
+
+                                <span class="glyphicon glyphicon-star-empty "></span>
+
+                        </div>
+                        </span>
+
+            </div>
+        </a>
 </div>
-
         <div class="col-xs-4 hidden-xs">
             <img class ="pull-right" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
 
         </div>
-
-
     </div>
     <div class="panel-header"> Reviews </div>
     <div class="panel panel-default" ng-repeat="review in model.reviews">
@@ -57,7 +69,17 @@
     <div class="panel-header"> Entries </div>
     <div class="panel panel-default" ng-repeat="entry in model.entries">
         <div class="panel-body" >
-            {{entry}}
+           <Label> Title</Label> {{entry.title}}
+
+        </div>
+        <div class="panel-body" >
+            <Label> Story</Label> {{entry.story}}
+
+        </div>
+        <div class="panel-body" >
+            <button ng-click="model.changeFollow(entry.userId)" class="btn btn-success pull-right">Follow Author</button>
+
+            <Label> Written By</Label> {{entry.userId}}
 
         </div>
         <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry/{{entry._id}}"> <span class="glyphicon glyphicon-cog"> </span></a>
@@ -67,10 +89,6 @@
 
 <a class="btn btn-primary btn-block"
    href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry">New Entry</a>
-
-
-<!--<textarea ng-model="model.name"></textarea>-->
-<!--<textarea ng-model="model.reviews"></textarea>-->
 
 <nav class="navbar navbar-light navbar-fixed-bottom">
     <div class="container-fluid bg-info">

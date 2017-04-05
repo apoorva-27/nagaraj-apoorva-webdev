@@ -16,8 +16,9 @@ module.exports = function (model) {
         //_id:String,
         entries :  [{type: mongoose.Schema.Types.String, ref:'EntryModel'}],
         dateCreated :  {type: Date, default: Date.now()},
-        // favorites : [{type: mongoose.Schema.Types.String, ref:'AttractionModel'}]
-
+        favorites : [{type: mongoose.Schema.Types.String, ref:'AttractionModel'}],
+        following : [{type:mongoose.Schema.Types.String,ref:'UserModel'}],
+        followers : [{type:mongoose.Schema.Types.String,ref:'UserModel'}]
     }, {collection: 'users'});
 
     UserSchema.post("remove", function(user) {

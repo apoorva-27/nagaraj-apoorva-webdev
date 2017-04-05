@@ -14,16 +14,23 @@
             "updateUser": updateUser,
             "findUserByUsername": findUserByUsername,
              "createUser": createUser,
-             "deleteUser": deleteUser
+             "deleteUser": deleteUser,
+            "changeFollow":changeFollow
         };
         return api;
+
+        function changeFollow(userFollowingOther,UserToFollow) {
+            console.log("change follow in service client")
+            console.log("userFollowing",userFollowingOther)
+            console.log("user to follow",UserToFollow)
+            return $http.post("/api/user/follow/"+userFollowingOther,UserToFollow);
+        }
 
         function createUser(user) {
             var newUser=
                 {
                     username: user.username,
                     password: user.password,
-                    //_id: (new Date()).getTime().toString(),
                     firstname: user.lastname ,
                     lastname: user.firstname ,
                     email: user.email
@@ -32,17 +39,12 @@
         }
 
         function updateUser(userId, user) {
-
             var newUser=
                 {
-                    // username: user.username,
-                    // password: user.password,
-                    //_id: (new Date()).getTime().toString(),
                     firstname: user.firstname ,
                     lastname: user.lastname ,
                     email: user.email
                 }
-
             console.log("in update user client"+newUser);
             return $http.put("/api/user/"+userId,newUser);
         }
@@ -53,14 +55,12 @@
 
         function findUserById(userId) {
             return $http.get("/api/user/"+userId);
-
         }
 
         function findUserByCredentials(username, password) {
-            // console.log($http.get("/api/user?username="+username+"&password="+password))
             return $http.get("/api/user?username="+username+"&password="+password);
-
         }
+
         function findUserByUsername(username) {
             return $http.get("/api/user?username="+username);
         }
