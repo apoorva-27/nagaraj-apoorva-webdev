@@ -7,7 +7,7 @@
         .module("Travelogue")
         .controller("homeController", homeController);
 
-    function homeController($location,placeService,$routeParams) {
+    function homeController($location,attractionService,$routeParams) {
 
         var vm = this;
         vm.searchPlace = searchPlace;
@@ -29,7 +29,7 @@
             console.log("controller : findplacebytext")
             console.log("searchtext ",searchText)
 
-            var promise = placeService
+            var promise = attractionService
                 .findPlaceByText(searchText);
             promise
                 .success(function (usr) {
@@ -47,7 +47,7 @@
                                 idfound=i.id;
                                 console.log("match :",i);
 
-                                var promise2=placeService
+                                var promise2=attractionService
                                     .findAttractionsInCity(i.id)
                                 promise2
                                     .success( function (places) {

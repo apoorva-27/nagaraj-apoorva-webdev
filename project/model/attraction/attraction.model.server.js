@@ -26,10 +26,10 @@ module.exports = function () {
             attractionId: attractionId,
             favorited: [userId]
         }
-        console.log("newattraction object",attractionId)
+        // console.log("newattraction object",attractionId)
         AttractionModel.find({attractionId:attractionId},function (err,en) {
-            if (err==null&&en!=null) {
-                console.log("enter if part")
+            if (en[0]==undefined) {
+                // console.log("enter if part")
                 AttractionModel
                     .create(newattraction)
                     .then(function (succ) {

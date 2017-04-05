@@ -14,15 +14,10 @@ module.exports = function (app,AttractionModel) {
         var status=req.params.sid;
         var attraction=req.body;
 
-        console.log("aid",attractionId)
-        console.log("uid",userId)
-
-        console.log("status",status)
-
         AttractionModel
             .favorite(userId,attractionId,status,attraction)
             .then (function (status) {
-                    console.log("fav updated at server service"+entry)
+
                     res.json(status);
                 },
                 function (err) {

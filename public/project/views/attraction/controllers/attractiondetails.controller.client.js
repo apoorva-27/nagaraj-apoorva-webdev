@@ -32,7 +32,6 @@
                     vm.error = 'Unable to register';
                     alert("Unable to add to Favorites!")
 
-                    //console.log("error");
                 })
         }
 

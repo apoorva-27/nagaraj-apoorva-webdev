@@ -19,12 +19,7 @@
         return api;
 
         function favorite(userId,attractionId,status,attraction) {
-            console.log("fovorite in client service")
 
-            console.log("aid",attractionId)
-            console.log("uid",userId)
-
-            console.log("status",status)
             return $http.post("/api/user/"+userId+"/attraction/"+attractionId+"/status/"+status,attraction)
 
         }
