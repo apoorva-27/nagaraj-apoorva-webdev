@@ -90,21 +90,22 @@
                 var i;
                 for (i=0;i<entries.length;i++){
                     entries[i].follow='FOLLOW'
-                    console.log("vm.entries i",entries[i])
+                    console.log("vm.entries i",entries[i].userId)
                     if (entries[i].userId==vm.userId){
                         entries[i].follow='NONE'
                     }
                     else {
+                        var x=entries[i]
                         userService
                             .findFollowing(vm.userId)
                             .success(function (following) {
                                 console.log("following",following)
                                 var j;
                                 for (j=0;j<following.length;j++) {
-                                    console.log(entries[i])
-                                    if (entries[i].userId==following[j]) {
+                                    console.log("here it fails",x)
+                                    if (x.userId==following[j]) {
                                         console.log("checking if followed")
-                                        entries[i].follow = 'UNFOLLOW';
+                                        x.follow = 'UNFOLLOW';
                                         continue;
                                     }
                                     console.log("else un followed")
