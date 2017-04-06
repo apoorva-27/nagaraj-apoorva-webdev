@@ -74,6 +74,25 @@
                 controller: "diaryentryController",
                 controllerAs: "model"
             })
-
+            .when("/expert", {
+                templateUrl: "views/expert/templates/expertlogin.view.client.html",
+                controller: "expertloginController",
+                controllerAs: "model"
+            })
+            .when("/expertregister", {
+                templateUrl: "views/expert/templates/expertregister.view.client.html",
+                controller: "expertregisterController",
+                controllerAs: "model"
+            })
+            .when("/expert/:uid", {
+                templateUrl: "views/expert/templates/experthome.view.client.html",
+                controller: "experthomeController",
+                controllerAs: "model"
+            })
+            .when("/expert/:uid/suggestion", {
+                templateUrl: "views/suggestion/templates/expertsuggestion.view.client.html",
+                controller: "expertsuggestionController",
+                controllerAs: "model"
+            })
     }
 })();

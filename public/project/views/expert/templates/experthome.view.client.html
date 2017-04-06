@@ -1,0 +1,33 @@
+<nav class="navbar navbar-light navbar-fixed-top ">
+    <div class="container-fluid bg-info">
+        <div class="navbar-text pull-right ">
+            <a ng-click="model.updateExpert(model.user)" class="navbar-link ">
+                <span class="glyphicon glyphicon-ok "></span>
+            </a>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand no-left-margin">
+                Travelogue
+            </a>
+        </div>
+    </div>
+</nav>
+
+<h1> Expert Home with feed</h1>
+
+<a class="btn btn-primary btn-block"
+   href="#/expert/{{model.userId}}/attraction">Search For Places</a>
+
+<a class="btn btn-primary btn-block"
+   href="#/expert/{{model.userId}}/suggestion">Add Suggestion</a>
+
+<a class="btn btn-block btn-danger"
+   ng-click="model.deleteExpert(model.userId)">Unregister</a>
+
+<nav class="navbar navbar-light navbar-fixed-bottom">
+    <div class="container-fluid bg-info">
+        <a href="#/expert/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
+            <span class="glyphicon glyphicon-user make-white "></span>
+        </a>
+    </div>
+</nav>

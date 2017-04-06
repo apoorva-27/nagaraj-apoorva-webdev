@@ -12,6 +12,8 @@ module.exports = function (app) {
     require("./services/user.service.server") (app,models.UserModel);
     require("./services/attraction.service.server.js") (app,models.AttractionModel);
     require("./services/entry.service.server.js") (app,models.EntryModel);
+    require("./services/expert.service.server.js") (app,models.ExpertModel);
+
 
 }
 
