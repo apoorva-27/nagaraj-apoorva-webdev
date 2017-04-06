@@ -10,8 +10,7 @@
     function experthomeController($routeParams,expertService,$location) {
         var vm=this;
         vm.userId=$routeParams['uid'];
-        vm.deleteUser=deleteUser;
-
+        vm.deleteExpert=deleteExpert;
 
         function deleteExpert(user) {
             console.log("delete User userhomecontroller")

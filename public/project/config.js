@@ -90,7 +90,7 @@
                 controllerAs: "model"
             })
             .when("/expert/:uid/suggestion", {
-                templateUrl: "views/suggestion/templates/expertsuggestion.view.client.html",
+                templateUrl: "views/expert/templates/expertsuggestion.view.client.html",
                 controller: "expertsuggestionController",
                 controllerAs: "model"
             })
