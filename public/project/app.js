@@ -4,5 +4,5 @@
 
 (function () {
     angular
-        .module("Travelogue", ["ngRoute","textAngular"]);
+        .module("Travelogue", ["ngRoute","textAngular","ngCookies"]);
 })();

@@ -7,13 +7,24 @@
         .module("Travelogue")
         .controller("homeController", homeController);
 
-    function homeController($location,attractionService,$routeParams) {
+    function homeController($location,attractionService,$routeParams,$cookies) {
 
         var vm = this;
         vm.searchPlace = searchPlace;
         vm.detailsPage=detailsPage;
         vm.userId=$routeParams['uid']
         var idfound;
+
+        function init() {
+            var locationCookie = $cookies.get('location');
+
+            if (locationCookie!=undefined){
+                searchPlace(locationCookie);
+            }
+        }
+
+        init();
+
 
         function detailsPage(attractionId) {
             console.log("details page home controller")
@@ -52,6 +63,8 @@
                                 promise2
                                     .success( function (places) {
                                         if (places) {
+
+                                            $cookies.put('location', searchText.toLowerCase());
                                             console.log("places found")
                                             console.log(places)
                                             vm.attractions=places.response.venues;
@@ -68,5 +81,5 @@
                     }
                 })
 
-    }
-}})();
+        }
+    }})();

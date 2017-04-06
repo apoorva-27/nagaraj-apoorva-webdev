@@ -34,10 +34,12 @@
                     .deleteEntry(vm.userId,vm.attractionId,vm.entryId)
                     .success(function () {
                         console.log("entry deleted successfully")
-                        $location.url("/login");
+                        $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
                     })
                     .error(function () {
                         vm.error = 'unable to remove entry';
+                        $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+
                     });
             }
         }
@@ -48,10 +50,14 @@
                 .updateEntry(vm.userId,vm.attractionId,vm.entryId,entry)
                 .success(function (entry) {
                     // $location.url("/user/" + newuser._id);
+                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+
                     console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
+                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+
                     //console.log("error");
                 })
         }
@@ -66,10 +72,10 @@
                         console.log("success init ",entry)
                         vm.entry=entry[0];
                     })
-                        .error(function (err) {
-                            vm.error="error"
-                        })
-                }
+                    .error(function (err) {
+                        vm.error="error"
+                    })
+            }
 
         }
         init();
@@ -84,11 +90,12 @@
             entryService
                 .createEntry(vm.userId,vm.attractionId,newEntry)
                 .success(function (entry) {
-                    // $location.url("/user/" + newuser._id);
+                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
                     console.log(entry);
                 })
                 .error(function (err) {
-                    vm.error = 'Unable to register';
+                    vm.error = 'Unable to Create Entry';
+                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
                     //console.log("error");
                 })
 

@@ -12,31 +12,44 @@
         </div>
     </div>
 </nav>
-<div>
+<div class="col-md-8">
     <form>
-<lablel>Title</lablel>
+        <div class="title" >
+            <h3><lablel>Title</lablel>
+                <input type="String" ng-model="model.entry.title"/>
+            </h3>
+        </div>
 
-<input type="String"
-       ng-model="model.entry.title"/>
-<label> My Story</label>
-<textarea rows="5"
-          type="String"
-          ng-model="model.entry.story"></textarea>
-<input type="date"
 
-       ng-model="model.entry.date"/>
-        <a ng-click="model.deleteEntry(model.entry)" >
-            <span class="glyphicon glyphicon-remove pull-right"></span></a>
+        <div>
+            <div class="col-md-6" >
+                <h5> Desribe your experience: </h5>
+                <textarea rows="6" style="width: 80%"
+                          type="String"
+                          ng-model="model.entry.story"></textarea>
+            </div>
+            <div col="col-md-6">
+                <h6> Date: <input type="date"
+                                  ng-model="model.entry.date"/></h6>
+            </div>
+        </div>
     </form>
 </div>
-<a class="btn btn-primary btn-block"
-   ng-click="model.createEntry(model.entry)">Create Entry</a>
 
-<nav class="navbar navbar-light navbar-fixed-bottom">
-    <div class="container-fluid bg-info">
-        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
-            <span class="glyphicon glyphicon-user make-white "></span>
-        </a>
+<div class="col-sm-8">
+    <a class="btn btn-primary"
+       ng-click="model.createEntry(model.entry)">Create Entry</a>
+    <button class="btn btn-danger">Delete Entry <a ng-click="model.deleteEntry(model.entry)" >
+        <span class="glyphicon glyphicon-remove"></span></a>
+    </button>
+</div>
 
-    </div>
-</nav>
+<div>
+    <nav class="navbar navbar-light navbar-fixed-bottom">
+        <div class="container-fluid bg-info">
+            <a href="#/user/{{model.userId}}" class="navbar-link navbar-text pull-right ">
+                <span class="glyphicon glyphicon-user make-white "></span>
+            </a>
+        </div>
+    </nav>
+</div>

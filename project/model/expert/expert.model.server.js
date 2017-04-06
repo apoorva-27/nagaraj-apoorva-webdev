@@ -20,9 +20,24 @@ module.exports = function () {
         setModel:setModel,
         getModel:getModel,
         deleteExpert:deleteExpert,
+        createEntry:createEntry
     };
 
     return api;
+
+    function createEntry(userId,suggestion){
+        var deffered = q.defer();
+        ExpertModel
+            .update({_id:userId},{$set : suggestion}, function(err,user) {
+                if(err){
+                    deffered.reject(err);
+                }
+                else{
+                    deffered.resolve(user);
+                }
+            })
+        return deffered.promise;
+    }
 
     function setModel(models) {
         model=models;

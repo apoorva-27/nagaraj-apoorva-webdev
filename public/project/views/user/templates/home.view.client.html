@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light navbar-fixed-top bg-faded">
+<nav class="navbar navbar-light navbar-relative-top bg-faded">
     <div class="container-fluid ">
 
         <div class="navbar-header  center">
@@ -10,37 +10,81 @@
 </nav>
 <div>
 
-<img class ="an-background-image" src="./views/user/img/01.png">
+    <div class="container-fluid" >
+        <div>
+            <img class="an-background-image" src="./views/user/img/01.png">
+        </div>
+        <form>
+            <div class="form-group">
 
-    <a href="#/login">
-        <button class="btn"> Login </button></a>
-    <a href="#/register">
-        <button class="btn"> Sign Up </button></a>
-    <a href="#/expert">
-        <button class="btn"> Expert Login </button></a>
-    <a href="#/expertregister">
-        <button class="btn"> Expert Sign Up </button></a>
-    <input ng-model="model.search" type="text" placeholder="Search">
-    <button ng-click="model.searchPlace(model.search)" class="btn btn-default"> <span class="glyphicon glyphicon-search"> </span></button></input>
-</div>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3">
+                        <div>
+                            <a href="#/login">
+                                <button class="btn btn-default btn-block  loginText"> Login </button></a>
+                        </div>
+                        <div >
+                            <a href="#/register">
+                                <button class="btn btn-default btn-block loginText"> Sign Up </button></a>
+                        </div>
+                        <div>
+                            <!--<a href="#/expert">-->
+                            <!--<button class="btn btn-default btn-block loginText"> Expert Login  </button></a>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                            <!--<a href="#/expertregister">-->
+                            <!--<button class="btn btn-default btn-block loginText"> Expert Sign Up </button></a>-->
+                        </div>
+                    </div>
 
-<div class="container-fluid">
-    <ul class="list-group"  >
-        <li  class="list-group-item" ng-repeat="attraction in model.attractions">
-               <span class="glyphicon glyphicon-cog"></span>
-            <textarea ng-model="attraction.name"></textarea>
-            <textarea ng-model="attraction.tripexpert_score"></textarea>
-           <a ng-click="model.detailsPage(attraction.id)"> <img  src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.id}}.jpg?1402340533">
-            </a>
-        </li>
-    </ul>
-</div>
 
-<nav class="navbar navbar-light navbar-fixed-bottom">
-    <div class="container-fluid bg-info">
-        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
-            <span class="glyphicon glyphicon-user  "></span>
-        </a>
+                    <div class="col-sm-4">
+
+                        <input id="searchLocation" ng-model="model.search" type="text" placeholder="Location Search">
+                        </input>
+                        <button ng-click="model.searchPlace(model.search)" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"> </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
 
     </div>
-</nav>
+    <div class="container-fluid">
+        <div class="col-md-8">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="attraction in model.attractions">
+
+                    <div><label>
+                        <h4>{{attraction.name}}</h4>
+                    </label>
+                    </div>
+                    <div>
+                        <h5>Expert Score : {{attraction.tripexpert_score}}</h5>
+                        <!--<textarea ng-model="attraction.tripexpert_score"></textarea>-->
+                    </div>
+                    <div>
+                        <a ng-click="model.detailsPage(attraction.id)">
+                            <img class="attractionImg" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.id}}.jpg?1402340533">
+                        </a>
+
+                    </div>
+                    Details: <span ng-click="model.detailsPage(attraction.id)" class="glyphicon glyphicon-cog"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-light navbar-fixed-bottom">
+        <div class="container-fluid bg-info">
+            <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
+                <span class="glyphicon glyphicon-user  "></span>
+            </a>
+
+        </div>
+    </nav>
+</div>

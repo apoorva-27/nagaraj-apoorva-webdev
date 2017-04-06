@@ -12,13 +12,11 @@ module.exports = function (model) {
         date:Date,
         title:String,
         follow:String,
-        // entries : diary entries
         userId: String
     }, {collection: 'entries'});
 
     EntrySchema.post("remove", function (entry) {
         var UserModel = require("../user/user.model.server");
-        // var widgetModel = require("../widget/widget.model.server");
 
         model.UserModel
             .findUserById(entry.userId)
@@ -27,8 +25,6 @@ module.exports = function (model) {
                 user.entries.splice(entry_index, 1);
                 user.save();
             });
-
-        // widgetModel.remove({_id: {$in: page.widgets}}).exec();
     })
     return EntrySchema;
 }

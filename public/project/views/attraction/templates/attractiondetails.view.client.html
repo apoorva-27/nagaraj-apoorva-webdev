@@ -13,107 +13,134 @@
         </div>
     </div>
 </nav>
-
-<h1>place details view</h1>
-
+<h1>{{model.name}}</h1>
 <div class="panel panel-default">
     <div class="row">
         <div class="col-xs-8">
+            <!--<div class="panel panel-default panel-body">-->
+            <!--<h5> Name: <b> </b>-->
+            <!--</h5>-->
+            <!--</div>-->
             <div class="panel panel-default panel-body">
-                {{model.name}}
+                <h5>Opening Hours: <b>{{model.opening_hours}}</b>
+                </h5>
             </div>
             <div class="panel panel-default panel-body">
-
-            {{model.opening_hours}}
+                <h6>Address:
+                    {{model.address}}
+                </h6>
             </div>
             <div class="panel panel-default panel-body">
-                {{model.address}}
+                <h6> Score:
+                    {{model.tripexpert_score}}
+                </h6>
             </div>
             <div class="panel panel-default panel-body">
-                {{model.tripexpert_score}}
+                <h6> URL:
+                    {{model.website}}
+                </h6>
             </div>
-            <div class="panel panel-default panel-body">
-                {{model.website}}</div>
 
         </div>
-    <div>
-        <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change') " >
-            <div ng-switch="model.favorited">
+        <div>
+            <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change') " >
+                <div ng-switch="model.favorited">
                 <span>
                     <div ng-switch-when="true">
-                        <span class="glyphicon glyphicon-star "></span>
+                        <span class="glyphicon glyphicon-star"></span>
 
                     </div>
                 </span>
-                <span>
+                    <span>
                     <div ng-switch-when="false">
-                        <span class="glyphicon glyphicon-star-empty "></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
                     </div>
                 </span>
+                </div>
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <img class="attractionImg Img2" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Reviews
             </div>
-        </a>
-    </div>
-        <div class="col-xs-4 hidden-xs">
-            <img class ="pull-right" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
-        </div>
-    </div>
-    <div class="panel-header"> Reviews </div>
-    <div class="panel panel-default" ng-repeat="review in model.reviews">
-    <div class="panel-body" >
-        {{review.extract}}
 
-    </div>
-    </div>
+            <div class="panel panel-default"
+                 ng-repeat="review in model.reviews">
+                <div class="panel-body" >
+                    {{review.extract}}
 
-    <div class="panel-header"> Entries </div>
-    <div class="panel panel-default" ng-repeat="entry in model.entries">
-        <div class="panel-body" >
-           <Label> Title</Label> {{entry.title}}
-
-        </div>
-        <div class="panel-body" >
-            <Label> Story</Label> {{entry.story}}
-
-        </div>
-        <div class="panel-body" >
-
-            <div ng-switch="entry.follow">
-                        <span>
-                        <div ng-switch-when='UNFOLLOW'>
-                                <button ng-click="model.changeFollow(entry.userId,entry)"
-                                        class="btn btn-danger pull-right">Unfollow Author</button>
-
-                        </div>
-                        </span>
-                        <span>
-                        <div ng-switch-when='FOLLOW'>
-                        <button ng-click="model.changeFollow(entry.userId,entry)"
-                                class="btn btn-success pull-right">Follow Author</button>
-
-                        </div>
-                        </span>
-                        <span>
-                        <div ng-switch-when="NONE">
-
-        <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry/{{entry._id}}">
-            <span class="glyphicon glyphicon-cog pull-right"> </span></a>
-
-                        </div>
-                        </span>
+                </div>
             </div>
-            <Label> Written By</Label> {{entry.userId}}
         </div>
     </div>
 
-<a class="btn btn-primary btn-block"
-   href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry">New Entry</a>
+    <div class="panel">
+        <div class="panel-primary">
+            <div class="panel-heading">Entries
+            </div>
+        </div>
+
+        <div class="panel panel-default" ng-repeat="entry in model.entries">
+            <div class="panel-body" >
+                <Label> Title: {{entry.title}} </Label>
+
+            </div>
+            <div class="panel-body" >
+                <Label>Summary: </Label>
+                {{entry.story}}
+
+            </div>
+
+            <div class="panel-body" >
+
+                <Label> Author: </Label> {{entry.userId}}
+
+                <div ng-switch="entry.follow" class="col-md-12">
+                            <span>
+                            <div ng-switch-when='UNFOLLOW'>
+                                    <button ng-click="model.changeFollow(entry.userId,entry)"
+                                            class="btn btn-danger">Unfollow Author</button>
+
+                            </div>
+                            </span>
+                    <span>
+                            <div ng-switch-when='FOLLOW'>
+                            <button ng-click="model.changeFollow(entry.userId,entry)"
+                                    class="btn btn-success">Follow Author</button>
+
+                            </div>
+                            </span>
+                    <span>
+                            <div ng-switch-when="NONE">
+                                <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry/{{entry._id}}">
+                                <span class="glyphicon glyphicon-cog pull-right"> </span></a>
+
+                            </div>
+
+                            </span>
+                </div>
+
+            </div>
 
 
-<nav class="navbar navbar-light navbar-fixed-bottom">
-    <div class="container-fluid bg-info">
-        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
-            <span class="glyphicon glyphicon-user make-white "></span>
-        </a>
+        </div>
 
     </div>
-</nav>
+    <a class="btn btn-primary btn-block"
+       href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry">New Entry</a>
+
+
+    <nav class="navbar navbar-light navbar-fixed-bottom">
+        <div class="container-fluid bg-info">
+            <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
+                <span class="glyphicon glyphicon-user make-white "></span>
+            </a>
+
+        </div>
+    </nav>
+</div>

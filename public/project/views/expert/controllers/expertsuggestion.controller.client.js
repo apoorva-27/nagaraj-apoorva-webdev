@@ -79,11 +79,11 @@
             console.log("create entry controller")
             var newEntry={
                 title:entry.title,
-                date:entry.date,
-                story:entry.story,
+                city:entry.city,
+                suggestion:entry.story,
             }
             expertService
-                .createEntry(vm.userId,vm.attractionId,newEntry)
+                .createEntry(vm.userId,newEntry)
                 .success(function (entry) {
                     // $location.url("/user/" + newuser._id);
                     console.log(entry);

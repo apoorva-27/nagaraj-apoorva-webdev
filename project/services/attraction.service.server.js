@@ -43,7 +43,7 @@ module.exports = function (app,AttractionModel) {
         console.log("server : findplacebytext")
         var searchParam=req.query.place;
         console.log("server search text: ",searchParam)
-        PlaceModel
+        AttractionModel
             .findPlaceByText(searchParam);
     }
 }

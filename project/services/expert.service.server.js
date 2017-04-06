@@ -8,6 +8,21 @@ module.exports = function (app,ExpertModel) {
     app.put("/api/expert/:userId",updateExpert);
     app.post("/api/expert",createExpert);
     app.delete("/api/expert/:userId",deleteExpert);
+    app.put("/api/expert/:userId/suggestion",createEntry)
+
+    function createEntry(req,res) {
+        var suggestion=req.body;
+        var userId=req.params.userId;
+
+        ExpertModel
+            .createEntry(userId,suggestion)
+            .then(function (user) {
+                res.json(user)
+            }),
+            (function (err) {
+                res.sendStatus(400).send(err)
+            });
+    }
 
     function createExpert(req,res) {
         var newU=req.body;

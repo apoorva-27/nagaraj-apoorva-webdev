@@ -14,8 +14,9 @@ module.exports = function (model) {
         email : String,
         phone : String,
         cityId:String,
-        //_id:String,
-        suggestions : String,
+        city:String,
+        title:String,
+        suggestion : String,
         dateCreated :  {type: Date, default: Date.now()},
         // location : String,
 

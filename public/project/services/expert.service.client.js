@@ -16,8 +16,13 @@
             "findExpertByUsername": findExpertByUsername,
             "createExpert": createExpert,
             "deleteExpert": deleteExpert,
+            "createEntry":createEntry
         };
         return api;
+
+        function createEntry (userId,suggestion){
+            return $http.put("/api/expert/"+userId+"/suggestion",suggestion);
+        }
 
         function createExpert(user) {
             var newUser=

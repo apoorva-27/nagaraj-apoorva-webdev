@@ -141,3 +141,43 @@ body a:hover {
     left: 0;
 }
 
+#searchLocation{
+    width: 80%;
+}
+
+.an-background-image{
+    background-size: 100% 100%;
+}
+
+.loginText{
+    text-align: center;
+}
+
+.attractionImg{
+    width: 45%;
+    height: auto;
+}
+.Img2{
+    width: 95%;
+    height:auto;
+}
+
+@media screen and (max-width: 500px) {
+    .loginText{
+        font-size: 14px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    .loginText{
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .loginText{
+        font-size: 7px;
+    }
+}
+
