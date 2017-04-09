@@ -7,13 +7,15 @@
         .module("Travelogue")
         .controller("homeController", homeController);
 
-    function homeController($location,attractionService,$routeParams,$cookies) {
+    function homeController($location,attractionService,expertService,$routeParams,$cookies) {
 
         var vm = this;
         vm.searchPlace = searchPlace;
         vm.detailsPage=detailsPage;
-        vm.userId=$routeParams['uid']
+        vm.userId=$routeParams['uid'];
+        // vm.findSuggestionsForCity=findSuggestionsForCity;
         var idfound;
+        vm.suggestions;
 
         function init() {
             var locationCookie = $cookies.get('location');
@@ -38,7 +40,7 @@
 
         function searchPlace(searchText) {
             console.log("controller : findplacebytext")
-            console.log("searchtext ",searchText)
+            console.log("searchtext ", searchText)
 
             var promise = attractionService
                 .findPlaceByText(searchText);
@@ -48,29 +50,29 @@
                         // $location.url("/user/" + usr._id);
                         console.log("home controller")
                         // console.log(usr)
-                        var array=usr.response.destinations;
+                        var array = usr.response.destinations;
                         // console.log(array)
-                        array.forEach( function(i){
+                        array.forEach(function (i) {
                             // console.log(i)
-                            console.log("vm.searchplace : ",searchText)
-                            if (i.name.toLowerCase()==searchText.toLowerCase()) {
+                            console.log("vm.searchplace : ", searchText)
+                            if (i.name.toLowerCase() == searchText.toLowerCase()) {
                                 console.log(i.name);
-                                idfound=i.id;
-                                console.log("match :",i);
+                                idfound = i.id;
+                                console.log("match :", i);
 
-                                var promise2=attractionService
+                                var promise2 = attractionService
                                     .findAttractionsInCity(i.id)
                                 promise2
-                                    .success( function (places) {
+                                    .success(function (places) {
                                         if (places) {
 
                                             $cookies.put('location', searchText.toLowerCase());
                                             console.log("places found")
                                             console.log(places)
-                                            vm.attractions=places.response.venues;
+                                            vm.attractions = places.response.venues;
                                         }
                                         else {
-                                            vm.error ="Attractions not found"
+                                            vm.error = "Attractions not found"
                                         }
                                     })
                                 // break;
@@ -80,6 +82,12 @@
                         vm.error = 'Place not found';
                     }
                 })
-
+            var promise3 = expertService
+                .findSuggestionsForCity(searchText);
+            promise3
+                .success(function (usr) {
+                    console.log("find suggestions by city :",usr)
+                    vm.suggestions=usr;
+                })
         }
     }})();

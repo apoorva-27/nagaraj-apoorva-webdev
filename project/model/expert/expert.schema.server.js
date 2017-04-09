@@ -17,8 +17,7 @@ module.exports = function (model) {
         city:String,
         title:String,
         suggestion : String,
-        dateCreated :  {type: Date, default: Date.now()},
-        // location : String,
+        dateCreated :  {type: Date, default: Date.now()}
 
     }, {collection: 'experts'});
 

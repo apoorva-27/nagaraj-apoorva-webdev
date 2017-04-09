@@ -14,11 +14,15 @@ module.exports = function (model) {
         email : String,
         phone : String,
         //_id:String,
+        role: {type: String, enum: ['EXPERT','ADMIN','USER'], default: 'USER'},
         entries :  [{type: mongoose.Schema.Types.String, ref:'EntryModel'}],
         dateCreated :  {type: Date, default: Date.now()},
         favorites : [{type: mongoose.Schema.Types.String, ref:'AttractionModel'}],
         following : [{type:mongoose.Schema.Types.String,ref:'UsersModel'}],
-        followers : [{type:mongoose.Schema.Types.String,ref:'UsersModel'}]
+        followers : [{type:mongoose.Schema.Types.String,ref:'UsersModel'}],
+        title:String,
+        suggestion : String,
+        city:String,
     }, {collection: 'project.users'});
 
     UsersSchema.post("remove", function(user) {

@@ -79,7 +79,7 @@
             console.log("create entry controller")
             var newEntry={
                 title:entry.title,
-                city:entry.city,
+                city:entry.city.toLowerCase(),
                 suggestion:entry.story,
             }
             expertService

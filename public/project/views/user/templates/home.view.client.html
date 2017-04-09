@@ -54,6 +54,21 @@
         </form>
 
     </div>
+
+    <div ng-show="model.suggestions">
+        <div class="container-fluid">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="suggestion in model.suggestions">
+
+                    <div><label>
+                        <h6>{{suggestion.title}}</h6>
+                        <p> {{suggestion.suggestion}}</p>
+                    </label>
+                    </div>
+                </li></ul>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="col-md-8">
             <ul class="list-group">

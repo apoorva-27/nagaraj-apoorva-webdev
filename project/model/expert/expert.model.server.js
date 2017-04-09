@@ -20,15 +20,30 @@ module.exports = function () {
         setModel:setModel,
         getModel:getModel,
         deleteExpert:deleteExpert,
-        createEntry:createEntry
+        createEntry:createEntry,
+        findSuggestionsForCity:findSuggestionsForCity
     };
 
     return api;
 
+    function findSuggestionsForCity(cityname) {
+        var deffered = q.defer();
+        ExpertModel.find({city:cityname} ,function (err,usr) {
+            if(err){
+                deffered.reject(err);
+            }
+            else{
+                deffered.resolve(usr);
+            }
+        });
+        return deffered.promise;
+    }
+
     function createEntry(userId,suggestion){
         var deffered = q.defer();
         ExpertModel
-            .update({_id:userId},{$set : suggestion}, function(err,user) {
+            .create(suggestion,function (err,user) {
+            // .update({_id:userId},{$set : suggestion}, function(err,user) {
                 if(err){
                     deffered.reject(err);
                 }

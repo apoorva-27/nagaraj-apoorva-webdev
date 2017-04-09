@@ -46,7 +46,8 @@
                     password: user.password,
                     firstname: user.lastname ,
                     lastname: user.firstname ,
-                    email: user.email
+                    email: user.email,
+                    role:'USER'
                 }
            return $http.post("/api/user",newUser)
         }

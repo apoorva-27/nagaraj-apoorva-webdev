@@ -12,6 +12,17 @@
          vm.userId=$routeParams['uid'];
          vm.deleteUser=deleteUser;
 
+         function init() {
+             userService
+                 .findUserById(vm.userId)
+                 .success( function (user) {
+                     vm.user=user;
+                 })
+                 .error (function (err) {
+                     vm.error="unable to find user"
+                 })
+         }
+         init();
 
     function deleteUser(user) {
         console.log("delete User userhomecontroller")
@@ -29,3 +40,4 @@
         }
     }}
 })();
+

@@ -8,7 +8,20 @@ module.exports = function (app,ExpertModel) {
     app.put("/api/expert/:userId",updateExpert);
     app.post("/api/expert",createExpert);
     app.delete("/api/expert/:userId",deleteExpert);
-    app.put("/api/expert/:userId/suggestion",createEntry)
+    app.put("/api/expert/:userId/suggestion",createEntry),
+        app.get("/api/suggestions/:cityname",findSuggestionsForCity)
+
+    function findSuggestionsForCity(req,res){
+        var cityname=req.params.cityname;
+        ExpertModel
+            .findSuggestionsForCity(cityname)
+            .then(function (user) {
+                res.json(user)
+            }),
+            (function (err) {
+                res.sendStatus(400).send(err)
+            });
+    }
 
     function createEntry(req,res) {
         var suggestion=req.body;

@@ -16,9 +16,14 @@
             "findExpertByUsername": findExpertByUsername,
             "createExpert": createExpert,
             "deleteExpert": deleteExpert,
-            "createEntry":createEntry
+            "createEntry":createEntry,
+            "findSuggestionsForCity":findSuggestionsForCity
         };
         return api;
+
+        function findSuggestionsForCity(cityName) {
+            return $http.get("/api/suggestions/"+cityName);
+        }
 
         function createEntry (userId,suggestion){
             return $http.put("/api/expert/"+userId+"/suggestion",suggestion);
