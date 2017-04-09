@@ -4,8 +4,6 @@
 
 module.exports = function () {
 
-    // console.log('users.model.server.js');
-
     var q = require('q');
     var model = null;
     var mongoose = require("mongoose");
@@ -32,11 +30,11 @@ module.exports = function () {
         EntryModel
             .find({},function(err,user) {
                 if(user[0]==undefined) {
-                    deffered.reject(err)
+                    deffered.reject(err);
                 }
                 else {
                     // console.log("model server success")
-                    deffered.resolve(user)
+                    deffered.resolve(user);
                 }
             })
         return deffered.promise;
@@ -46,6 +44,7 @@ module.exports = function () {
         return EntryModel.findByIdAndRemove(entryId, function (err, entry) {
             if (entry != null)
             {
+                console.log("does it come to delete");
                 entry.remove();
             }
         });
@@ -66,8 +65,8 @@ module.exports = function () {
                     }
                     else{
                         // console.log("user :" + usr);
-                        // deffered.resolve(usr);
-                        return usr
+                        deffered.resolve(usr);
+                        // return usr
                     }
                 });
         return deffered.promise;
@@ -111,7 +110,7 @@ module.exports = function () {
                     deffered.reject(err);
                 }
                 else{
-                    model.UserModel
+                    model.UsersModel
                         .findUserById(en.userId)
                         .then(function(user) {
                             user.entries.push(en._id);

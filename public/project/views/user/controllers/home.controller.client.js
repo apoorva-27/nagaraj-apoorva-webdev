@@ -75,13 +75,14 @@
                                             vm.error = "Attractions not found"
                                         }
                                     })
-                                // break;
                             }
                         })
                     } else {
                         vm.error = 'Place not found';
                     }
                 })
+
+            vm.location = searchText;
             var promise3 = expertService
                 .findSuggestionsForCity(searchText);
             promise3

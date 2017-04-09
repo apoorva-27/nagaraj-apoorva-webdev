@@ -162,10 +162,25 @@ body a:hover {
     height:auto;
 }
 
+#label-bg{
+    background: whitesmoke;
+    width: 250px;
+    left:2%;
+    position: relative;
+
+}
+
+@media screen and  (max-width: 1300px){
+    #expert{
+        width:92%;
+    }
+}
+
 @media screen and (max-width: 500px) {
     .loginText{
         font-size: 14px;
     }
+
 }
 
 
@@ -173,6 +188,7 @@ body a:hover {
     .loginText{
         font-size: 12px;
     }
+
 }
 
 @media screen and (max-width: 350px) {
@@ -180,4 +196,3 @@ body a:hover {
         font-size: 7px;
     }
 }
-

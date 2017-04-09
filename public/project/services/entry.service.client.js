@@ -31,7 +31,9 @@
 
         function updateEntry(userId,attractionId,entryId,entry) {
             console.log("update entry in entry service client")
-            return $http.put("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId,entry);
+            response= $http.put("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId,entry);
+            console.log("respone in client: ",response)
+            return response
         }
 
         function findEntryByEntryId(userId,attractionId,entryId) {

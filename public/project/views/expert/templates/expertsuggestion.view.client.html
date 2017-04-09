@@ -1,5 +1,3 @@
-
-
 <nav class="navbar navbar-light navbar-fixed-top">
     <div class="container-fluid bg-info ">
         <div class="navbar-text pull-right ">
@@ -17,29 +15,39 @@
 
 <h1>A day in the city</h1>
 
-<div>
+<div class="col-md-8">
     <form>
-        <lablel>Title</lablel>
+        <div class="title" >
+            <h3><lablel>Title</lablel>
+                <input type="String" ng-model="model.entry.title"/>
+            </h3>
+        </div>
+        <div>
+            <div class="col-md-12" >
+                <h5> Things to do: </h5>
+                <textarea rows="6" style="width: 80%"
+                          type="String"
+                          ng-model="model.entry.story"></textarea>
+            </div>
+        </div>
 
-        <input type="String"
-               ng-model="model.entry.title"/>
-        <label> Itinerary</label>
-        <textarea rows="5"
-                  type="String"
-                  ng-model="model.entry.story"></textarea>
-        <input type="String"
-               placeholder="city"
-               ng-model="model.entry.city"/>
-        <a ng-click="model.deleteEntry(model.entry)" >
-            <span class="glyphicon glyphicon-remove pull-right"></span></a>
+        <div>
+            <div col="col-md-12">
+                <input type="String"
+                       placeholder="city"
+                       ng-model="model.entry.city"/>
+            </div>
+        </div>
     </form>
+    <div class="col-sm-12">
+        <a class="btn btn-primary" ng-click="model.createEntry(model.entry)">
+            Create Iternary</a>
+    </div>
 </div>
-<a class="btn btn-primary btn-block"
-   ng-click="model.createEntry(model.entry)">Publish Itinerary</a>
 
 <nav class="navbar navbar-light navbar-fixed-bottom">
     <div class="container-fluid bg-info">
-        <a href="#/expert/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
+        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
             <span class="glyphicon glyphicon-user  "></span>
         </a>
 

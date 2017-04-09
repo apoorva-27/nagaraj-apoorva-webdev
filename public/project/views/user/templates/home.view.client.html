@@ -14,11 +14,10 @@
         <div>
             <img class="an-background-image" src="./views/user/img/01.png">
         </div>
-        <form>
-            <div class="form-group">
-
+        <form >
+            <div class="form-group" >
                 <div class="row">
-                    <div class="col-xs-4 col-sm-3">
+                    <div class="col-xs-4 col-sm-3" ng-if="model.userId == undefined">
                         <div>
                             <a href="#/login">
                                 <button class="btn btn-default btn-block  loginText"> Login </button></a>
@@ -28,12 +27,6 @@
                                 <button class="btn btn-default btn-block loginText"> Sign Up </button></a>
                         </div>
                         <div>
-                            <!--<a href="#/expert">-->
-                            <!--<button class="btn btn-default btn-block loginText"> Expert Login  </button></a>-->
-                            <!--</div>-->
-                            <!--<div>-->
-                            <!--<a href="#/expertregister">-->
-                            <!--<button class="btn btn-default btn-block loginText"> Expert Sign Up </button></a>-->
                         </div>
                     </div>
 
@@ -45,27 +38,42 @@
                         <button ng-click="model.searchPlace(model.search)" class="btn btn-default">
                             <span class="glyphicon glyphicon-search"> </span>
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
         </form>
 
     </div>
 
-    <div ng-show="model.suggestions">
-        <div class="container-fluid">
-            <ul class="list-group">
-                <li class="list-group-item" ng-repeat="suggestion in model.suggestions">
+    <div ng-show="model.suggestions" ng-if="model.userId != undefined">
 
-                    <div><label>
-                        <h6>{{suggestion.title}}</h6>
-                        <p> {{suggestion.suggestion}}</p>
-                    </label>
+        <div class="intro-header">
+            <h4 id="label-bg"> Expert Suggestions for {{model.location}}: </h4>
+        </div>
+        <div>
+            <ul>
+                <div class=" col-md-8 row">
+                    <div>
+                        <li id="expert" class="list-group-item col-md-4" ng-repeat="suggestion in model.suggestions">
+                            <div>
+                                <label>
+                                    <h5>
+                                        Suggestion : {{suggestion.title}}
+                                        <br/>
+                                        Author : {{suggestion.firstname}}
+                                    </h5>
+                                </label>
+                                <p>
+                                    {{suggestion.suggestion}}
+                                </p>
+
+                            </div>
+
+                        </li>
                     </div>
-                </li></ul>
+
+                </div>
+            </ul>
         </div>
     </div>
 

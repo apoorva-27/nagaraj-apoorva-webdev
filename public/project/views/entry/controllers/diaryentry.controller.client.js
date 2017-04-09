@@ -39,7 +39,6 @@
                     .error(function () {
                         vm.error = 'unable to remove entry';
                         $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
-
                     });
             }
         }
@@ -49,16 +48,14 @@
             entryService
                 .updateEntry(vm.userId,vm.attractionId,vm.entryId,entry)
                 .success(function (entry) {
-                    // $location.url("/user/" + newuser._id);
+                    console.log("success object in dairy entry details")
                     $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
-
                     console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
                     $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
 
-                    //console.log("error");
                 })
         }
 

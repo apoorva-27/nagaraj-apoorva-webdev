@@ -3,12 +3,18 @@
  */
 
 
+/**
+ * Created by hiresave on 4/5/2017.
+ */
+
+
 (function () {
     angular
         .module("Travelogue")
         .controller("expertsuggestionController", expertsuggestionController);
 
-    function expertsuggestionController($location,attractionService,expertService,$routeParams) {
+    function expertsuggestionController($location,attractionService,expertService,$routeParams,
+                                        userService) {
         var vm = this;
         // vm.login = login;
         vm.attractionId=$routeParams['aid']
@@ -77,20 +83,30 @@
 
         function createEntry(entry) {
             console.log("create entry controller")
+
+            userService.findUserById(vm.userId)
+                .success(function (usr) {
+                    console.log(usr.firstname)
+                    vm.userName = usr.firstname;
+
+                });
+
             var newEntry={
                 title:entry.title,
                 city:entry.city.toLowerCase(),
                 suggestion:entry.story,
-            }
+                firstname: vm.userName
+            };
             expertService
                 .createEntry(vm.userId,newEntry)
                 .success(function (entry) {
+                    console.log("Created new suggestion", entry)
                     // $location.url("/user/" + newuser._id);
                     console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
-                    //console.log("error");
+                    console.log("error");
                 })
 
 
