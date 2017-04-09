@@ -28,7 +28,8 @@
                     lastname: user.firstname ,
                     email: user.email
                 }
-           return $http.post("/api/user",newUser)
+
+           return $http.post("/api/assignmentuser",newUser)
         }
 
         function updateUser(userId, user) {
@@ -43,26 +44,27 @@
                     email: user.email
                 }
 
-            console.log("in update user client"+newUser);
-            return $http.put("/api/user/"+userId,newUser);
+
+            // console.log("in update user client"+newUser.firstname);
+            return $http.put("/api/assignmentuser/"+userId,newUser);
         }
 
         function deleteUser(userId) {
-            return $http.delete("/api/user/"+userId);
+            return $http.delete("/api/assignmentuser/"+userId);
         }
 
         function findUserById(userId) {
-            return $http.get("/api/user/"+userId);
+            return $http.get("/api/assignmentuser/"+userId);
 
         }
 
         function findUserByCredentials(username, password) {
             // console.log("trying something here",$http.get("/api/user?username="+username+"&password="+password))
-            return $http.get("/api/user?username="+username+"&password="+password);
+            return $http.get("/api/assignmentuser?username="+username+"&password="+password);
 
         }
         function findUserByUsername(username) {
-            return $http.get("/api/user?username="+username);
+            return $http.get("/api/assignmentuser?username="+username);
         }
     }
 })();

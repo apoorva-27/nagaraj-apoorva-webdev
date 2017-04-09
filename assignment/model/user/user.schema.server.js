@@ -17,7 +17,7 @@ module.exports = function (model) {
         websites :  [{type: mongoose.Schema.Types.String, ref:'WebsiteModel'}],
         dateCreated :  {type: Date, default: Date.now()}
 
-    }, {collection: 'users'});
+    }, {collection: 'assignment.users'});
 
     UserSchema.post('remove', function (next) {
         var WebsiteModel = model.WebsiteModel.getModel();

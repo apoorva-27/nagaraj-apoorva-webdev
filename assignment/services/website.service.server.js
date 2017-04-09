@@ -4,11 +4,11 @@
 
 module.exports = function(app,WebsiteModel) {
 
-    app.get('/api/user/:userId/website', findAllWebsitesForUser);
+    app.get('/api/assignmentuser/:userId/website', findAllWebsitesForUser);
     app.get('/api/website/:websiteId',findWebsiteById);
     app.put('/api/website/:websiteId',updateWebsite);
     app.delete('/api/website/:websiteId',deleteWebsite);
-    app.post('/api/user/:userId/website',createWebsite);
+    app.post('/api/assignmentuser/:userId/website',createWebsite);
 
     var websites = [
         { "_id": "123", "name": "Facebook", update: new Date(),    "developerId": "456", "description": "Lorem" },

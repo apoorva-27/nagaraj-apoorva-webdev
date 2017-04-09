@@ -28,11 +28,11 @@
                     description:website.description
                 }
 
-            return $http.post("/api/user/"+userId+"/website",newsite);
+            return $http.post("/api/assignmentuser/"+userId+"/website",newsite);
         }
 
         function findAllWebsitesForUser(userId) {
-            return $http.get("/api/user/"+userId+"/website");
+            return $http.get("/api/assignmentuser/"+userId+"/website");
         }
 
         function findWebsiteById(websiteId) {

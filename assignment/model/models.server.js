@@ -28,5 +28,5 @@ module.exports = function () {/*
     WidgetModel.setModel(model);
 
     return model;
-    // TODO: create the services for the other entities: website, page, widget
+
 };

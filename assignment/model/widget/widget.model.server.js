@@ -39,16 +39,6 @@ module.exports = function () {
         return WidgetModel;
     }
 
-    // function deleteWidget(widgetId) {
-    //     console.log("deletewidget called");
-    //     return WidgetModel.findByIdAndRemove(widgetId, function (err,widget) {
-    //         if (widget!=null) {
-    //             widget.remove();
-    //         }
-    //     });
-    // }
-
-
     function reOrderWidget(pageId, start, end) {
         // console.log(start);
         // console.log(end);
@@ -83,7 +73,7 @@ module.exports = function () {
         return WidgetModel.findByIdAndRemove(widgetId, function (err, widget) {
             if (widget != null) {
                 var pageId = widget._page;
-                var pos = widget.position;
+                var position = widget.position;
                 WidgetModel.find({_page: pageId}, function (err, widgets) {
                     widgets.forEach(function (widget) {
                         if (widget.position > position) {
@@ -96,10 +86,6 @@ module.exports = function () {
             }
         });
 
-        /* if(widget!=null){
-         widget.remove();
-         }
-         });*/
     }
 
     function updateWidget(widgetId, new_widget) {

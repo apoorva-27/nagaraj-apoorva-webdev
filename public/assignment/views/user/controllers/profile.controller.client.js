@@ -38,7 +38,7 @@
         }
 
         function updateUser(newuser) {
-            console.log("newuser in profile controller"+newuser)
+            // console.log("newuser in profile controller"+newuser)
             userService
                 .updateUser(userId, newuser)
                 .success(function (user) {

@@ -5,11 +5,11 @@
 // console.log("user.service.server.js")
 
 module.exports = function (app,UserModel) {
-    app.get("/api/user", findUser);
-    app.get("/api/user/:userId",findUserById);
-    app.put("/api/user/:userId",updateUser);
-    app.post("/api/user",createUser);
-    app.delete("/api/user/:userId",deleteUser);
+    app.get("/api/assignmentuser", findUser);
+    app.get("/api/assignmentuser/:userId",findUserById);
+    app.put("/api/assignmentuser/:userId",updateUser);
+    app.post("/api/assignmentuser",createUser);
+    app.delete("/api/assignmentuser/:userId",deleteUser);
 
     var users = [
          {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder" , email: "alice@alice.com" },
@@ -97,7 +97,7 @@ module.exports = function (app,UserModel) {
     function updateUser(req,res) {
         var userId=req.params.userId;
         var user=req.body;
-        // console.log("user  in request  body"+user);
+        // console.log("user  in request  body"+user.firstname);
 
         UserModel
             .updateUser(userId,user)
