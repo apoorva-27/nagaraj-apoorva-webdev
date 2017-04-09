@@ -4,14 +4,14 @@
 
 module.exports = function () {
 
-    // console.log('user.model.server.js');
+    // console.log('users.model.server.js');
 
     var q = require('q');
     var model = null;
     var mongoose = require("mongoose");
     var EntrySchema;
     var EntryModel;
-    var UserModel=require("../user/user.model.server.js");
+    var UserModel=require("../user/users.model.server.js");
 
     var api = {
         createEntry: createEntry,
@@ -20,11 +20,27 @@ module.exports = function () {
         findEntryByEntryId:findEntryByEntryId,
         updateEntry:updateEntry,
         deleteEntry:deleteEntry,
-        getModel:getModel
+        getModel:getModel,
+        getAllEntries:getAllEntries
 
     };
 
     return api;
+
+    function getAllEntries() {
+        var deffered = q.defer();
+        EntryModel
+            .find({},function(err,user) {
+                if(user[0]==undefined) {
+                    deffered.reject(err)
+                }
+                else {
+                    // console.log("model server success")
+                    deffered.resolve(user)
+                }
+            })
+        return deffered.promise;
+    }
 
     function deleteEntry(entryId) {
         return EntryModel.findByIdAndRemove(entryId, function (err, entry) {

@@ -7,7 +7,20 @@ module.exports = function (app,EntryModel) {
     app.get("/api/user/:uid/attraction/:aid",findEntriesByAttraction);
     app.get("/api/user/:uid/attraction/:aid/entry/:eid",findEntryByEntryId);
     app.put("/api/user/:uid/attraction/:aid/entry/:eid",updateEntry);
-    app.delete("/api/user/:uid/attraction/:aid/entry/:eid",deleteEntry)
+    app.delete("/api/user/:uid/attraction/:aid/entry/:eid",deleteEntry);
+    app.get("/api/admin/entries",getAllEntries)
+
+    function getAllEntries(req,res){
+        EntryModel
+            .getAllEntries()
+            .then (function (array){
+                    // console.log(array)
+                    res.json(array)
+                },
+                function(err){
+                    res.sendStatus(400).send(err)
+                })
+    }
 
     function deleteEntry(req,res) {
         var userId=req.params.uid;

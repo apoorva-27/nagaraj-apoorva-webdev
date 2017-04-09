@@ -16,7 +16,7 @@ module.exports = function (model) {
     }, {collection: 'entries'});
 
     EntrySchema.post("remove", function (entry) {
-        var UserModel = require("../user/user.model.server");
+        var UserModel = require("../user/users.model.server.js");
 
         model.UserModel
             .findUserById(entry.userId)

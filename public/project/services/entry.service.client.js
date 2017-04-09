@@ -15,10 +15,15 @@
             "findEntriesByAttraction":findEntriesByAttraction,
             "findEntryByEntryId":findEntryByEntryId,
             "updateEntry":updateEntry,
-            "deleteEntry":deleteEntry
+            "deleteEntry":deleteEntry,
+            "getAllEntries":getAllEntries
 
         };
         return api;
+
+        function getAllEntries(){
+            return $http.get("/api/admin/entries");
+        }
 
         function deleteEntry(userId,attractionId,entryId){
             return $http.delete("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId);

@@ -13,6 +13,11 @@
                 controller: "homeController",
                 controllerAs: "model"
             })
+            .when("/admin", {
+                templateUrl: "views/user/templates/adminhome.view.client.html",
+                controller: "adminhomeController",
+                controllerAs: "model"
+            })
             .when("/home", {
                 templateUrl: "views/user/templates/home.view.client.html",
                 controller: "homeController",

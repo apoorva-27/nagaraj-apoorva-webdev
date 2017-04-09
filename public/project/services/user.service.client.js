@@ -16,9 +16,14 @@
              "createUser": createUser,
              "deleteUser": deleteUser,
             "changeFollow":changeFollow,
-            "findFollowing":findFollowing
+            "findFollowing":findFollowing,
+            "getAllUsers":getAllUsers
         };
         return api;
+
+        function getAllUsers(){
+            return $http.get("/api/admin/users")
+        }
 
         function changeFollow(userFollowingOther,UserToFollow) {
             // console.log("change follow in service client");

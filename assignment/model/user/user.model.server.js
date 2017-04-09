@@ -6,7 +6,7 @@
 
 module.exports = function () {
 
-    // console.log('user.model.server.js');
+    // console.log('users.model.server.js');
 
     var q = require('q');
     var model = null;

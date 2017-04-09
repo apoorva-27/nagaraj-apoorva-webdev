@@ -5,8 +5,8 @@
 console.log("models.server.js");
 
 module.exports = function () {/*
-    var UserModel = require('../../assignment/model/user/user.model.server.js')();
-    require('../../assignment/user.model.server.js')(app, UserModel);
+    var UserModel = require('../../assignment/model/user/users.model.server.js')();
+    require('../../assignment/users.model.server.js')(app, UserModel);
 
     UserModel.create({username:'bob',password:'bob',firstname:'Bob', lastname:'Marley'});
 */

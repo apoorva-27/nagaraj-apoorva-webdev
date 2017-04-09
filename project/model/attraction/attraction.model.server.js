@@ -15,9 +15,27 @@ module.exports = function () {
         setModel:setModel,
         getModel:getModel,
         favorite:favorite,
-        findFavoritesByUserId:findFavoritesByUserId
+        findFavoritesByUserId:findFavoritesByUserId,
+        getAllAttractions:getAllAttractions
     };
     return api;
+
+    function getAllAttractions() {
+        var deffered = q.defer();
+        // console.log("step 5 : model")
+        AttractionModel
+            .find({},function(err,user) {
+                if(user[0]==undefined) {
+                    deffered.reject(err)
+                }
+                else {
+                    // console.log("success object :",user)
+                    // console.log("step 6 : model success")
+                    deffered.resolve(user)
+                }
+            })
+        return deffered.promise;
+    }
 
     function findFavoritesByUserId(userId,attractionId){
         var deffered = q.defer();
@@ -44,10 +62,17 @@ module.exports = function () {
 
     function favorite(userId,attractionId,status,attraction){
         var deffered = q.defer();
+        // console.log("wat does my attraction object have before creating",attraction.response.venues)
         var newattraction= {
             attractionId: attractionId,
-            favorited: [userId]
+            favorited: [userId],
+            name:attraction.response.venues[0].name,
+            score:attraction.response.venues[0].score,
+            address:attraction.response.venues[0].address,
+            website:attraction.response.venues[0].website,
+            opening_hours:attraction.response.venues[0].opening_hours
         }
+        console.log("newattraction object :",newattraction)
         AttractionModel.find({attractionId:attractionId},function (err,en) {
             if (en[0]==undefined) {
                 AttractionModel

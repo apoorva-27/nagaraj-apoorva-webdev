@@ -45,6 +45,7 @@
         function favorite(status) {
             console.log(status)
 
+
             attractionService
                 .favorite(vm.userId,vm.attractionId,status,vm.attraction)
                 .success(function (success) {

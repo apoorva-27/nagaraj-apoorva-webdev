@@ -9,8 +9,8 @@ module.exports = function () {
     var q = require('q');
     var model = null;
     var mongoose = require("mongoose");
-    var UserSchema;
-    var UserModel;
+    var UsersSchema;
+    var UsersModel;
 
     var api = {
         createUser: createUser,
@@ -22,14 +22,29 @@ module.exports = function () {
         getModel:getModel,
         deleteUser:deleteUser,
         changeFollow:changeFollow,
-        findFollowing:findFollowing
+        findFollowing:findFollowing,
+        getAllUsers:getAllUsers
     };
 
     return api;
 
+    function getAllUsers(){
+        var deffered = q.defer();
+        UsersModel
+            .find({},function(err,user) {
+                if(user[0]==undefined) {
+                    deffered.reject(err)
+                }
+                else {
+                    deffered.resolve(user)
+                }
+            })
+        return deffered.promise;
+    }
+
     function findFollowing(userId) {
         var deffered = q.defer();
-        UserModel
+        UsersModel
             .find({_id:userId},function(err,user) {
             if(user[0]==undefined) {
                 deffered.reject(err)
@@ -44,7 +59,7 @@ module.exports = function () {
     function changeFollow(userFollowing,userToFollow) {
         var deffered = q.defer();
 
-        UserModel.find({_id:userFollowing},function (err,en) {
+        UsersModel.find({_id:userFollowing},function (err,en) {
             if (en[0]==undefined) {
                 deffered.reject(err);
             }
@@ -52,7 +67,7 @@ module.exports = function () {
                 var i = en[0].following.indexOf(userToFollow);
                 if (i<0)
                 {
-                    UserModel.find({_id:userToFollow},function (err,person) {
+                    UsersModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
                         }
@@ -73,7 +88,7 @@ module.exports = function () {
                     })
                 }
                 else {
-                    UserModel.find({_id:userToFollow},function (err,person) {
+                    UsersModel.find({_id:userToFollow},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
                         }
@@ -99,16 +114,16 @@ module.exports = function () {
 
     function setModel(models) {
         model=models;
-        UserSchema = require('./user.schema.server')(models);
-        UserModel = mongoose.model('UserModel', UserSchema);
+        UsersSchema = require('./users.schema.server.js')(models);
+        UsersModel = mongoose.model('UsersModel', UsersSchema);
     }
 
     function getModel() {
-        return UserModel;
+        return UsersModel;
     }
 
     function deleteUser(userId) {
-        return UserModel.findByIdAndRemove(userId, function (err, user) {
+        return UsersModel.findByIdAndRemove(userId, function (err, user) {
             if (user != null)
             {
                 user.remove();
@@ -118,7 +133,7 @@ module.exports = function () {
 
     function updateUser(userId,new_user) {
         var deffered = q.defer();
-        UserModel
+        UsersModel
             .update(
                 {_id: userId},{$set : new_user},function(err,usr) {
                 if(err){
@@ -134,7 +149,7 @@ module.exports = function () {
     function findUserById(userId) {
 
         var deffered = q.defer();
-        UserModel.findById(userId ,function (err,usr) {
+        UsersModel.findById(userId ,function (err,usr) {
             if(err){
                  deffered.reject(err);
             }
@@ -148,7 +163,7 @@ module.exports = function () {
 
     function findUserByUsername(username) {
         var deffered = q.defer();
-        UserModel.find({username:username} ,function (err,usr) {
+        UsersModel.find({username:username} ,function (err,usr) {
             if(err){
                 deffered.reject(err);
             }
@@ -161,7 +176,7 @@ module.exports = function () {
 
     function findUserByCredentials(username,password) {
         var deffered = q.defer();
-        UserModel.find({username:username,password:password} ,function (err,usr) {
+        UsersModel.find({username:username,password:password} ,function (err,usr) {
             if(err){
                 deffered.reject(err);
             }
@@ -173,7 +188,7 @@ module.exports = function () {
     }
     function createUser(user) {
         var deffered = q.defer();
-        UserModel.create(user,function (err,usr) {
+        UsersModel.create(user,function (err,usr) {
             if(err){
                 console.log("hello   "+err);
                 deffered.reject(err);

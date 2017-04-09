@@ -4,7 +4,7 @@
 
 // console.log("user.service.server.js")
 
-module.exports = function (app,UserModel) {
+module.exports = function (app,UsersModel) {
     app.get("/api/user", findUser);
     app.get("/api/user/:userId",findUserById);
     app.put("/api/user/:userId",updateUser);
@@ -12,10 +12,30 @@ module.exports = function (app,UserModel) {
     app.delete("/api/user/:userId",deleteUser);
     app.put("/api/user/follow/:userId",changeFollow)
     app.get("/api/user/follow/:userId",findFollowing)
+    app.get("/api/admin/users",getAllUsers)
+
+    function getAllUsers(req,res) {
+        UsersModel
+            .getAllUsers()
+            .then (function (array){
+                    // console.log(array)
+                    res.json(array)
+                },
+                function(err){
+                    res.sendStatus(400).send(err)
+                })
+    }
+
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+    var FacebookStrategy = require('passport-facebook').Strategy;
+    var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+    app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
     function findFollowing(req,res) {
         userId=req.params.userId
-        UserModel
+        UsersModel
             .findFollowing(userId)
             .then (function (array){
                 console.log(array)
@@ -32,7 +52,7 @@ module.exports = function (app,UserModel) {
         var userToFollow=req.body.usertofollow;
         // console.log("userToFollow :",userToFollow)
         // console.log("usuerfollowing :",userFollowing)
-        UserModel
+        UsersModel
             .changeFollow(userFollowing,userToFollow)
             .then(function (user) {
                     res.json(user);
@@ -44,7 +64,7 @@ module.exports = function (app,UserModel) {
 
     function createUser(req,res) {
         var newU=req.body;
-        UserModel
+        UsersModel
             .createUser(newU)
             .then(function (user) {
                 res.json(user);
@@ -68,7 +88,7 @@ module.exports = function (app,UserModel) {
         var username=req.query.username;
         var password=req.query.password;
 
-        UserModel
+        UsersModel
             .findUserByCredentials(username,password)
             .then (function (user) {
                 res.json(user[0]);
@@ -81,7 +101,7 @@ module.exports = function (app,UserModel) {
     function findUserByUsername(req,res) {
         var username=req.query.username;
 
-        UserModel
+        UsersModel
             .findUserByUsername(username)
             .then (function (user) {
                     res.json(user[0]);
@@ -93,7 +113,7 @@ module.exports = function (app,UserModel) {
 
     function findUserById(req,res) {
         var userId=req.params.userId;
-        UserModel
+        UsersModel
             .findUserById(userId)
             .then (function (user) {
                     res.json(user);
@@ -106,7 +126,7 @@ module.exports = function (app,UserModel) {
     function updateUser(req,res) {
         var userId=req.params.userId;
         var user=req.body;
-        UserModel
+        UsersModel
             .updateUser(userId,user)
             .then (function (user) {
                     console.log("user object at user service 4"+user)
@@ -118,7 +138,7 @@ module.exports = function (app,UserModel) {
     }
     function deleteUser(req, res) {
         var userId = req.params.userId;
-        UserModel
+        UsersModel
             .deleteUser(userId)
             .then(function (user) {
                 res.json(user);

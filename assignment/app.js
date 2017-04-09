@@ -16,7 +16,7 @@ module.exports = function (app) {
 
 
 
-    // require("../assignment/model/user/user.model.server.js")();
+    // require("../assignment/model/user/users.model.server.js")();
     // require("../assignment/model/models.server.js")();
 
 }

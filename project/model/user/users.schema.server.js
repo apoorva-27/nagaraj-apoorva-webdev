@@ -5,7 +5,7 @@
 module.exports = function (model) {
     var mongoose = require('mongoose');
 
-    var UserSchema = mongoose.Schema({
+    var UsersSchema = mongoose.Schema({
 
         username : String,
         password : String,
@@ -19,9 +19,9 @@ module.exports = function (model) {
         favorites : [{type: mongoose.Schema.Types.String, ref:'AttractionModel'}],
         following : [{type:mongoose.Schema.Types.String,ref:'UserModel'}],
         followers : [{type:mongoose.Schema.Types.String,ref:'UserModel'}]
-    }, {collection: 'users'});
+    }, {collection: 'project.users'});
 
-    UserSchema.post("remove", function(user) {
+    UsersSchema.post("remove", function(user) {
         var EntryModel = model.EntryModel.getModel();
 
         EntryModel.find({_id: {$in: user.entries}},function(err, entries) {
@@ -30,5 +30,5 @@ module.exports = function (model) {
             }
         });
     })
-    return UserSchema;
+    return UsersSchema;
 };

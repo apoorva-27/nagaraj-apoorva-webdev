@@ -1,0 +1,53 @@
+<h1>admin home page</h1>
+
+<a class="btn btn-success "
+   ng-click="model.getAllUsers()">get all users</a>
+
+<a class="btn btn-info "
+   ng-click="model.getAllAttractions()">get all attractions</a>
+
+<a class="btn btn-danger "
+   ng-click="model.getAllEntries()">get all entries</a>
+
+<a class="btn btn-warning "
+   ng-click="model.getAllExperts()">get all experts</a>
+
+<div ng-show="model.users">
+    <div class="container-fluid">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="user in model.users">
+
+                <div><label>
+                    <h4>{{user.firstname}}</h4>
+                </label>
+                </div>
+            </li></ul>
+    </div>
+</div>
+
+<div ng-show="model.attractions">
+    <div class="container-fluid">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="attraction in model.attractions">
+
+                <div><label>
+                    <h4>{{attraction.name}}</h4>
+                </label>
+                    <a > <span class="glyphicon glyphicon-remove pull-right"></span></a>
+                </div>
+            </li></ul>
+    </div>
+</div>
+
+<div ng-show="model.entries">
+    <div class="container-fluid">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="entry in model.entries">
+
+                <div><label>
+                    <h4>{{entry.title}}</h4>
+                </label>
+                </div>
+            </li></ul>
+    </div>
+</div>
