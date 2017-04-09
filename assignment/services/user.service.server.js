@@ -97,7 +97,6 @@ module.exports = function (app,UserModel) {
     function updateUser(req,res) {
         var userId=req.params.userId;
         var user=req.body;
-        // console.log("user  in request  body"+user.firstname);
 
         UserModel
             .updateUser(userId,user)

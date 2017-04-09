@@ -13,6 +13,7 @@
             promise
                 .success(function (usr) {
                     if (usr) {
+
                         $location.url("/user/" + usr._id);
                     } else {
                         vm.error = 'User not found';

@@ -61,27 +61,22 @@ module.exports = function () {
                 else{
                     // console.log("user :" + usr);
                     // deffered.resolve(usr);
-                    return usr
+                    deffered.resolve(usr);
                 }
             });
         return deffered.promise;
     }
 
     function findUserById(userId) {
-        // console.log("finduser by ID in user model : "+userId)
-        // console.log(UserModel.findById(userId))
-        // return UserModel.findById(userId);
 
-        // console.log("find by id model.server id"+userId)
         var deffered = q.defer();
         UserModel.findById(userId ,function (err,usr) {
             if(err){
-                // console.log("hello   "+err);
+
                 deffered.reject(err);
             }
             else{
-                // console.log("user : " + usr);
-                // console.log("printing err also :" + err);
+
                 deffered.resolve(usr);
             }
         });
@@ -89,11 +84,11 @@ module.exports = function () {
     }
 
     function findUserByUsername(username) {
-        // console.log("find by username model.server ")
+
         var deffered = q.defer();
         UserModel.find({username:username} ,function (err,usr) {
             if(err){
-                // console.log("hello   "+err);
+
                 deffered.reject(err);
             }
             else{

@@ -14,11 +14,6 @@ module.exports = function (app) {
     require("./services/page.service.server") (app,models.PageModel);
     require("./services/widget.service.server") (app,models.WidgetModel);
 
-
-
-    // require("../assignment/model/user/users.model.server.js")();
-    // require("../assignment/model/models.server.js")();
-
 }
 
 
