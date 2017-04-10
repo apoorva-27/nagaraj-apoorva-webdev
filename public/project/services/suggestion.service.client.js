@@ -40,6 +40,7 @@
         }
 
         function deleteSuggestion(suggestionId) {
+            // console.log("delete suggestion service client : ",suggestionId)
             return $http.delete("/api/suggestion/"+suggestionId);
         }
 

@@ -19,11 +19,27 @@ module.exports = function () {
         updateEntry:updateEntry,
         deleteEntry:deleteEntry,
         getModel:getModel,
-        getAllEntries:getAllEntries
+        getAllEntries:getAllEntries,
+        findEntryById:findEntryById
 
     };
 
     return api;
+
+    function findEntryById(entryId){
+        var deffered = q.defer();
+        EntryModel.find({_id:entryId}, function (err,entry) {
+            if(err){
+                // console.log("hello   "+err);
+                deffered.reject(err);
+            }
+            else{
+                // console.log("web " + entry);
+                deffered.resolve(entry);
+            }
+        });
+        return deffered.promise;
+    }
 
     function getAllEntries() {
         var deffered = q.defer();

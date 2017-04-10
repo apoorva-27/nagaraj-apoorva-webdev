@@ -55,9 +55,9 @@
                         <h4>{{entry.title}}</h4>
                     </div>
                     <div class="col-xs-1">
-                        <a ><span class="glyphicon glyphicon-cog"></span></a></div>
+                        <a ng-click="model.findEntryById(entry._id)"><span class="glyphicon glyphicon-cog"></span></a></div>
                     <div class="col-xs-1">
-                        <a > <span class="glyphicon glyphicon-remove"></span></a></div>
+                        <a ng-click="model.deleteEntry(entry._id)" > <span class="glyphicon glyphicon-remove"></span></a></div>
                 </div>
             </li></ul>
     </div>
@@ -83,10 +83,20 @@
 
 <div ng-show="model.suggestion">
     <div class="container-fluid">
-        <label> Title</label> <input type="String" ng-model="model.suggestion.title"/>
-        <label> Itinerary</label> <input type="String" ng-model="model.suggestion.suggestion"/>
-        <label> Author</label> <input type="String" ng-model="model.suggestion.firstname"/>
+        <label> Title : </label> <input type="String" ng-model="model.suggestion.title"/>
+        <label> Itinerary : </label> <input type="String" ng-model="model.suggestion.suggestion"/>
+        <label> Author : </label> <label >{{model.suggestion.firstname}}</label>
         <button ng-click="model.updateSuggestion(model.suggestion._id,model.suggestion)" class="btn btn-primary">Update</button>
     </div>
 </div>
+
+<div ng-show="model.entry">
+    <div class="container-fluid">
+        <label> Title : </label> <input type="String" ng-model="model.entry.title"/>
+        <label> Diary Entry : </label> <input type="String" ng-model="model.entry.story"/>
+        <label> Author : </label> <label >{{vm.author}}</label>
+        <button ng-click="model.updateEntry(model.entry._id,model.entry)" class="btn btn-primary">Update</button>
+    </div>
+</div>
+
 

@@ -7,14 +7,14 @@ module.exports = function (app,SuggestionModel) {
     app.get("/api/suggestion/:userId",findSuggestionById);
     app.put("/api/suggestion/:suggestionId",updateSuggestion);
     // app.post("/api/suggestion",createSuggestion);
-    app.delete("/api/suggestion/:userId",deleteSuggestion);
+    app.delete("/api/suggestion/:suggestionId",deleteSuggestion);
     app.post("/api/suggestion/:userId/suggestion",createSuggestion);
     app.get("/api/suggestions/:cityname",findSuggestionsForCity);
     app.get("/api/admin/suggestions",getAllSuggestions);
 
 
     function getAllSuggestions(req,res) {
-        // console.log("service server get all suggestions")
+
 
         SuggestionModel
             .getAllSuggestions()
@@ -129,7 +129,9 @@ module.exports = function (app,SuggestionModel) {
                 });
     }
     function deleteSuggestion(req, res) {
+
         var suggestionId = req.params.suggestionId;
+        // console.log("delete suggestion server service : ",suggestionId)
         SuggestionModel
             .deleteSuggestion(suggestionId)
             .then(function (user) {

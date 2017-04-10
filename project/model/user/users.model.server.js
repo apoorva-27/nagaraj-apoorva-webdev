@@ -149,12 +149,12 @@ module.exports = function () {
     function findUserById(userId) {
 
         var deffered = q.defer();
-        UsersModel.findById(userId ,function (err,usr) {
+        UsersModel.find({"_id":userId} ,function (err,usr) {
             if(err){
                  deffered.reject(err);
             }
             else{
-
+                console.log(usr)
                 deffered.resolve(usr);
             }
         });

@@ -16,6 +16,8 @@
         vm.findSuggestionById=findSuggestionById;
         vm.updateSuggestion=updateSuggestion;
         vm.deleteSuggestion=deleteSuggestion;
+        vm.findEntryById=findEntryById;
+        vm.updateEntry=updateEntry;
         vm.users;
         vm.attractions;
         vm.entries;
@@ -24,6 +26,66 @@
         vm.suggestion;
         vm.attraction;
         vm.entry;
+        vm.author;
+
+
+        function updateEntry(entryId, entry){
+            entryService
+                .updateEntry(entryId,entry)
+                .success(function (entry) {
+                    console.log("success :",entry)
+                    vm.entry=null;
+                    getAllSuggestions()
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                })
+        }
+
+        function findEntryById(entryId) {
+            console.log("entry id",entryId);
+            entryService
+                .findEntryById(entryId)
+                .success(function (entry) {
+                    vm.entry=entry;
+                    vm.entries=null;
+                    vm.suggestions=null;
+                    vm.attractions=null;
+                    vm.users=null;
+                    console.log("vm.entry.userId[0] :",vm.entry.userId[0])
+                    userService
+                        .findUserById(vm.entry.userId[0])
+                        .success(function (usr) {
+                            console.log("usr :",usr)
+                            vm.author=usr.firstname;
+                        })
+                            .error(function (err) {
+                                vm.error = 'unable to remove entry';
+                            });
+                    })
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                });
+        }
+
+        function deleteEntry() {
+            var answer = confirm("Are you sure?");
+            console.log(answer);
+            if(answer) {
+                entryService
+                    .deleteEntry(vm.userId,vm.attractionId,vm.entryId)
+                    .success(function () {
+                        console.log("entry deleted successfully");
+                        vm.entry=null;
+                        getAllEntries();
+                        // $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    })
+                    .error(function () {
+                        vm.error = 'unable to remove entry';
+                        // $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    });
+            }
+        }
 
         function deleteSuggestion(suggestionId) {
             var answer = confirm("Are you sure?");
@@ -33,7 +95,8 @@
                     .deleteSuggestion(suggestionId)
                     .success(function () {
                         console.log("entry deleted successfully")
-                        getAllSuggestions()
+                        vm.suggestion=null;
+                        getAllSuggestions();
                         // $location.url("/user/"+vm.userId+"/attraction");
                     })
                     .error(function () {
@@ -53,6 +116,7 @@
                         vm.suggestions=usr;
                         vm.attractions=null;
                         vm.users=null;
+                        vm.suggestion=null
                         vm.entry=null;
                     } else {
                         vm.error = 'Suggestions not found';

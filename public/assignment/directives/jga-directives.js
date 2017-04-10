@@ -9,8 +9,6 @@
 
     function sortableDir(WidgetService,$routeParams) {
 
-
-
         function linkFunc(scope, element, attributes) {
 
             var pid = $routeParams.pid;

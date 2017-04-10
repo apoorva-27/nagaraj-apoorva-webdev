@@ -82,22 +82,7 @@ module.exports = function () {
         return deffered.promise;
     }
 
-    // function createSuggestion(user) {
-    //     var deffered = q.defer();
-    //     SuggestionModel.create(user,function (err,usr) {
-    //         if(err){
-    //             console.log("hello   "+err);
-    //             deffered.reject(err);
-    //         }
-    //         else{
-    //             console.log("user " + usr);
-    //             deffered.resolve(usr);
-    //         }
-    //     });
-    //     return deffered.promise;
-    // }
-
-    function setModel(models) {
+     function setModel(models) {
         model=models;
         SuggestionSchema = require('./suggestion.schema.server.js')(models);
         SuggestionModel = mongoose.model('SuggestionModel', SuggestionSchema);
@@ -108,6 +93,7 @@ module.exports = function () {
     }
 
     function deleteSuggestion(suggestionId) {
+        // console.log("delete suggestion :",suggestionId)
         return SuggestionModel.findByIdAndRemove(suggestionId, function (err, user) {
             if (user != null)
             {

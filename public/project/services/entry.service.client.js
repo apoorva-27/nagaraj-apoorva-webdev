@@ -16,7 +16,8 @@
             "findEntryByEntryId":findEntryByEntryId,
             "updateEntry":updateEntry,
             "deleteEntry":deleteEntry,
-            "getAllEntries":getAllEntries
+            "getAllEntries":getAllEntries,
+            "findEntryById":findEntryById
 
         };
         return api;
@@ -38,6 +39,10 @@
 
         function findEntryByEntryId(userId,attractionId,entryId) {
             return $http.get("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId);
+        }
+
+        function findEntryById(entryId){
+            return $http.get("/api/admin/entry/"+entryId);
         }
 
         function findEntriesByAttraction(userId,attractionId) {
