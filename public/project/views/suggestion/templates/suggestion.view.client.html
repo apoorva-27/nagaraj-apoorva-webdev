@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light navbar-fixed-top">
     <div class="container-fluid bg-info ">
-        <div class="navbar-text pull-right ">
-            <a ng-click="model.updateItinerary(model.entry)" class="navbar-link ">
+        <div ng-if="model.suggestionId" class="navbar-text pull-right ">
+            <a   ng-click="model.updateSuggestion(model.suggestion)" class="navbar-link ">
                 <span class="glyphicon glyphicon-ok "></span>
             </a>
         </div>
@@ -19,7 +19,7 @@
     <form>
         <div class="title" >
             <h3><lablel>Title</lablel>
-                <input type="String" ng-model="model.entry.title"/>
+                <input type="String" ng-model="model.suggestion.title"/>
             </h3>
         </div>
         <div>
@@ -27,7 +27,7 @@
                 <h5> Things to do: </h5>
                 <textarea rows="6" style="width: 80%"
                           type="String"
-                          ng-model="model.entry.story"></textarea>
+                          ng-model="model.suggestion.suggestion"></textarea>
             </div>
         </div>
 
@@ -35,14 +35,29 @@
             <div col="col-md-12">
                 <input type="String"
                        placeholder="city"
-                       ng-model="model.entry.city"/>
+                       ng-model="model.suggestion.city"/>
             </div>
         </div>
     </form>
     <div class="col-sm-12">
-        <a class="btn btn-primary" ng-click="model.createEntry(model.entry)">
+
+        <div ng-if="model.suggestionId==undefined">
+        <a class="btn btn-primary" ng-click="model.createSuggestion(model.suggestion)">
             Create Iternary</a>
+        </div>
+
+        <div ng-if="model.suggestionId">
+            <a class="btn btn-primary" ng-click="model.updateSuggestion(model.suggestion)">
+                Update Iternary</a>
+
+            <a class="btn btn-danger" ng-click="model.deleteSuggestion(model.suggestion)">
+                Delete Iternary</a>
+        </div>
+
+
+
     </div>
+
 </div>
 
 <nav class="navbar navbar-light navbar-fixed-bottom">

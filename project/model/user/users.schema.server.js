@@ -15,22 +15,28 @@ module.exports = function (model) {
         phone : String,
         //_id:String,
         role: {type: String, enum: ['EXPERT','ADMIN','USER'], default: 'USER'},
-        entries :  [{type: mongoose.Schema.Types.String, ref:'EntryModel'}],
+        entries :  [{type: mongoose.Schema.Types.ObjectId, ref:'EntryModel'}],
         dateCreated :  {type: Date, default: Date.now()},
-        favorites : [{type: mongoose.Schema.Types.String, ref:'AttractionModel'}],
-        following : [{type:mongoose.Schema.Types.String,ref:'UsersModel'}],
-        followers : [{type:mongoose.Schema.Types.String,ref:'UsersModel'}],
+        favorites : [{type: mongoose.Schema.Types.ObjectId, ref:'AttractionModel'}],
+        following : [{type:mongoose.Schema.Types.ObjectId,ref:'UsersModel'}],
+        followers : [{type:mongoose.Schema.Types.ObjectId,ref:'UsersModel'}],
         title:String,
-        suggestion : String,
+        suggestions : [{type: mongoose.Schema.Types.ObjectId, ref:'SuggestionModel'}],
         city:String,
     }, {collection: 'project.users'});
 
     UsersSchema.post("remove", function(user) {
         var EntryModel = model.EntryModel.getModel();
+        var SuggestionModel=model.SuggestionModel.getModel();
 
         EntryModel.find({_id: {$in: user.entries}},function(err, entries) {
             if(err == null) {
                 EntryModel.remove({_id: {$in: user.entries}}).exec();
+            }
+        });
+        SuggestionModel.find({_id: {$in: user.suggestions}},function(err, entries) {
+            if(err == null) {
+                SuggestionModel.remove({_id: {$in: user.suggestions}}).exec();
             }
         });
     })

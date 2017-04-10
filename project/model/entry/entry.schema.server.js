@@ -12,7 +12,7 @@ module.exports = function (model) {
         date:Date,
         title:String,
         follow:String,
-        userId: String
+        userId: [{type: mongoose.Schema.Types.ObjectId, ref:'UsersModel'}]
     }, {collection: 'entries'});
 
     EntrySchema.post("remove", function (entry) {

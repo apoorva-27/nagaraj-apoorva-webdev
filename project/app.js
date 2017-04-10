@@ -10,6 +10,6 @@ module.exports = function (app) {
     require("./services/user.service.server") (app,models.UsersModel);
     require("./services/attraction.service.server.js") (app,models.AttractionModel);
     require("./services/entry.service.server.js") (app,models.EntryModel);
-    require("./services/expert.service.server.js") (app,models.ExpertModel);
+    require("./services/suggestion.service.server.js") (app,models.SuggestionModel);
 
 }

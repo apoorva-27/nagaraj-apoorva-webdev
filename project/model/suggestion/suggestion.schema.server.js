@@ -5,13 +5,15 @@
 module.exports = function (model) {
     var mongoose = require('mongoose');
 
-    var ExpertSchema = mongoose.Schema({
+    var SuggestionSchema = mongoose.Schema({
 
-        username : String,
-        password : String,
+        // username : String,
+        // password : String,
         firstname : String,
         lastname : String,
         email : String,
+        userId:[{type: mongoose.Schema.Types.ObjectId, ref:'UsersModel'}],
+        switch:String,
         phone : String,
         cityId:String,
         city:String,
@@ -19,7 +21,7 @@ module.exports = function (model) {
         suggestion : String,
         dateCreated :  {type: Date, default: Date.now()}
 
-    }, {collection: 'experts'});
+    }, {collection: 'suggestions'});
 
-    return ExpertSchema;
+    return SuggestionSchema;
 };

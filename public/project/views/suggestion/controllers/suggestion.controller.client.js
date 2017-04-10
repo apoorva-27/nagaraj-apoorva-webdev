@@ -11,37 +11,39 @@
 (function () {
     angular
         .module("Travelogue")
-        .controller("expertsuggestionController", expertsuggestionController);
+        .controller("suggestionController", suggestionController);
 
-    function expertsuggestionController($location,attractionService,expertService,$routeParams,
+    function suggestionController($location,attractionService,suggestionService,$routeParams,
                                         userService) {
         var vm = this;
         // vm.login = login;
         vm.attractionId=$routeParams['aid']
         vm.userId=$routeParams['uid']
+        vm.suggestionId=$routeParams['sid']
         var vm = this;
         vm.searchPlace = searchPlace;
         vm.detailsPage=detailsPage;
-        vm.createEntry=createEntry;
-        vm.updateEntry=updateEntry;
-        vm.deleteEntry=deleteEntry;
+        vm.createSuggestion=createSuggestion;
+        vm.updateSuggestion=updateSuggestion;
+        vm.deleteSuggestion=deleteSuggestion;
         vm.entryId=$routeParams['eid']
         var idfound;
+        vm.userName;
 
         function detailsPage(cityId) {
             console.log("details page home controller")
             $location.url("/attractiondetails/"+cityId);
         }
 
-        function deleteEntry() {
+        function deleteSuggestion() {
             var answer = confirm("Are you sure?");
             console.log(answer);
             if(answer) {
-                expertService
-                    .deleteEntry(vm.userId,vm.attractionId,vm.entryId)
+                suggestionService
+                    .deleteSuggestion(vm.suggestionId)
                     .success(function () {
                         console.log("entry deleted successfully")
-                        $location.url("/login");
+                        $location.url("/user/"+vm.userId+"/attraction");
                     })
                     .error(function () {
                         vm.error = 'unable to remove entry';
@@ -49,13 +51,13 @@
             }
         }
 
-        function updateEntry(entry) {
-            console.log("update entry in controller :",entry)
-            expertService
-                .updateEntry(vm.userId,vm.attractionId,vm.entryId,entry)
+        function updateSuggestion(suggestion) {
+            console.log("update entry in controller :",suggestion)
+            suggestionService
+                .updateSuggestion(vm.suggestionId,suggestion)
                 .success(function (entry) {
-                    // $location.url("/user/" + newuser._id);
-                    console.log(entry);
+                    $location.url("/user/"+vm.userId+"/attraction");
+                    // console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
@@ -65,40 +67,43 @@
 
         function init() {
 
-            if  (vm.entryId!=undefined) {
+            userService.findUserById(vm.userId)
+                .success(function (usr) {
+                    console.log("firstname :",usr)
+                    vm.userName = usr.firstname;
+                });
 
-                expertService
-                    .findEntryByEntryId(vm.userId,vm.attractionId,vm.entryId)
+            if ((vm.suggestionId!=undefined) || (vm.suggestionId!=null)) {
+                suggestionService
+                    .findSuggestionById(vm.suggestionId)
                     .success(function (entry) {
-                        console.log("success init ",entry)
-                        vm.entry=entry[0];
+                        console.log("Created new suggestion", entry)
+                        vm.suggestion=entry;
+                        console.log(entry);
                     })
                     .error(function (err) {
-                        vm.error="error"
+                        vm.error = 'Unable to register';
+                        console.log("error");
                     })
             }
-
         }
         init();
 
-        function createEntry(entry) {
+        function createSuggestion(entry) {
             console.log("create entry controller")
 
-            userService.findUserById(vm.userId)
-                .success(function (usr) {
-                    console.log(usr.firstname)
-                    vm.userName = usr.firstname;
 
-                });
 
             var newEntry={
                 title:entry.title,
+                userId:vm.userId,
                 city:entry.city.toLowerCase(),
-                suggestion:entry.story,
+                suggestion:entry.suggestion,
                 firstname: vm.userName
             };
-            expertService
-                .createEntry(vm.userId,newEntry)
+            console.log("newentry",newEntry)
+            suggestionService
+                .createSuggestion(vm.userId,newEntry)
                 .success(function (entry) {
                     console.log("Created new suggestion", entry)
                     // $location.url("/user/" + newuser._id);
@@ -146,15 +151,12 @@
                                         else {
                                             vm.error ="Attractions not found"
                                         }
-                                    })
-                                // break;
+                                    });
                             }
                         })
                     } else {
                         vm.error = 'Place not found';
                     }
                 })
-
         }
-
     }})();

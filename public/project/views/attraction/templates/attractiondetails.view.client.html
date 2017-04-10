@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <div class="panel">
+    <div ng-if="model.userId" class="panel">
         <div class="panel-primary">
             <div class="panel-heading">Entries
             </div>
@@ -129,10 +129,12 @@
 
 
         </div>
+        <a class="btn btn-primary btn-block"
+           href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry">New Entry</a>
+
 
     </div>
-    <a class="btn btn-primary btn-block"
-       href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry">New Entry</a>
+
 
 
     <nav class="navbar navbar-light navbar-fixed-bottom">

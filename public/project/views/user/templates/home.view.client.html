@@ -68,6 +68,14 @@
                                 </p>
 
                             </div>
+                            <div ng-switch="suggestion.switch">
+                                <div ng-switch-when="NONE">
+                                </div>
+
+                                <div ng-switch-when="EDIT">
+                                    <a href="#/suggestion/{{model.userId}}/suggestion/{{suggestion._id}}" class="glyphicon glyphicon-cog">Edit</a>
+                                </div>
+                            </div>
 
                         </li>
                     </div>

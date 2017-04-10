@@ -79,24 +79,25 @@
                 controller: "diaryentryController",
                 controllerAs: "model"
             })
-            .when("/expert", {
-                templateUrl: "views/expert/templates/expertlogin.view.client.html",
+            .when("/suggestion", {
+                templateUrl: "views/suggestion/templates/expertlogin.view.client.html",
                 controller: "expertloginController",
                 controllerAs: "model"
             })
-            .when("/expertregister", {
-                templateUrl: "views/expert/templates/expertregister.view.client.html",
-                controller: "expertregisterController",
+
+            .when("/suggestion/:uid", {
+                templateUrl: "views/suggestion/templates/suggestionhome.view.client.html",
+                controller: "suggestionhomeController",
                 controllerAs: "model"
             })
-            .when("/expert/:uid", {
-                templateUrl: "views/expert/templates/experthome.view.client.html",
-                controller: "experthomeController",
+            .when("/suggestion/:uid/suggestion", {
+                templateUrl: "views/suggestion/templates/suggestion.view.client.html",
+                controller: "suggestionController",
                 controllerAs: "model"
             })
-            .when("/expert/:uid/suggestion", {
-                templateUrl: "views/expert/templates/expertsuggestion.view.client.html",
-                controller: "expertsuggestionController",
+            .when("/suggestion/:uid/suggestion/:sid", {
+                templateUrl: "views/suggestion/templates/suggestion.view.client.html",
+                controller: "suggestionController",
                 controllerAs: "model"
             })
     }

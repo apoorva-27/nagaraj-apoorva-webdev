@@ -15,7 +15,7 @@ module.exports = function (model) {
         opening_hours: String,
         // entries : diary entries
         // entries: [{type: String}],
-        favorited : [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}]
+        favorited : [{type: mongoose.Schema.Types.ObjectId, ref:'UsersModel'}]
     }, {collection: 'attractions'});
 
     return AttractionSchema;

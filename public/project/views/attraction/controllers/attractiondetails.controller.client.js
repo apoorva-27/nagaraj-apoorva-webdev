@@ -83,47 +83,48 @@
             .error(function (err) {
                 vm.error = 'Unable to register';
             })
+        if (vm.userId!=undefined) {
+            var entries = entryService
+                .findEntriesByAttraction(vm.userId, vm.attractionId)
+                .success(function (entries) {
 
-        var entries = entryService
-            .findEntriesByAttraction(vm.userId,vm.attractionId)
-            .success(function (entries) {
-
-                var i;
-                for (i=0;i<entries.length;i++){
-                    entries[i].follow='FOLLOW'
-                    console.log("vm.entries i",entries[i].userId)
-                    if (entries[i].userId==vm.userId){
-                        entries[i].follow='NONE'
-                    }
-                    else {
-                        var x=entries[i]
-                        userService
-                            .findFollowing(vm.userId)
-                            .success(function (following) {
-                                console.log("following",following)
-                                var j;
-                                for (j=0;j<following.length;j++) {
-                                    console.log("here it fails",x)
-                                    if (x.userId==following[j]) {
-                                        console.log("checking if followed")
-                                        x.follow = 'UNFOLLOW';
-                                        continue;
+                    var i;
+                    for (i = 0; i < entries.length; i++) {
+                        entries[i].follow = 'FOLLOW'
+                        console.log("vm.entries i", entries[i].userId)
+                        if (entries[i].userId == vm.userId) {
+                            entries[i].follow = 'NONE'
+                        }
+                        else {
+                            var x = entries[i]
+                            userService
+                                .findFollowing(vm.userId)
+                                .success(function (following) {
+                                    console.log("following", following)
+                                    var j;
+                                    for (j = 0; j < following.length; j++) {
+                                        console.log("here it fails", x)
+                                        if (x.userId == following[j]) {
+                                            console.log("checking if followed")
+                                            x.follow = 'UNFOLLOW';
+                                            continue;
+                                        }
+                                        console.log("else un followed")
                                     }
-                                    console.log("else un followed")
-                                }
-                            })
-                            .error (function (err){
-                                console.log("err :",err)
-                            })
+                                })
+                                .error(function (err) {
+                                    console.log("err :", err)
+                                })
+                        }
                     }
-                }
-                vm.entries=entries;
-            })
-            .error (function (err) {
-                vm.error="error";
-            })
+                    vm.entries = entries;
+                })
+                .error(function (err) {
+                    vm.error = "error";
+                })
 
-        findFavoritesByUserId();
+            findFavoritesByUserId();
+        }
     }
     init();
 

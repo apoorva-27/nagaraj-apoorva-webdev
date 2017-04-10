@@ -10,31 +10,38 @@
    ng-click="model.getAllEntries()">get all entries</a>
 
 <a class="btn btn-warning "
-   ng-click="model.getAllExperts()">get all experts</a>
+   ng-click="model.getAllSuggestions()">get all suggestions</a>
 
 <div ng-show="model.users">
     <div class="container-fluid">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="user in model.users">
-
-                <div><label>
-                    <h4>{{user.firstname}}</h4>
-                </label>
+                <div class="row">
+                    <div class="col-xs-9">
+                        <h4>{{user.firstname}}</h4>
+                    </div>
+                    <div class="col-xs-1">
+                        <a ><span class="glyphicon glyphicon-cog"></span></a></div>
+                    <div class="col-xs-1">
+                        <a > <span class="glyphicon glyphicon-remove"></span></a></div>
                 </div>
             </li></ul>
     </div>
 </div>
 
 <div ng-show="model.attractions">
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="attraction in model.attractions">
-
-                <div><label>
+            <div class="row">
+                <div class="col-xs-9">
                     <h4>{{attraction.name}}</h4>
-                </label>
-                    <a > <span class="glyphicon glyphicon-remove pull-right"></span></a>
                 </div>
+                    <div class="col-xs-1">
+                        <a ><span class="glyphicon glyphicon-cog"></span></a></div>
+                    <div class="col-xs-1">
+                    <a > <span class="glyphicon glyphicon-remove"></span></a></div>
+            </div>
             </li></ul>
     </div>
 </div>
@@ -43,11 +50,43 @@
     <div class="container-fluid">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="entry in model.entries">
-
-                <div><label>
-                    <h4>{{entry.title}}</h4>
-                </label>
+                <div class="row">
+                    <div class="col-xs-9">
+                        <h4>{{entry.title}}</h4>
+                    </div>
+                    <div class="col-xs-1">
+                        <a ><span class="glyphicon glyphicon-cog"></span></a></div>
+                    <div class="col-xs-1">
+                        <a > <span class="glyphicon glyphicon-remove"></span></a></div>
                 </div>
             </li></ul>
     </div>
 </div>
+
+<div ng-show="model.suggestions">
+    <div class="container-fluid">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="suggestion in model.suggestions">
+                <div class="row">
+                    <div class="col-xs-9">
+                        <h4>{{suggestion.title}}</h4>
+                    </div>
+                    <div class="col-xs-1">
+                        <a ng-click="model.findSuggestionById(suggestion._id)"><span class="glyphicon glyphicon-cog"></span></a></div>
+                    <div class="col-xs-1">
+                        <a ng-click="model.deleteSuggestion(suggestion._id)"> <span class="glyphicon glyphicon-remove"></span></a></div>
+                </div>
+            </li></ul>
+    </div>
+</div>
+
+
+<div ng-show="model.suggestion">
+    <div class="container-fluid">
+        <label> Title</label> <input type="String" ng-model="model.suggestion.title"/>
+        <label> Itinerary</label> <input type="String" ng-model="model.suggestion.suggestion"/>
+        <label> Author</label> <input type="String" ng-model="model.suggestion.firstname"/>
+        <button ng-click="model.updateSuggestion(model.suggestion._id,model.suggestion)" class="btn btn-primary">Update</button>
+    </div>
+</div>
+
