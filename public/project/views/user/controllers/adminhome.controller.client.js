@@ -18,6 +18,10 @@
         vm.deleteSuggestion=deleteSuggestion;
         vm.findEntryById=findEntryById;
         vm.updateEntry=updateEntry;
+        vm.deleteEntry=deleteEntry;
+        vm.findAttractionById=findAttractionById;
+        vm.updateAttraction=updateAttraction;
+        vm.deleteAttraction=deleteAttraction;
         vm.users;
         vm.attractions;
         vm.entries;
@@ -28,14 +32,69 @@
         vm.entry;
         vm.author;
 
+        function deleteAttraction(attractionId) {
+            var answer = confirm("Are you sure?");
+            console.log(answer);
+            if(answer) {
+                attractionService
+                    .deleteAttraction(entryId)
+                    .success(function () {
+                        console.log("entry deleted successfully");
+                        vm.attraction=null;
+                        getAllAttractions();
+                        // $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    })
+                    .error(function () {
+                        vm.error = 'unable to remove entry';
+                        // $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    });
+            }
+        }
+
+        function updateAttraction(attractionId,attraction){
+            console.log("attractionId",attractionId," attraction:",attraction);
+            attractionService
+                .updateAttraction(attractionId,attraction)
+                .success(function (attraction) {
+                    console.log("success :",attraction)
+                    vm.attraction=null;
+                    getAllAttractions()
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                })
+        }
+
+        function findAttractionById(attractionId) {
+
+            console.log("attraction admin home")
+            attractionService
+                .findAttractionById(attractionId)
+                .success(function (entry) {
+                    vm.suggestion=null;
+                    vm.entries=null;
+                    vm.suggestions=null;
+                    vm.attraction=entry;
+                    vm.attractions=null;
+                    vm.users=null;
+                    // $location.url("/user/"+vm.userId+"/attraction");
+                    // console.log(entry);
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to find attraction';
+                    //console.log("error");
+                })
+        }
+
 
         function updateEntry(entryId, entry){
+            console.log("entryId",entryId," entry:",entry);
             entryService
                 .updateEntry(entryId,entry)
                 .success(function (entry) {
                     console.log("success :",entry)
                     vm.entry=null;
-                    getAllSuggestions()
+                    getAllEntries()
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
@@ -56,8 +115,9 @@
                     userService
                         .findUserById(vm.entry.userId[0])
                         .success(function (usr) {
-                            console.log("usr :",usr)
-                            vm.author=usr.firstname;
+                            var x=usr[0]
+                            vm.author=x.firstname;
+                            console.log(vm.author);
                         })
                             .error(function (err) {
                                 vm.error = 'unable to remove entry';
@@ -68,12 +128,12 @@
                 });
         }
 
-        function deleteEntry() {
+        function deleteEntry(entryId) {
             var answer = confirm("Are you sure?");
             console.log(answer);
             if(answer) {
                 entryService
-                    .deleteEntry(vm.userId,vm.attractionId,vm.entryId)
+                    .deleteEntry(entryId)
                     .success(function () {
                         console.log("entry deleted successfully");
                         vm.entry=null;

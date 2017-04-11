@@ -16,9 +16,48 @@ module.exports = function () {
         getModel:getModel,
         favorite:favorite,
         findFavoritesByUserId:findFavoritesByUserId,
-        getAllAttractions:getAllAttractions
+        getAllAttractions:getAllAttractions,
+        findAttractionById:findAttractionById,
+        updateAttraction:updateAttraction
     };
     return api;
+
+    function updateAttraction(attractionId,attraction) {
+        var deffered = q.defer();
+        AttractionModel
+            .update(
+                {_id: attractionId},{$set : attraction},function(err,usr) {
+                    if(err){
+                        // console.log("hello   "+err);
+                        deffered.reject(err);
+                    }
+                    else{
+                        // console.log("user :" + usr);
+                        deffered.resolve(attraction);
+                        // return usr
+                    }
+                });
+        return deffered.promise;
+    }
+
+
+    function findAttractionById(attractionId) {
+        var deffered = q.defer();
+        console.log("attraction server service")
+
+        AttractionModel
+            .find({"_id":attractionId},function(err,user) {
+                if(user[0]==undefined) {
+                    deffered.reject(err)
+                }
+                else {
+                    // console.log("success object :",user)
+                    console.log("step 6 : model success :",user)
+                    deffered.resolve(user[0])
+                }
+            })
+        return deffered.promise;
+    }
 
     function getAllAttractions() {
         var deffered = q.defer();
@@ -70,7 +109,8 @@ module.exports = function () {
             score:attraction.response.venues[0].score,
             address:attraction.response.venues[0].address,
             website:attraction.response.venues[0].website,
-            opening_hours:attraction.response.venues[0].opening_hours
+            opening_hours:attraction.response.venues[0].opening_hours,
+            tripexpert_score:attraction.response.venues[0].tripexpert_score
         }
         console.log("newattraction object :",newattraction)
         AttractionModel.find({attractionId:attractionId},function (err,en) {

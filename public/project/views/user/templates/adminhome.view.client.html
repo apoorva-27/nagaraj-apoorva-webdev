@@ -38,9 +38,9 @@
                     <h4>{{attraction.name}}</h4>
                 </div>
                     <div class="col-xs-1">
-                        <a ><span class="glyphicon glyphicon-cog"></span></a></div>
+                        <a ng-click="model.findAttractionById(attraction._id)"><span class="glyphicon glyphicon-cog"></span></a></div>
                     <div class="col-xs-1">
-                    <a > <span class="glyphicon glyphicon-remove"></span></a></div>
+                    <a ng-click="model.deleteAttraction(attraction._id)"> <span class="glyphicon glyphicon-remove"></span></a></div>
             </div>
             </li></ul>
     </div>
@@ -94,8 +94,20 @@
     <div class="container-fluid">
         <label> Title : </label> <input type="String" ng-model="model.entry.title"/>
         <label> Diary Entry : </label> <input type="String" ng-model="model.entry.story"/>
-        <label> Author : </label> <label >{{vm.author}}</label>
+        <label> Author : </label> <label >{{model.author}}</label>
         <button ng-click="model.updateEntry(model.entry._id,model.entry)" class="btn btn-primary">Update</button>
+    </div>
+</div>
+
+<div ng-show="model.attraction">
+    <div class="container-fluid">
+        <label> Name : </label> <label >{{model.attraction.name}}</label>
+        <label> Tripexpert score : </label> <input type="String" ng-model="model.attraction.tripexpert_score"/>
+        <label> Opening Hours : </label> <input type="String" ng-model="model.attraction.opening_hours"/>
+        <label> Website : </label> <input type="String" ng-model="model.attraction.website"/>
+        <label> Address : </label> <label >{{model.attraction.address}}</label>
+
+        <button ng-click="model.updateAttraction(model.attraction._id,model.attraction)" class="btn btn-primary">Update</button>
     </div>
 </div>
 

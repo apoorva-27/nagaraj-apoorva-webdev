@@ -26,14 +26,12 @@
             return $http.get("/api/admin/entries");
         }
 
-        function deleteEntry(userId,attractionId,entryId){
-            return $http.delete("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId);
+        function deleteEntry(entryId){
+            return $http.delete("/api/entry/"+entryId);
         }
 
-        function updateEntry(userId,attractionId,entryId,entry) {
-            console.log("update entry in entry service client")
-            response= $http.put("/api/user/"+userId+"/attraction/"+attractionId+"/entry/"+entryId,entry);
-            console.log("respone in client: ",response)
+        function updateEntry(entryId,entry) {
+            response= $http.put("/api/entry/"+entryId,entry);
             return response
         }
 

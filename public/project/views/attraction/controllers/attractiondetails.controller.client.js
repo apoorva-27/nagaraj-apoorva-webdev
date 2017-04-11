@@ -36,15 +36,12 @@
                 })
                 .error(function (err) {
                     entry.follow = 'UNFOLLOW';
-                    // vm.favorited=false;
-                    // vm.error = 'Unable to register';
                     console.log("Unable to change Follow!",err)
                 })
         }
 
         function favorite(status) {
             console.log(status)
-
 
             attractionService
                 .favorite(vm.userId,vm.attractionId,status,vm.attraction)
@@ -78,7 +75,6 @@
                 vm.address=newuser.response.venues[0].address;
                 vm.tripexpert_score=newuser.response.venues[0].tripexpert_score;
                 vm.website=newuser.response.venues[0].website;
-
             })
             .error(function (err) {
                 vm.error = 'Unable to register';
@@ -87,7 +83,6 @@
             var entries = entryService
                 .findEntriesByAttraction(vm.userId, vm.attractionId)
                 .success(function (entries) {
-
                     var i;
                     for (i = 0; i < entries.length; i++) {
                         entries[i].follow = 'FOLLOW'
@@ -122,7 +117,6 @@
                 .error(function (err) {
                     vm.error = "error";
                 })
-
             findFavoritesByUserId();
         }
     }

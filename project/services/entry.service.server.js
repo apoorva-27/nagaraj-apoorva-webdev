@@ -6,8 +6,8 @@ module.exports = function (app,EntryModel) {
     app.post("/api/user/:uid/attraction/:aid/entry", createEntry);
     app.get("/api/user/:uid/attraction/:aid",findEntriesByAttraction);
     app.get("/api/user/:uid/attraction/:aid/entry/:eid",findEntryByEntryId);
-    app.put("/api/user/:uid/attraction/:aid/entry/:eid",updateEntry);
-    app.delete("/api/user/:uid/attraction/:aid/entry/:eid",deleteEntry);
+    app.put("/api/entry/:eid",updateEntry);
+    app.delete("/api/entry/:eid",deleteEntry);
     app.get("/api/admin/entries",getAllEntries);
     app.get("/api/admin/entry/:eid",findEntryById);
 
@@ -40,6 +40,7 @@ module.exports = function (app,EntryModel) {
         var userId=req.params.uid;
         var attractionId=req.params.aid;
         var entryId=req.params.eid;
+        console.log("beofre deleting model")
         EntryModel
             .deleteEntry(entryId)
             .then (function (entry) {

@@ -15,10 +15,22 @@
             "findAttraction":findAttraction,
             "favorite":favorite,
             "findFavoritesByUserId":findFavoritesByUserId,
-            "getAllAttractions":getAllAttractions
+            "getAllAttractions":getAllAttractions,
+            "findAttractionById":findAttractionById,
+            "updateAttraction":updateAttraction
 
         };
         return api;
+
+        function updateAttraction(attractionId,attraction) {
+            return $http.put("/api/attraction/"+attractionId,attraction);
+        }
+
+        function findAttractionById(attractionId){
+            console.log("attraction client service")
+
+            return $http.get("/api/attraction/"+attractionId)
+        }
 
         function getAllAttractions(){
             // console.log("Step 2: before api");

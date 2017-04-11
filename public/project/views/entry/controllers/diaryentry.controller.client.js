@@ -31,7 +31,7 @@
             console.log(answer);
             if(answer) {
                 entryService
-                    .deleteEntry(vm.userId,vm.attractionId,vm.entryId)
+                    .deleteEntry(vm.entryId)
                     .success(function () {
                         console.log("entry deleted successfully")
                         $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
@@ -46,7 +46,7 @@
         function updateEntry(entry) {
             console.log("update entry in controller :",entry)
             entryService
-                .updateEntry(vm.userId,vm.attractionId,vm.entryId,entry)
+                .updateEntry(vm.entryId,entry)
                 .success(function (entry) {
                     console.log("success object in dairy entry details")
                     $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
