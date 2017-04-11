@@ -22,7 +22,7 @@ module.exports = function (app,UsersModel) {
                     res.json(array)
                 },
                 function(err){
-                    res.sendStatus(400).send(err)
+                    res.send(null)
                 })
     }
 
@@ -143,7 +143,7 @@ module.exports = function (app,UsersModel) {
             .then(function (user) {
                 res.json(user);
             }, function (error) {
-                res.sendStatus(400).send(error);
+                res.send(null);
             });
     }
 };

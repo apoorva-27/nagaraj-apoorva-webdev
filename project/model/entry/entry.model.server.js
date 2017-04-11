@@ -129,8 +129,8 @@ module.exports = function () {
                     model.UsersModel
                         .findUserById(en.userId)
                         .then(function(user) {
-                            user.entries.push(en._id);
-                            user.save();
+                            user[0].entries.push(en._id);
+                            user[0].save();
                         })
                     deffered.resolve(en);
                 }

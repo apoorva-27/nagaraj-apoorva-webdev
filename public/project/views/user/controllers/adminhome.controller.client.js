@@ -22,6 +22,9 @@
         vm.findAttractionById=findAttractionById;
         vm.updateAttraction=updateAttraction;
         vm.deleteAttraction=deleteAttraction;
+        vm.findUserById=findUserById;
+        vm.updateUser=updateUser;
+        vm.deleteUser=deleteUser;
         vm.users;
         vm.attractions;
         vm.entries;
@@ -32,12 +35,68 @@
         vm.entry;
         vm.author;
 
+        function deleteUser (userId) {
+            var answer = confirm("Are you sure?");
+            console.log(answer);
+            if(answer) {
+                userService
+                    .deleteUser(userId)
+                    .success(function () {
+                        console.log("entry deleted successfully");
+                        vm.user=null;
+                        getAllUsers();
+                    })
+                    .error(function () {
+                        vm.error = 'unable to remove entry';
+                    });
+            }
+        }
+
+        function updateUser(userId,user) {
+            var newU={
+                password:user.password,
+                firstname:user.firstname,
+                lastname:user.lastname,
+                email:user.email,
+            }
+            userService
+                .updateUser(userId,newU)
+                .success(function (user) {
+                    console.log("success :",user)
+                    vm.user=null;
+                    getAllUsers()
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                })
+        }
+
+        function findUserById(userId){
+            userService
+                .findUserById(userId)
+                .success(function (entry) {
+                    vm.suggestion=null;
+                    vm.entries=null;
+                    vm.suggestions=null;
+                    vm.attraction=null;
+                    vm.users=null;
+                    vm.attractions=null;
+                    vm.user=entry[0];
+                    // $location.url("/user/"+vm.userId+"/attraction");
+                    // console.log(entry);
+                })
+                .error(function (err) {
+                    vm.error = 'Unable to find attraction';
+                    //console.log("error");
+                })
+        }
+
         function deleteAttraction(attractionId) {
             var answer = confirm("Are you sure?");
             console.log(answer);
             if(answer) {
                 attractionService
-                    .deleteAttraction(entryId)
+                    .deleteAttraction(attractionId)
                     .success(function () {
                         console.log("entry deleted successfully");
                         vm.attraction=null;
@@ -179,6 +238,7 @@
                         vm.suggestion=null
                         vm.entry=null;
                     } else {
+                        vm.suggestions=null;
                         vm.error = 'Suggestions not found';
                     }
                 })
@@ -226,6 +286,7 @@
                         vm.suggestions=null;
                         vm.users=null;
                     } else {
+                        vm.entries=null;
                         vm.error = 'Entries not found';
                     }
                 })
@@ -236,12 +297,13 @@
                 .getAllAttractions();
             promise
                 .success(function (usr) {
+                    vm.users=null;
+                    vm.suggestions=null;
+                    vm.entries=null;
                     if (usr) {
-                        vm.users=null;
-                        vm.suggestions=null;
                         vm.attractions=usr;
-                        vm.entries=null;
                     } else {
+                        vm.attractions=null;
                         vm.error = 'Attractions not found';
                     }
                 })
@@ -258,6 +320,7 @@
                         vm.suggestions=null;
                         vm.attractions=null;
                     } else {
+                        vm.users=null;
                         vm.error = 'Users not found';
                     }
                 })

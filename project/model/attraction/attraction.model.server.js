@@ -18,9 +18,19 @@ module.exports = function () {
         findFavoritesByUserId:findFavoritesByUserId,
         getAllAttractions:getAllAttractions,
         findAttractionById:findAttractionById,
-        updateAttraction:updateAttraction
+        updateAttraction:updateAttraction,
+        deleteAttraction:deleteAttraction
     };
     return api;
+
+    function deleteAttraction(attractionId){
+        return AttractionModel.findByIdAndRemove(attractionId, function (err, user) {
+            if (user != null)
+            {
+                user.remove();
+            }
+        });
+    }
 
     function updateAttraction(attractionId,attraction) {
         var deffered = q.defer();
@@ -101,7 +111,6 @@ module.exports = function () {
 
     function favorite(userId,attractionId,status,attraction){
         var deffered = q.defer();
-        // console.log("wat does my attraction object have before creating",attraction.response.venues)
         var newattraction= {
             attractionId: attractionId,
             favorited: [userId],
@@ -118,11 +127,37 @@ module.exports = function () {
                 AttractionModel
                     .create(newattraction)
                     .then(function (succ) {
+                        model.UsersModel
+                            .findUserById(userId)
+                            .then (function (success_user) {
+
+                                founduser=success_user[0];
+                                    console.log("found user frst :",founduser.favorites);
+                                    success_user[0].favorites.push(succ._id);
+                                    success_user[0].save();
+                            },
+                            function (err) {
+                                res.sendStatus(400).send(err);
+                            });
                         deffered.resolve(succ);
                     })
             }
             else {
                 var i = en[0].favorited.indexOf(userId);
+                model.UsersModel
+                    .findUserById(userId)
+                    .then (function (succ) {
+                            founduser=succ[0];
+                            console.log("found user sec :",founduser);
+                            succ[0].favorites.push(en[0]._id);
+                            console.log("founduser be4 save :",succ[0]);
+                            // succ[0].save()
+                        console.log("founduser after save :",founduser);
+
+                        },
+                        function (err) {
+                            res.sendStatus(400).send(err);
+                        });
                 if (i<0)
                 {
                     en[0].favorited.push(userId);

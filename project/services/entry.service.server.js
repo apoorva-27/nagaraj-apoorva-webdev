@@ -32,7 +32,7 @@ module.exports = function (app,EntryModel) {
                     res.json(array)
                 },
                 function(err){
-                    res.sendStatus(400).send(err)
+                    res.send(null)
                 })
     }
 

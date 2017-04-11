@@ -18,6 +18,26 @@ module.exports = function (model) {
         favorited : [{type: mongoose.Schema.Types.ObjectId, ref:'UsersModel'}]
     }, {collection: 'attractions'});
 
+    AttractionSchema.post("remove", function(user) {
+        var AttractionModel = model.AttractionModel.getModel();
+        var UsersModel = model.UsersModel.getModel();
+
+        var attraction=this;
+        for (var i=0;i<attraction.favorited.length;i++){
+            UsersModel.find({_id: attraction.favorited[i]},function(err, user) {
+                if(err == null) {
+                    var listi=attraction.favorited[i];
+                    console.log("user :",user)
+                    var index=user[0].favorites.indexOf(attraction._id);
+                    if (index!=-1) {
+                        user[0].favorites.splice(index,1);
+                        user[0].save()
+                    }
+                    // EntryModel.remove({_id: {$in: user.entries}}).exec();
+                }
+            });
+        }
+    })
     return AttractionSchema;
 };
 

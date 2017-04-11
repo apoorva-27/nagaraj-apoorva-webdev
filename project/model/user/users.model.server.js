@@ -64,10 +64,10 @@ module.exports = function () {
                 deffered.reject(err);
             }
             else {
-                var i = en[0].following.indexOf(userToFollow);
+                var i = en[0].following.indexOf(userToFollow.toString());
                 if (i<0)
                 {
-                    UsersModel.find({_id:userToFollow},function (err,person) {
+                    UsersModel.find({_id:userToFollow.toString()},function (err,person) {
                         if (person[0]==undefined) {
                             deffered.reject(err);
                         }
@@ -140,7 +140,7 @@ module.exports = function () {
                     deffered.reject(err);
                 }
                 else{
-                    return usr
+                    deffered.resolve(usr);
                 }
             });
         return deffered.promise;
@@ -200,5 +200,4 @@ module.exports = function () {
         });
         return deffered.promise;
     }
-
 };

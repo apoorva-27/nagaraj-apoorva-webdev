@@ -38,9 +38,17 @@
         }
 
         function updateUser(newuser) {
-            console.log("newuser in profile controller"+newuser)
+
+            var newU=
+                {
+                    firstname: newuser.firstname ,
+                    lastname: newuser.lastname ,
+                    email: newuser.email
+                }
+
+            console.log("newuser in profile controller"+newU)
             userService
-                .updateUser(userId, newuser)
+                .updateUser(userId, newU)
                 .success(function (user) {
                     if (user != null) {
                         vm.message = "User Successfully Updated!"

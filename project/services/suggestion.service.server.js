@@ -23,7 +23,7 @@ module.exports = function (app,SuggestionModel) {
                     res.json(array)
                 },
                 function(err){
-                    res.sendStatus(400).send(err)
+                    res.send(null)
                 })
     }
 
@@ -53,18 +53,6 @@ module.exports = function (app,SuggestionModel) {
             });
     }
 
-    // function createSuggestion(req,res) {
-    //     var newU=req.body;
-    //     console.log("newU :",newU)
-    //     SuggestionModel
-    //         .createSuggestion(newU)
-    //         .then(function (user) {
-    //                 res.json(user);
-    //             },
-    //             function (err) {
-    //                 res.sendStatus(400).send(err);
-    //             });
-    // }
 
     function findSuggestion(req,res) {
         var username=req.query.username;

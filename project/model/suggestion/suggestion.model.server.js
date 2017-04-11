@@ -73,8 +73,8 @@ module.exports = function () {
                         .findUserById(sugg.userId)
                         .then(function(user) {
                             console.log("is user found :",user)
-                            user.suggestions.push(sugg._id);
-                            user.save();
+                            user[0].suggestions.push(sugg._id);
+                            user[0].save();
                         })
                     deffered.resolve(sugg);
                 }

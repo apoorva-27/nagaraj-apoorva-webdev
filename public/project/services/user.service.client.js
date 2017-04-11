@@ -22,7 +22,9 @@
         return api;
 
         function getAllUsers(){
-            return $http.get("/api/admin/users")
+            var response= $http.get("/api/admin/users")
+            console.log("res :",response)
+            return response
         }
 
         function changeFollow(userFollowingOther,UserToFollow) {
@@ -47,20 +49,15 @@
                     firstname: user.lastname ,
                     lastname: user.firstname ,
                     email: user.email,
-                    role:'USER'
+                    role:'EXPERT'
                 }
            return $http.post("/api/user",newUser)
         }
 
         function updateUser(userId, user) {
-            var newUser=
-                {
-                    firstname: user.firstname ,
-                    lastname: user.lastname ,
-                    email: user.email
-                }
-            console.log("in update user client"+newUser);
-            return $http.put("/api/user/"+userId,newUser);
+
+            console.log("in update user client"+user);
+            return $http.put("/api/user/"+userId,user);
         }
 
         function deleteUser(userId) {

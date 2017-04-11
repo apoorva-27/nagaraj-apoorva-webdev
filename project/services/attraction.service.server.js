@@ -9,6 +9,23 @@ module.exports = function (app,AttractionModel) {
     app.get("/api/admin/attractions",getAllAttractions);
     app.get("/api/attraction/:aid",findAttractionById);
     app.put("/api/attraction/:aid",updateAttraction);
+    app.delete("/api/attraction/:aid",deleteAttraction)
+
+    function deleteAttraction(req,res) {
+        // var userId=req.params.uid;
+        var attractionId=req.params.aid;
+        // var entryId=req.params.eid;
+        console.log("beofre deleting model")
+        AttractionModel
+            .deleteAttraction(attractionId)
+            .then (function (entry) {
+                    console.log("deleteAttraction delete at server service"+entry)
+                    res.json(entry);
+                },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                });
+    }
 
     function updateAttraction(req,res){
         var attractionId=req.params.aid;
@@ -53,7 +70,7 @@ module.exports = function (app,AttractionModel) {
                     res.json(status);
                 },
                 function (err) {
-                    res.sendStatus(400).send(err);
+                    res.send(null);
                 });
     }
 

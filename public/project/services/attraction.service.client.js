@@ -17,10 +17,15 @@
             "findFavoritesByUserId":findFavoritesByUserId,
             "getAllAttractions":getAllAttractions,
             "findAttractionById":findAttractionById,
-            "updateAttraction":updateAttraction
+            "updateAttraction":updateAttraction,
+            "deleteAttraction":deleteAttraction
 
         };
         return api;
+
+        function deleteAttraction(attractionId) {
+            return $http.delete("/api/attraction/"+attractionId);
+        }
 
         function updateAttraction(attractionId,attraction) {
             return $http.put("/api/attraction/"+attractionId,attraction);

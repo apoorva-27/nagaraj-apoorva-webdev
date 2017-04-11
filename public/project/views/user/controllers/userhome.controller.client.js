@@ -16,7 +16,8 @@
              userService
                  .findUserById(vm.userId)
                  .success( function (user) {
-                     vm.user=user;
+                     // console.log("user [0]",user)
+                     vm.user=user[0];
                  })
                  .error (function (err) {
                      vm.error="unable to find user"

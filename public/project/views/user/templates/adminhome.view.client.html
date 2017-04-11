@@ -21,9 +21,9 @@
                         <h4>{{user.firstname}}</h4>
                     </div>
                     <div class="col-xs-1">
-                        <a ><span class="glyphicon glyphicon-cog"></span></a></div>
+                        <a ng-click="model.findUserById(user._id)"><span class="glyphicon glyphicon-cog"></span></a></div>
                     <div class="col-xs-1">
-                        <a > <span class="glyphicon glyphicon-remove"></span></a></div>
+                        <a ng-click="model.deleteUser(user._id)"> <span class="glyphicon glyphicon-remove"></span></a></div>
                 </div>
             </li></ul>
     </div>
@@ -108,6 +108,20 @@
         <label> Address : </label> <label >{{model.attraction.address}}</label>
 
         <button ng-click="model.updateAttraction(model.attraction._id,model.attraction)" class="btn btn-primary">Update</button>
+    </div>
+</div>
+
+<div ng-show="model.user">
+    <div class="container-fluid">
+        <label> UserName : </label> <label >{{model.user.username}}</label>
+        <label> Password : </label> <input type="String" ng-model="model.user.password"/>
+
+        <label> Firstname : </label> <input type="String" ng-model="model.user.firstname"/>
+        <label> Lastname : </label> <input type="String" ng-model="model.user.lastname"/>
+        <label> Email : </label> <input type="String" ng-model="model.user.email"/>
+        <!--<label> Address : </label> <label >{{model.attraction.address}}</label>-->
+
+        <button ng-click="model.updateUser(model.user._id,model.user)" class="btn btn-primary">Update</button>
     </div>
 </div>
 

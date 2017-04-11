@@ -23,5 +23,19 @@ module.exports = function (model) {
 
     }, {collection: 'suggestions'});
 
+    SuggestionSchema.post("remove", function (entry) {
+        var UsersModel = require("../user/users.model.server.js");
+
+        var suggestion=this;
+        model.UsersModel
+            .findUserById(suggestion.userId[0])
+            .then(function (user) {
+                console.log("user :",user)
+                var entry_index = user[0].suggestions.indexOf(user[0]._id);
+                user[0].suggestions.splice(entry_index, 1);
+                user[0].save();
+            });
+    })
+
     return SuggestionSchema;
 };
