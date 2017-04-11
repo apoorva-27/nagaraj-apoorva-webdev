@@ -115,6 +115,8 @@
     <div class="container-fluid">
         <label> UserName : </label> <label >{{model.user.username}}</label>
         <label> Password : </label> <input type="String" ng-model="model.user.password"/>
+        <label> Role : </label> <select ng-model="model.user.role" ng-options="x for x in ['USER','EXPERT']">
+                                </select>
 
         <label> Firstname : </label> <input type="String" ng-model="model.user.firstname"/>
         <label> Lastname : </label> <input type="String" ng-model="model.user.lastname"/>

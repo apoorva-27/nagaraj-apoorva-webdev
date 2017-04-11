@@ -49,7 +49,7 @@
                     firstname: user.lastname ,
                     lastname: user.firstname ,
                     email: user.email,
-                    role:'EXPERT'
+                    role:'USER'
                 }
            return $http.post("/api/user",newUser)
         }

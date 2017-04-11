@@ -58,6 +58,7 @@
                 firstname:user.firstname,
                 lastname:user.lastname,
                 email:user.email,
+                role:user.role
             }
             userService
                 .updateUser(userId,newU)
