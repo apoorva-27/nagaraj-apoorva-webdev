@@ -65,6 +65,7 @@
         }
 
         function findUserById(userId) {
+            console.log("init findUserById");
             return $http.get("/api/user/"+userId);
         }
 

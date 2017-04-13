@@ -14,6 +14,9 @@
 
 <div ng-show="model.users">
     <div class="container-fluid">
+        <a ng-click="model.newUser=true;model.users=null"> <button class="btn btn-info">
+            Create User
+        </button> </a>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="user in model.users">
                 <div class="row">
@@ -127,4 +130,18 @@
     </div>
 </div>
 
+<div ng-show="model.newUser">
+    <div class="container-fluid">
+        <label> UserName : </label> <input type="String" ng-model="model.Cuser.username"/>
+        <label> Password : </label> <input type="String" ng-model="model.Cuser.password"/>
+        <label> Role : </label> <select ng-model="model.Cuser.role" ng-options="x for x in ['USER','EXPERT']">
+    </select>
 
+        <label> Firstname : </label> <input type="String" ng-model="model.Cuser.firstname"/>
+        <label> Lastname : </label> <input type="String" ng-model="model.Cuser.lastname"/>
+        <label> Email : </label> <input type="String" ng-model="model.Cuser.email"/>
+        <!--<label> Address : </label> <label >{{model.attraction.address}}</label>-->
+
+        <button ng-click="model.creatUser(model.Cuser)" class="btn btn-primary">Create</button>
+    </div>
+</div>

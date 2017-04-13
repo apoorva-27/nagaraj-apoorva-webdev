@@ -1,9 +1,9 @@
 (function () {
     angular
         .module("Travelogue")
-        .controller("profileController", profileController);
+        .controller("settingsController", settingsController);
 
-    function profileController($routeParams, userService,$location) {
+    function settingsController($routeParams, userService,$location) {
         var vm = this;
         // event handlers
         vm.updateUser = updateUser;
@@ -13,6 +13,7 @@
         // vm.deleteUser = deleteUsers;
 
         function init() {
+            console.log("init settings");
             var promise = userService.findUserById(userId);
             promise.success(function (user) {
                 vm.user = user;

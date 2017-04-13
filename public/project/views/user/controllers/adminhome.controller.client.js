@@ -25,6 +25,7 @@
         vm.findUserById=findUserById;
         vm.updateUser=updateUser;
         vm.deleteUser=deleteUser;
+        vm.creatUser = creatUser;
         vm.users;
         vm.attractions;
         vm.entries;
@@ -34,6 +35,20 @@
         vm.attraction;
         vm.entry;
         vm.author;
+        vm.Cuser;
+        vm.newUser=false;
+
+        function creatUser(user) {
+            console.log("COMING HERE",user)
+            var newU = userService
+                .createUser(user)
+                .error(function (err) {
+                    vm.error = 'Unable to register';
+                });
+            console.log("COMING HERE")
+            vm.newUser=false;
+            getAllUsers();
+        }
 
         function deleteUser (userId) {
             var answer = confirm("Are you sure?");
@@ -82,9 +97,9 @@
                     vm.attraction=null;
                     vm.users=null;
                     vm.attractions=null;
-                    vm.user=entry[0];
+                    vm.user=entry;
                     // $location.url("/user/"+vm.userId+"/attraction");
-                    // console.log(entry);
+                    console.log("is it a success:",entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to find attraction';
@@ -243,6 +258,7 @@
                         vm.error = 'Suggestions not found';
                     }
                 })
+            vm.createUser=false
         }
 
         function updateSuggestion(suggestionId,suggestion) {
@@ -291,6 +307,7 @@
                         vm.error = 'Entries not found';
                     }
                 })
+            vm.createUser=false
         }
 
         function getAllAttractions() {
@@ -308,6 +325,7 @@
                         vm.error = 'Attractions not found';
                     }
                 })
+            vm.createUser=false
         }
 
         function getAllUsers() {
@@ -325,4 +343,5 @@
                         vm.error = 'Users not found';
                     }
                 })
+            vm.createUser=false
         }}})();

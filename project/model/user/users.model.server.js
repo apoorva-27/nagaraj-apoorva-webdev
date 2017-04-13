@@ -23,10 +23,16 @@ module.exports = function () {
         deleteUser:deleteUser,
         changeFollow:changeFollow,
         findFollowing:findFollowing,
-        getAllUsers:getAllUsers
-    };
+        getAllUsers:getAllUsers,
+        findUserByGoogleId:findUserByGoogleId
+
+};
 
     return api;
+
+    function findUserByGoogleId(id) {
+        return UsersModel.findOne({"google.id":id});
+    }
 
     function getAllUsers(){
         var deffered = q.defer();
@@ -147,15 +153,17 @@ module.exports = function () {
     }
 
     function findUserById(userId) {
+        // console.log("init server model findUserById");
         // console.log(typeof (userId))
         var deffered = q.defer();
         UsersModel.find({"_id":userId} ,function (err,usr) {
             if(err){
+                // console.log("error")
                  deffered.reject(err);
             }
             else{
                 console.log(usr)
-                deffered.resolve(usr);
+                deffered.resolve(usr[0]);
             }
         });
         return deffered.promise;

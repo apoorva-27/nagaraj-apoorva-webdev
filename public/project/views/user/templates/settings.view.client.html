@@ -3,7 +3,7 @@
 
         <div class="navbar-text pull-right ">
             <a ng-click="model.updateUser(model.user)" class="navbar-link ">
-                <span class="glyphicon glyphicon-ok make-white"></span>
+                <span class="glyphicon glyphicon-ok "></span>
             </a>
         </div>
         <div class="navbar-header">
@@ -24,8 +24,8 @@
     </div>
     <form>
         <div class="form-group">
-            <label for="username">Username</label>
-            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username">
+            <label >Username</label> <br/>
+            <label> {{model.user.username}} </label>
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
@@ -44,8 +44,6 @@
     </form>
 
     <a class="btn btn-primary btn-block"
-       href="#/user/{{model.userId}}/website">Websites</a>
-    <a class="btn btn-primary btn-block"
        ng-click="model.unregisterUser(user)">Unregister</a>
     <a class="btn btn-danger  btn-block"
        href="#/login">Logout</a>
@@ -53,8 +51,8 @@
 
 <nav class="navbar navbar-light navbar-fixed-bottom">
     <div class="container-fluid bg-info">
-        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
-            <span class="glyphicon glyphicon-user make-white "></span>
+        <a href="#/user/{{model.userId}}/settings" class=" navbar-link navbar-text pull-right ">
+            <span class="glyphicon glyphicon-user "></span>
         </a>
 
     </div>

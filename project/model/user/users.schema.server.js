@@ -23,6 +23,7 @@ module.exports = function (model) {
         title:String,
         suggestions : [{type: mongoose.Schema.Types.ObjectId, ref:'SuggestionModel'}],
         city:String,
+        google: {id:String}
     }, {collection: 'project.users'});
 
     UsersSchema.post("remove", function(user) {
