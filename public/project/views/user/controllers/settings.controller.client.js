@@ -10,7 +10,18 @@
         vm.unregisterUser = unregisterUser;
         var userId = $routeParams['uid'];
         vm.userId = userId;
+        vm.openNav=openNav;
+        vm.closeNav=closeNav;
         // vm.deleteUser = deleteUsers;
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
 
         function init() {
             console.log("init settings");
