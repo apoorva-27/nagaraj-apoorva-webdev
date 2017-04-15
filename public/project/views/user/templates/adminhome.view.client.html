@@ -150,7 +150,7 @@
                 <label> Author  </label>
             </div>
             <div class="col-xs-6 pull-left">
-                <label >{{model.suggestion.firstname}}</label>
+                <label >{{model.author_sugg}}</label>
             </div>
         </div>
         <button ng-click="model.updateSuggestion(model.suggestion._id,model.suggestion)" class="btn btn-primary">Update</button>
@@ -264,7 +264,9 @@
                 <label> Role  </label>
             </div>
             <div class="col-xs-6 pull-left">
-                <select ng-model="model.user.role" ng-options="x for x in ['USER','EXPERT']">
+
+                <label ng-if="model.user.role=='ADMIN'">{{model.user.role}}</label>
+                <select ng-if="model.user.role!='ADMIN'" ng-model="model.user.role" ng-options="x for x in ['USER','EXPERT']">
                 </select>
             </div>
         </div>
@@ -274,7 +276,7 @@
                 <label> Firstname  </label>
             </div>
             <div class="col-xs-6 pull-left">
-                </label> <input type="String" ng-model="model.user.firstname"/>
+                <input type="String" ng-model="model.user.firstname"/>
             </div>
         </div>
 

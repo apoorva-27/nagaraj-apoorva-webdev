@@ -321,6 +321,17 @@
                     vm.users=null;
                     vm.createNewUser = null;
 
+                    userService
+                        .findUserById(entry.userId[0])
+                        .success(function (usr) {
+                            var x=usr[0]
+                            vm.author_sugg=x.firstname;
+                            console.log("x:",x," vm.author : ",vm.author_sugg);
+                        })
+                        .error(function (err) {
+                            vm.error = 'unable to remove entry';
+                        });
+
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
