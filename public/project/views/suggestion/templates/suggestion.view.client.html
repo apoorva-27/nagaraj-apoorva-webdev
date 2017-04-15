@@ -1,69 +1,86 @@
-<nav class="navbar navbar-light navbar-fixed-top">
-    <div class="container-fluid bg-info ">
-        <div ng-if="model.suggestionId" class="navbar-text pull-right ">
-            <a   ng-click="model.updateSuggestion(model.suggestion)" class="navbar-link ">
-                <span class="glyphicon glyphicon-ok "></span>
-            </a>
-        </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="container">
+
         <div class="navbar-header">
-            <a class="navbar-brand no-left-margin">
-                Sherpa Suggests
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">
+                Travelogue
             </a>
         </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" ng-if="model.userId != undefined" >
+                <a href="#/login">  <button class="btn btn-danger" ng-click="model.logout()" >Logout</button> </a>
+            </form>
+        </div><!--/.navbar-collapse -->
     </div>
 </nav>
 
 <h1>A day in the city</h1>
 
-<div class="col-md-8">
-    <form>
-        <div class="title" >
-            <h3><lablel>Title</lablel>
-                <input type="String" ng-model="model.suggestion.title"/>
-            </h3>
-        </div>
-        <div>
-            <div class="col-md-12" >
-                <h5> Things to do: </h5>
-                <textarea rows="6" style="width: 80%"
-                          type="String"
-                          ng-model="model.suggestion.suggestion"></textarea>
+
+
+<div class="col-xs-0 col-md-12 smoke">
+    <br>
+    <div class="col-md-6">
+        <form>
+            <div class="title" >
+                <h5><lablel>Title</lablel>
+                    <input type="String" ng-model="model.suggestion.title"/>
+                </h5>
             </div>
-        </div>
 
-        <div>
-            <div col="col-md-12">
-                <input type="String"
-                       placeholder="city"
-                       ng-model="model.suggestion.city"/>
+
+            <div>
+                <div>
+                    <h5> Things everyone should defenitely try: </h5>
+                    <textarea rows="6" style="width: 80%"
+                              type="String"
+                              ng-model="model.suggestion.suggestion"></textarea>
+                </div>
+                <div>
+                    <input type="String"
+                           placeholder="city"
+                           ng-model="model.suggestion.city"/>
+                </div>
             </div>
+        </form>
+        <div>
+            <div ng-if="model.suggestionId==undefined">
+            <a class="btn btn-primary" ng-if="model.entryId==null" href="#/user"
+               ng-click="model.createSuggestion(model.suggestion)">Create Iternary</a>
+            </div>
+
+            <div ng-if="model.suggestionId">
+            <a class="btn btn-primary" href="#/user"
+               ng-click="model.updateSuggestion(model.suggestion)">Update Iternary</a>
+
+                <a class="btn btn-danger" href="#/user" ng-click="model.deleteSuggestion(model.suggestion)">
+                    Delete Iternary</a>
+            </div>
+
+            </button>
         </div>
-    </form>
-    <div class="col-sm-12">
 
-        <div ng-if="model.suggestionId==undefined">
-        <a class="btn btn-primary" ng-click="model.createSuggestion(model.suggestion)">
-            Create Iternary</a>
-        </div>
-
-        <div ng-if="model.suggestionId">
-            <a class="btn btn-primary" ng-click="model.updateSuggestion(model.suggestion)">
-                Update Iternary</a>
-
-            <a class="btn btn-danger" ng-click="model.deleteSuggestion(model.suggestion)">
-                Delete Iternary</a>
-        </div>
-
-
-
+        <br>
     </div>
 
-</div>
 
-<nav class="navbar navbar-light navbar-fixed-bottom">
-    <div class="container-fluid bg-info">
-        <a href="#/user/{{model.userId}}/settings" class=" navbar-link navbar-text pull-right ">
-            <span class="glyphicon glyphicon-user  "></span>
+</div>
+<div>
+
+
+
+
+<nav class="navbar navbar-dark navbar-fixed-bottom nav-color">
+    <div class="container-fluid" ng-if="model.userId!=null">
+        <a href="#/user" class="navbar-link navbar-text pull-right">
+            <span class="glyphicon glyphicon-user user-color"></span>
         </a>
 
     </div>

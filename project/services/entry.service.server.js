@@ -10,7 +10,21 @@ module.exports = function (app,EntryModel) {
     app.delete("/api/entry/:eid",deleteEntry);
     app.get("/api/admin/entries",getAllEntries);
     app.get("/api/admin/entry/:eid",findEntryById);
+    app.get("/api/user/:uid/entries",findEntriesByUserId);
 
+
+    function findEntriesByUserId(req,res) {
+        var userId = req.params.uid;
+        console.log("captureing here",userId)
+        EntryModel.findEntriesByUserId(userId)
+            .then(function (entries) {
+                    res.json(entries)
+                },
+                function (err) {
+                    res.sendStatus(400).send(err);
+                });
+
+    }
     function findEntryById(req,res) {
         entryId=req.params.eid;
         EntryModel

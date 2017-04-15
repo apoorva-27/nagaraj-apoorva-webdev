@@ -1,0 +1,18 @@
+<div class="col-md-4">
+    <h4 class="text-color"> Following </h4>
+    <br>
+    <br>
+    <ul ng-repeat="following in model.following">
+        <div>
+            <img class="thumbnail profile-pic"
+                    alt src="http://www.chamber-music.org/sites/all/themes/custom/cma/images/profile-photo-empty.png">
+        <div>
+            <div class="panel text-color">
+               <a href="#/user/view/{{following.username}}"> <em>{{following.username}} </em> </a>
+            </div>
+
+            </a>
+        </div>
+        </div>
+    </ul>
+</div>

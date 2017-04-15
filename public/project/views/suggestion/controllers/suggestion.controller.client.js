@@ -14,11 +14,11 @@
         .controller("suggestionController", suggestionController);
 
     function suggestionController($location,attractionService,suggestionService,$routeParams,
-                                        userService) {
+                                        userService,loggedin,$cookies) {
         var vm = this;
         // vm.login = login;
         vm.attractionId=$routeParams['aid']
-        vm.userId=$routeParams['uid']
+        vm.userId=loggedin.data[0]._id;
         vm.suggestionId=$routeParams['sid']
         var vm = this;
         vm.searchPlace = searchPlace;
@@ -29,6 +29,20 @@
         vm.entryId=$routeParams['eid']
         var idfound;
         vm.userName;
+
+        vm.logout = logout;
+        function logout(){
+            userService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $cookies.put('location', undefined);
+
+                        $location.url("/login");
+                    }
+                )
+        }
 
         function detailsPage(cityId) {
             console.log("details page home controller")
@@ -43,7 +57,7 @@
                     .deleteSuggestion(vm.suggestionId)
                     .success(function () {
                         console.log("entry deleted successfully")
-                        $location.url("/user/"+vm.userId+"/attraction");
+                        // $location.url("/user/"+vm.userId+"/attraction");
                     })
                     .error(function () {
                         vm.error = 'unable to remove entry';
@@ -56,7 +70,7 @@
             suggestionService
                 .updateSuggestion(vm.suggestionId,suggestion)
                 .success(function (entry) {
-                    $location.url("/user/"+vm.userId+"/attraction");
+                    // $location.url("/user/"+vm.userId+"/attraction");
                     // console.log(entry);
                 })
                 .error(function (err) {

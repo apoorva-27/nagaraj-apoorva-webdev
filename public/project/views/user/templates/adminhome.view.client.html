@@ -1,25 +1,52 @@
-<h1>admin home page</h1>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-<a class="btn btn-success "
-   ng-click="model.getAllUsers()">get all users</a>
+            <a class="navbar-brand" href="">Travelogue</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <form class="navbar-form navbar-right" ng-if="model.userId != undefined" >
+                <a href="#/login">  <button class="btn btn-danger" ng-click="model.logout()" >Logout</button> </a>
+            </form>
+
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="container-fluid smoke top-margin">
 
 <a class="btn btn-info "
-   ng-click="model.getAllAttractions()">get all attractions</a>
+   ng-click="model.getAllUsers()">Manage Users</a>
 
-<a class="btn btn-danger "
-   ng-click="model.getAllEntries()">get all entries</a>
+<a class="btn btn-info "
+   ng-click="model.getAllAttractions()">Manage Attractions</a>
 
-<a class="btn btn-warning "
-   ng-click="model.getAllSuggestions()">get all suggestions</a>
+<a class="btn btn-info "
+   ng-click="model.getAllEntries()">Manage Entries</a>
 
-<div ng-show="model.users">
-    <div class="container-fluid">
-        <a ng-click="model.newUser=true;model.users=null"> <button class="btn btn-info">
+<a class="btn btn-info "
+   ng-click="model.getAllSuggestions()">Manage Suggestions</a>
+
+                <br><br>
+
+
+</div>
+<div ng-show="model.users" >
+    <div class="container-fluid smoke">
+        <a ng-click="model.createNewUser=true;model.users=null"> <button class="btn btn-info">
             Create User
         </button> </a>
         <ul class="list-group">
-            <li class="list-group-item" ng-repeat="user in model.users">
+            <li class="list-group-item " ng-repeat="user in model.users">
                 <div class="row">
+
                     <div class="col-xs-9">
                         <h4>{{user.firstname}}</h4>
                     </div>
@@ -33,9 +60,9 @@
 </div>
 
 <div ng-show="model.attractions">
-    <div class="container-fluid ">
+    <div class="container-fluid smoke">
         <ul class="list-group">
-            <li class="list-group-item" ng-repeat="attraction in model.attractions">
+            <li class="list-group-item " ng-repeat="attraction in model.attractions">
             <div class="row">
                 <div class="col-xs-9">
                     <h4>{{attraction.name}}</h4>
@@ -50,7 +77,7 @@
 </div>
 
 <div ng-show="model.entries">
-    <div class="container-fluid">
+    <div class="container-fluid smoke">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="entry in model.entries">
                 <div class="row">
@@ -67,7 +94,7 @@
 </div>
 
 <div ng-show="model.suggestions">
-    <div class="container-fluid">
+    <div class="container-fluid smoke">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="suggestion in model.suggestions">
                 <div class="row">
@@ -85,63 +112,210 @@
 
 
 <div ng-show="model.suggestion">
-    <div class="container-fluid">
-        <label> Title : </label> <input type="String" ng-model="model.suggestion.title"/>
-        <label> Itinerary : </label> <input type="String" ng-model="model.suggestion.suggestion"/>
-        <label> Author : </label> <label >{{model.suggestion.firstname}}</label>
+    <div class="container-fluid smoke">
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Title  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.suggestion.title"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Itinerary  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.suggestion.suggestion"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Author  </label>
+            </div>
+            <div class="pull-left">
+                <label >{{model.suggestion.firstname}}</label>
+            </div>
+        </div>
+
         <button ng-click="model.updateSuggestion(model.suggestion._id,model.suggestion)" class="btn btn-primary">Update</button>
     </div>
 </div>
 
 <div ng-show="model.entry">
-    <div class="container-fluid">
-        <label> Title : </label> <input type="String" ng-model="model.entry.title"/>
-        <label> Diary Entry : </label> <input type="String" ng-model="model.entry.story"/>
-        <label> Author : </label> <label >{{model.author}}</label>
+    <div class="container-fluid smoke">
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Title  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.entry.title"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Diary Entry  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.entry.story"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Author  </label>
+            </div>
+            <div class="pull-left">
+                <label >{{model.author}}</label>
+            </div>
+        </div>
+
         <button ng-click="model.updateEntry(model.entry._id,model.entry)" class="btn btn-primary">Update</button>
     </div>
 </div>
 
 <div ng-show="model.attraction">
-    <div class="container-fluid">
-        <label> Name : </label> <label >{{model.attraction.name}}</label>
-        <label> Tripexpert score : </label> <input type="String" ng-model="model.attraction.tripexpert_score"/>
-        <label> Opening Hours : </label> <input type="String" ng-model="model.attraction.opening_hours"/>
-        <label> Website : </label> <input type="String" ng-model="model.attraction.website"/>
-        <label> Address : </label> <label >{{model.attraction.address}}</label>
+    <div class="container-fluid smoke">
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Name  </label>
+            </div>
+            <div class="pull-left">
+                <label >{{model.attraction.name}}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Tripexpert score  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.attraction.tripexpert_score"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Opening Hours  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.attraction.opening_hours"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Website  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.attraction.website"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Address  </label>
+            </div>
+            <div class="pull-left">
+                <label >{{model.attraction.address}}</label>
+            </div>
+        </div>
 
         <button ng-click="model.updateAttraction(model.attraction._id,model.attraction)" class="btn btn-primary">Update</button>
     </div>
 </div>
 
 <div ng-show="model.user">
-    <div class="container-fluid">
-        <label> UserName : </label> <label >{{model.user.username}}</label>
-        <label> Password : </label> <input type="String" ng-model="model.user.password"/>
-        <label> Role : </label> <select ng-model="model.user.role" ng-options="x for x in ['USER','EXPERT']">
-                                </select>
+    <div class="container-fluid smoke">
+        <div class="row">
+            <div class="col-xs-2">
+                <label> UserName  </label>
+            </div>
+            <div class="pull-left">
+                <label >{{model.user.username}}</label>
+            </div>
+        </div>
 
-        <label> Firstname : </label> <input type="String" ng-model="model.user.firstname"/>
-        <label> Lastname : </label> <input type="String" ng-model="model.user.lastname"/>
-        <label> Email : </label> <input type="String" ng-model="model.user.email"/>
-        <!--<label> Address : </label> <label >{{model.attraction.address}}</label>-->
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Password  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.user.password"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Role  </label>
+            </div>
+            <div class="pull-left">
+                <select ng-model="model.user.role" ng-options="x for x in ['USER','EXPERT']">
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Firstname  </label>
+            </div>
+            <div class="pull-left">
+                </label> <input type="String" ng-model="model.user.firstname"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Lastname </label>
+            </div>
+            <div class="pull-left">
+                </label> <input type="String" ng-model="model.user.lastname"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <label> Email  </label>
+            </div>
+            <div class="pull-left">
+                <input type="String" ng-model="model.user.email"/>
+            </div>
+        </div>
 
         <button ng-click="model.updateUser(model.user._id,model.user)" class="btn btn-primary">Update</button>
     </div>
 </div>
 
-<div ng-show="model.newUser">
-    <div class="container-fluid">
-        <label> UserName : </label> <input type="String" ng-model="model.Cuser.username"/>
-        <label> Password : </label> <input type="String" ng-model="model.Cuser.password"/>
-        <label> Role : </label> <select ng-model="model.Cuser.role" ng-options="x for x in ['USER','EXPERT']">
-    </select>
 
+<div ng-show="model.createNewUser">
+    <div class="container-fluid">
+
+
+
+        <label> UserName : </label> <input type="String" ng-model="model.Cuser.username"/>
+        <br />
+        <label> Password : </label> <input type="String" ng-model="model.Cuser.password"/>
+        <br />
+        <label> Role : </label> <select ng-model="Cuser.role" ng-options="x for x in ['USER','EXPERT']">
+    </select>
+        <br />
         <label> Firstname : </label> <input type="String" ng-model="model.Cuser.firstname"/>
+        <br />
         <label> Lastname : </label> <input type="String" ng-model="model.Cuser.lastname"/>
+        <br />
         <label> Email : </label> <input type="String" ng-model="model.Cuser.email"/>
         <!--<label> Address : </label> <label >{{model.attraction.address}}</label>-->
 
-        <button ng-click="model.creatUser(model.Cuser)" class="btn btn-primary">Create</button>
+        <button ng-click="model.createUser(model.Cuser)" class="btn btn-primary">Update</button>
     </div>
+    </nav>
 </div>
+
+
+

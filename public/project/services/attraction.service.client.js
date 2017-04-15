@@ -73,17 +73,14 @@
         function findAttractionsInCity(cityId) {
             console.log("client : findAttractionsInCity");
             console.log("client cityid : ",cityId);
-
             var API_KEY="6ddc0c1237b6993533a2bb974dac23e6";
-
-
             var urlBase = "https://api.tripexpert.com/v1/venues?destination_id=cityId&venue_type_id=3&api_key=API_KEY";
 
             console.log("serach term in service",cityId);
             var results = urlBase.replace("API_KEY", API_KEY).replace("cityId",cityId);
-            var response= $http.get(results);
-            console.log(response);
-            return response
+            // var response= $http.get(results);
+            // console.log(response);
+            return $http.get(results);
         }
 
         function findPlaceByText(searchTerm) {

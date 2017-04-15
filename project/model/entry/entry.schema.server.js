@@ -21,6 +21,7 @@ module.exports = function (model) {
         model.UsersModel
             .findUserById(entry.userId)
             .then(function (user) {
+                console.log("Google Delete", user)
                 var entry_index = user.entries.indexOf(entry._id);
                 user.entries.splice(entry_index, 1);
                 user.save();

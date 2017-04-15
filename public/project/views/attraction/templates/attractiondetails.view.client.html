@@ -1,75 +1,92 @@
-<nav class="navbar navbar-light navbar-fixed-top">
-    <div class="container-fluid bg-info ">
-
-        <div class="navbar-text pull-right ">
-            <a ng-click="model.updateUser(model.user)" class="navbar-link ">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand no-left-margin">
-                Profile
-            </a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="">Travelogue</a>
         </div>
+        <div id="navbar" ng-if="model.userId==null"  class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right" >
+                <a href="#/login">  <button  class="btn btn-success">Login</button> </a>
+                <a href="#/register"> <button  class="btn btn-success">Register</button> </a>
+            </form>
+            <form class="navbar-form navbar-right" ng-if="model.userId != undefined" >
+                <a href="#/login">  <button class="btn btn-danger" ng-click="model.logout()" >Logout</button> </a>
+            </form>
+        </div><!--/.navbar-collapse -->
     </div>
 </nav>
-<h1>{{model.name}}</h1>
-<div class="panel panel-default">
-    <div class="row">
-        <div class="col-xs-8">
-            <!--<div class="panel panel-default panel-body">-->
-            <!--<h5> Name: <b> </b>-->
-            <!--</h5>-->
-            <!--</div>-->
-            <div class="panel panel-default panel-body">
-                <h5>Opening Hours: <b>{{model.opening_hours}}</b>
+
+
+
+<div class="panel panel-default smoke" >
+    <div class="col-xs-10 col-md-11 container-fluid smoke" >
+        <div class="col-xs-0 col-md-5">
+            <img class="attractionImg Img2"
+                 src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
+        </div>
+
+     <div class="col-xs-0 col-md-3">
+            <h3>{{model.name}}</h3>
+            <div>
+                <div class="col-xs-1">
+                    <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change')" >
+                        <div ng-switch="model.favorited">
+                    <span>
+                        <div ng-switch-when="true">
+                            <span class="glyphicon glyphicon-star"></span>
+
+                        </div>
+                    </span>
+                            <span>
+                        <div ng-switch-when="false">
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        </div>
+                    </span>
+                        </div>
+                    </a>
+                </div>
+
+            <br/>
+            <div>
+                <h5> Trip Expert Score:
+                       {{model.tripexpert_score}}
                 </h5>
+               <h5>Opening Hours: {{model.opening_hours}}
+               </h5>
+
+
+
+                    <h5> Official Website:
+                          {{model.website}}
+                    </h5>
             </div>
-            <div class="panel panel-default panel-body">
-                <h6>Address:
-                    {{model.address}}
-                </h6>
-            </div>
-            <div class="panel panel-default panel-body">
-                <h6> Score:
-                    {{model.tripexpert_score}}
-                </h6>
-            </div>
-            <div class="panel panel-default panel-body">
-                <h6> URL:
-                    {{model.website}}
-                </h6>
+
+
+                <h5>Address:
+                     {{model.address}}
+                </h5>
+
+
             </div>
 
         </div>
         <div>
-            <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change') " >
-                <div ng-switch="model.favorited">
-                <span>
-                    <div ng-switch-when="true">
-                        <span class="glyphicon glyphicon-star"></span>
-
-                    </div>
-                </span>
-                    <span>
-                    <div ng-switch-when="false">
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                    </div>
-                </span>
-                </div>
-            </a>
-        </div>
-        <div class="col-xs-4">
-            <img class="attractionImg Img2" src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{model.attractionId}}.jpg?1402340533"/>
-        </div>
     </div>
-    <div class="panel">
+    </div>
+    <div class="panel col-xs-10 col-md-11">
+        <br/>
         <div class="panel panel-info">
             <div class="panel-heading">
                 Reviews
             </div>
 
-            <div class="panel panel-default"
+            <div class="panel panel-info"
                  ng-repeat="review in model.reviews">
                 <div class="panel-body" >
                     {{review.extract}}
@@ -79,8 +96,9 @@
         </div>
     </div>
 
-    <div ng-if="model.userId" class="panel">
-        <div class="panel-primary">
+    <div ng-if="model.userId" class="panel col-xs-10 col-md-11">
+        <br/>
+        <div class="panel-info">
             <div class="panel-heading">Entries
             </div>
         </div>
@@ -98,7 +116,7 @@
 
             <div class="panel-body" >
 
-                <Label> Author: </Label> {{entry.userId}}
+                <Label> Author: </Label> {{entry.username}}
 
                 <div ng-switch="entry.follow" class="col-md-12">
                             <span>
@@ -117,9 +135,8 @@
                             </span>
                     <span>
                             <div ng-switch-when="NONE">
-                                <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry/{{entry._id}}">
+                                <a href="#/user/attraction/{{model.attractionId}}/entry/{{entry._id}}">
                                 <span class="glyphicon glyphicon-cog pull-right"> </span></a>
-
                             </div>
 
                             </span>
@@ -127,22 +144,20 @@
 
             </div>
 
-
         </div>
-        <a class="btn btn-primary btn-block"
-           href="#/user/{{model.userId}}/attraction/{{model.attractionId}}/entry">New Entry</a>
-
-
+        <a class="btn btn-info btn-block col-md-4"
+           href="#/user/attraction/{{model.attractionId}}/entry">New Entry</a>
+        <br/><br/><br/><br/>
     </div>
+</div>
+<div>
 
+<nav class="navbar navbar-dark navbar-fixed-bottom nav-color">
+    <div class="container-fluid" ng-if="model.userId!=null">
+        <a href="#/user" class="navbar-link navbar-text pull-right">
+            <span class="glyphicon glyphicon-user user-color"></span>
+        </a>
+    </div>
+</nav>
 
-
-    <nav class="navbar navbar-light navbar-fixed-bottom">
-        <div class="container-fluid bg-info">
-            <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
-                <span class="glyphicon glyphicon-user make-white "></span>
-            </a>
-
-        </div>
-    </nav>
 </div>

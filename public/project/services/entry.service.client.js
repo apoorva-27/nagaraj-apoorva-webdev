@@ -17,11 +17,15 @@
             "updateEntry":updateEntry,
             "deleteEntry":deleteEntry,
             "getAllEntries":getAllEntries,
-            "findEntryById":findEntryById
+            "findEntryById":findEntryById,
+            "findEntriesByUserId":findEntriesByUserId
 
         };
         return api;
 
+        function findEntriesByUserId(userId) {
+            return $http.get("/api/user/"+userId+"/entries")
+        }
         function getAllEntries(){
             return $http.get("/api/admin/entries");
         }

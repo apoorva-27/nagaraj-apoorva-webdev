@@ -1,19 +1,27 @@
-<nav class="navbar navbar-light navbar-fixed-top">
-    <div class="container-fluid bg-info ">
-
-        <div class="navbar-text pull-right ">
-            <a ng-click="model.updateUser(model.user)" class="navbar-link ">
-                <span class="glyphicon glyphicon-ok "></span>
-            </a>
-        </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand no-left-margin">
-                Profile
-            </a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ng-click="model.openNav()" >Menu</a>
         </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <!--<div class="form-group">-->
+                    <!--<input type="text" placeholder="Email" class="form-control">-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<input type="password" placeholder="Password" class="form-control">-->
+                <!--</div>-->
+                <button ng-click="model.updateUser(model.user)" class="btn btn-primary">Update</button>
+            </form>
+        </div><!--/.navbar-collapse -->
     </div>
 </nav>
-
 <div class="container-fluid">
     <div id="mySidenav" class="sidenav">
         <a class="closebtn" ng-click="closeNav()">
@@ -29,7 +37,7 @@
     </div>
 
     <!-- Use any element to open the sidenav -->
-    <span class="button" ng-click="model.openNav()">Menu</span>
+    <!--<span class="button" ng-click="model.openNav()">Menu</span>-->
 
     <div class="alert alert-danger" ng-show="model.error">
         {{model.error}}
@@ -40,8 +48,8 @@
     </div>
     <form>
         <div class="form-group">
-            <label >Username</label> <br/>
-            <label> {{model.user.username}} </label>
+            <label for="username">Username</label>
+            <input ng-model="model.user.username" type="text" class="form-control" id="username" placeholder="Username">
         </div>
         <div class="form-group">
             <label for="email">Email address</label>
@@ -60,6 +68,8 @@
     </form>
 
     <a class="btn btn-primary btn-block"
+       href="#/user/{{model.userId}}/website">Websites</a>
+    <a class="btn btn-primary btn-block"
        ng-click="model.unregisterUser(user)">Unregister</a>
     <a class="btn btn-danger  btn-block"
        href="#/login">Logout</a>
@@ -67,8 +77,8 @@
 
 <nav class="navbar navbar-light navbar-fixed-bottom">
     <div class="container-fluid bg-info">
-        <a href="#/user/{{model.userId}}/settings" class=" navbar-link navbar-text pull-right ">
-            <span class="glyphicon glyphicon-user "></span>
+        <a href="#/user/{{model.userId}}" class=" navbar-link navbar-text pull-right ">
+            <span class="glyphicon glyphicon-user make-white "></span>
         </a>
 
     </div>

@@ -25,7 +25,8 @@
         vm.findUserById=findUserById;
         vm.updateUser=updateUser;
         vm.deleteUser=deleteUser;
-        vm.creatUser = creatUser;
+        vm.createUser = createUser;
+        vm.createNewUser = false;
         vm.users;
         vm.attractions;
         vm.entries;
@@ -35,19 +36,30 @@
         vm.attraction;
         vm.entry;
         vm.author;
-        vm.Cuser;
-        vm.newUser=false;
+        vm.Cuser = null;
+        vm.logout = logout;
+        function logout(){
+            userService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $cookies.
+                        $location.url("/login");
+                    }
+                )
+        }
 
-        function creatUser(user) {
+        function createUser(user) {
             console.log("COMING HERE",user)
             var newU = userService
                 .createUser(user)
                 .error(function (err) {
                     vm.error = 'Unable to register';
+                    //console.log("error");
                 });
             console.log("COMING HERE")
-            vm.newUser=false;
-            getAllUsers();
+            vm.createUser=false;
         }
 
         function deleteUser (userId) {
@@ -88,18 +100,17 @@
         }
 
         function findUserById(userId){
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
             userService
                 .findUserById(userId)
                 .success(function (entry) {
-                    vm.suggestion=null;
-                    vm.entries=null;
-                    vm.suggestions=null;
-                    vm.attraction=null;
-                    vm.users=null;
-                    vm.attractions=null;
-                    vm.user=entry;
+
+                    vm.user=entry[0];
                     // $location.url("/user/"+vm.userId+"/attraction");
-                    console.log("is it a success:",entry);
+                    // console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to find attraction';
@@ -141,17 +152,16 @@
         }
 
         function findAttractionById(attractionId) {
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
 
             console.log("attraction admin home")
             attractionService
                 .findAttractionById(attractionId)
                 .success(function (entry) {
-                    vm.suggestion=null;
-                    vm.entries=null;
-                    vm.suggestions=null;
                     vm.attraction=entry;
-                    vm.attractions=null;
-                    vm.users=null;
                     // $location.url("/user/"+vm.userId+"/attraction");
                     // console.log(entry);
                 })
@@ -163,6 +173,7 @@
 
 
         function updateEntry(entryId, entry){
+
             console.log("entryId",entryId," entry:",entry);
             entryService
                 .updateEntry(entryId,entry)
@@ -177,20 +188,21 @@
         }
 
         function findEntryById(entryId) {
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
             console.log("entry id",entryId);
             entryService
                 .findEntryById(entryId)
                 .success(function (entry) {
                     vm.entry=entry;
-                    vm.entries=null;
-                    vm.suggestions=null;
-                    vm.attractions=null;
-                    vm.users=null;
+
                     console.log("vm.entry.userId[0] :",vm.entry.userId[0])
                     userService
                         .findUserById(vm.entry.userId[0])
                         .success(function (usr) {
-                            var x=usr[0]
+                            var x=usr
                             vm.author=x.firstname;
                             console.log(vm.author);
                         })
@@ -241,27 +253,31 @@
         }
 
         function getAllSuggestions() {
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
             console.log("step 1:,controller getsuggetions")
             var promise = suggestionService
                 .getAllSuggestions();
             promise
                 .success(function (usr) {
                     if (usr!=undefined) {
-                        vm.entries=null;
                         vm.suggestions=usr;
-                        vm.attractions=null;
-                        vm.users=null;
-                        vm.suggestion=null
-                        vm.entry=null;
+
                     } else {
                         vm.suggestions=null;
+                        vm.suggestion = null;
                         vm.error = 'Suggestions not found';
                     }
                 })
-            vm.createUser=false
         }
 
         function updateSuggestion(suggestionId,suggestion) {
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
             suggestionService
                 .updateSuggestion(suggestionId,suggestion)
                 .success(function (entry) {
@@ -275,14 +291,15 @@
         }
 
         function findSuggestionById(suggestionId){
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
             suggestionService
                 .findSuggestionById(suggestionId)
                 .success(function (entry) {
                     vm.suggestion=entry;
-                    vm.entries=null;
-                    vm.suggestions=null;
-                    vm.attractions=null;
-                    vm.users=null;
+
                     // $location.url("/user/"+vm.userId+"/attraction");
                     // console.log(entry);
                 })
@@ -292,7 +309,20 @@
                 })
         }
 
+        function init() {
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
+        }
+
+        init();
+
         function getAllEntries(){
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
             var promise = entryService
                 .getAllEntries();
             promise
@@ -300,23 +330,30 @@
                     if (usr!=undefined) {
                         vm.entries=usr;
                         vm.attractions=null;
+                        vm.attraction = null;
                         vm.suggestions=null;
+                        vm.suggestion = null;
                         vm.users=null;
                     } else {
                         vm.entries=null;
                         vm.error = 'Entries not found';
                     }
                 })
-            vm.createUser=false
         }
 
         function getAllAttractions() {
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
+
             var promise = attractionService
                 .getAllAttractions();
             promise
                 .success(function (usr) {
                     vm.users=null;
                     vm.suggestions=null;
+                    vm.suggestion = null;
                     vm.entries=null;
                     if (usr) {
                         vm.attractions=usr;
@@ -325,10 +362,13 @@
                         vm.error = 'Attractions not found';
                     }
                 })
-            vm.createUser=false
         }
 
         function getAllUsers() {
+            vm.users=null;vm.user=null;
+            vm.suggestions=null;vm.entry=null;
+            vm.suggestion = null;vm.attraction=null;
+            vm.entries=null;vm.attractions=null;
             var promise = userService
                 .getAllUsers();
             promise
@@ -338,10 +378,10 @@
                         vm.entries=null;
                         vm.suggestions=null;
                         vm.attractions=null;
+                        vm.attraction = null;
                     } else {
                         vm.users=null;
                         vm.error = 'Users not found';
                     }
                 })
-            vm.createUser=false
         }}})();

@@ -7,11 +7,12 @@
         .module("Travelogue")
         .controller("diaryentryController", diaryentryController);
 
-    function diaryentryController($location,attractionService,entryService,$routeParams) {
+    function diaryentryController($location,attractionService,entryService,$routeParams,loggedin,
+                                  userService,$cookies) {
         var vm = this;
         // vm.login = login;
         vm.attractionId=$routeParams['aid']
-        vm.userId=$routeParams['uid']
+        vm.userId=loggedin.data[0]._id;
         var vm = this;
         vm.searchPlace = searchPlace;
         vm.detailsPage=detailsPage;
@@ -26,6 +27,20 @@
             $location.url("/attractiondetails/"+cityId);
         }
 
+        vm.logout = logout;
+        function logout(){
+            userService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $cookies.put('location', undefined);
+
+                        $location.url("/login");
+                    }
+                )
+        }
+
         function deleteEntry() {
             var answer = confirm("Are you sure?");
             console.log(answer);
@@ -34,11 +49,11 @@
                     .deleteEntry(vm.entryId)
                     .success(function () {
                         console.log("entry deleted successfully")
-                        $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                        $location.url("/attraction/"+vm.attractionId);
                     })
                     .error(function () {
                         vm.error = 'unable to remove entry';
-                        $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                        $location.url("/attraction/"+vm.attractionId);
                     });
             }
         }
@@ -49,12 +64,12 @@
                 .updateEntry(vm.entryId,entry)
                 .success(function (entry) {
                     console.log("success object in dairy entry details")
-                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    $location.url("/attraction/"+vm.attractionId);
                     console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
-                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    $location.url("/attraction/"+vm.attractionId);
 
                 })
         }
@@ -87,12 +102,12 @@
             entryService
                 .createEntry(vm.userId,vm.attractionId,newEntry)
                 .success(function (entry) {
-                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    $location.url("/attraction/"+vm.attractionId);
                     console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to Create Entry';
-                    $location.url("/user/" + vm.userId +"/attraction/"+vm.attractionId);
+                    $location.url("/attraction/"+vm.attractionId);
                     //console.log("error");
                 })
 

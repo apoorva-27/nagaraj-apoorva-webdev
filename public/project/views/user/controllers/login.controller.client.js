@@ -3,19 +3,26 @@
         .module("Travelogue")
         .controller("loginController", loginController);
 
-    function loginController($location, userService) {
+    function loginController($location, userService,$rootScope) {
         var vm = this;
         vm.login = login;
 
 
         function login(user) {
-            console.log("login controller ")
+            console.log("login controller ");
             var promise = userService
-                .findUserByCredentials(user.username, user.password);
+                .findUserByCredentials(user);
             promise
                 .success(function (usr) {
                     if (usr) {
-                        $location.url("/user/" + usr._id);
+                        console.log("loging USR",usr)
+                        $rootScope.currentUser = usr;
+
+                        if(usr.role =='ADMIN'){
+                            $location.url("/admin")
+                        }else {
+                            $location.url("/user");
+                        }
                     } else {
                         vm.error = 'User not found';
                     }

@@ -7,10 +7,13 @@
         .module("Travelogue")
         .controller("attractiondetailsController", attractiondetailsController);
 
-    function attractiondetailsController($location,entryService,userService, attractionService,$routeParams) {
+    function attractiondetailsController($location,entryService,userService, attractionService,$routeParams,
+    loggedin,$cookies) {
         var vm = this;
         vm.attractionId=$routeParams['aid']
-        vm.userId=$routeParams['uid']
+        vm.userId=loggedin.data[0]._id;
+        // vm.username = loggedin.data[0].username;
+        // console.log("",vm.userId)
         vm.entries;
         vm.entry;
         vm.attraction;
@@ -19,6 +22,20 @@
         vm.findEntryByEntryId=findEntryByEntryId;
         vm.findFavoritesByUserId=findFavoritesByUserId;
         vm.changeFollow=changeFollow;
+
+        vm.logout = logout;
+        function logout(){
+            userService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $cookies.put('location', undefined);
+
+                        $location.url("/login");
+                    }
+                )
+        }
 
         function changeFollow(userId,entry) {
             console.log("change follow in controller",userId)
@@ -86,12 +103,15 @@
                     var i;
                     for (i = 0; i < entries.length; i++) {
                         entries[i].follow = 'FOLLOW'
-                        console.log("vm.entries i", entries[i].userId)
+                        // console.log("vm.entries i", entries[i])
                         if (entries[i].userId == vm.userId) {
                             entries[i].follow = 'NONE'
+                            entries[i].username = loggedin.data[0].username
                         }
                         else {
-                            var x = entries[i]
+                            var x = entries[i];
+                            console.log("x",x.userId[0]);
+
                             userService
                                 .findFollowing(vm.userId)
                                 .success(function (following) {
@@ -110,6 +130,14 @@
                                 .error(function (err) {
                                     console.log("err :", err)
                                 })
+                            userService.findUserById(x.userId[0])
+                                .success(function (user) {
+                                    // console.log(user,"Found user of entry",user[0].username)
+                                    x.username = user[0].username;
+
+                                })
+                            // console.log("new x ??? ",x)
+                            entries[i] = x;
                         }
                     }
                     vm.entries = entries;

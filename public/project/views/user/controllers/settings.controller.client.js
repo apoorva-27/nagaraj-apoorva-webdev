@@ -3,25 +3,17 @@
         .module("Travelogue")
         .controller("settingsController", settingsController);
 
-    function settingsController($routeParams, userService,$location) {
+    function settingsController($routeParams, userService,$location,loggedin) {
         var vm = this;
         // event handlers
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
-        var userId = $routeParams['uid'];
+        vm.userId=loggedin.data[0]._id;
         vm.userId = userId;
         vm.openNav=openNav;
         vm.closeNav=closeNav;
         // vm.deleteUser = deleteUsers;
-
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-
+        vm.followers = null;
 
         function init() {
             console.log("init settings");
@@ -29,7 +21,20 @@
             promise.success(function (user) {
                 vm.user = user;
                 console.log("vm user",vm.user);
+                var followers = null;
+
+                for(var i =0; i< user.followers.length; i++){
+                    userService.findUserById( user.followers[i])
+                        .success(function (us) {
+                            followers.append(us)
+                        });
+
+                }
+                vm.followers = followers;
             });
+
+
+
         }
         init();
 

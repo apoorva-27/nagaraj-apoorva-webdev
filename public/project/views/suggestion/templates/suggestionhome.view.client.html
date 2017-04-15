@@ -16,18 +16,20 @@
 <h1> Expert Home with feed</h1>
 
 <a class="btn btn-primary btn-block"
-   href="#/suggestion/{{model.userId}}/attraction">Search For Places</a>
+   href="#/attraction">Search For Places</a>
 
 <a class="btn btn-primary btn-block"
-   href="#/suggestion/{{model.userId}}/suggestion">Add Suggestion</a>
+   href="#/suggestion">Add Suggestion</a>
 
 <a class="btn btn-block btn-danger"
    ng-click="model.deleteSuggestion(model.userId)">Unregister</a>
 
-<nav class="navbar navbar-light navbar-fixed-bottom">
-    <div class="container-fluid bg-info">
-        <a href="#/expert/{{model.userId}}/settings" class=" navbar-link navbar-text pull-right ">
-            <span class="glyphicon glyphicon-user "></span>
+<
+<nav class="navbar navbar-dark navbar-fixed-bottom nav-color">
+    <div class="container-fluid" ng-if="model.userId!=null">
+        <a href="#/user" class="navbar-link navbar-text pull-right">
+            <span class="glyphicon glyphicon-user user-color"></span>
         </a>
+
     </div>
 </nav>

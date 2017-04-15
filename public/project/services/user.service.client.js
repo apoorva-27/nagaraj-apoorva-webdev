@@ -17,23 +17,30 @@
              "deleteUser": deleteUser,
             "changeFollow":changeFollow,
             "findFollowing":findFollowing,
-            "getAllUsers":getAllUsers
+            "getAllUsers":getAllUsers,
+            "isUserNameTaken":isUserNameTaken,
+            "logout":logout
         };
         return api;
 
+
+        function logout() {
+            return $http.post("/api/logout");
+        }
+
+        function isUserNameTaken(username) {
+            return $http.get("/api/username/taken/"+username)
+        }
+
         function getAllUsers(){
             var response= $http.get("/api/admin/users")
-            console.log("res :",response)
             return response
         }
 
         function changeFollow(userFollowingOther,UserToFollow) {
-            // console.log("change follow in service client");
-            // console.log("userFollowing",userFollowingOther);
-            // console.log("user to follow",UserToFollow);
             var userToFollow={
                 usertofollow:UserToFollow
-            }
+            };
             return $http.put("/api/user/follow/"+userFollowingOther,userToFollow);
         }
 
@@ -49,8 +56,8 @@
                     firstname: user.lastname ,
                     lastname: user.firstname ,
                     email: user.email,
-                    role:'USER'
-                }
+                    role:'ADMIN'
+                };
            return $http.post("/api/user",newUser)
         }
 
@@ -65,12 +72,11 @@
         }
 
         function findUserById(userId) {
-            console.log("init findUserById");
             return $http.get("/api/user/"+userId);
         }
 
-        function findUserByCredentials(username, password) {
-            return $http.get("/api/user?username="+username+"&password="+password);
+        function findUserByCredentials(user) {
+            return $http.post("/api/user/login",user);
         }
 
         function findUserByUsername(username) {

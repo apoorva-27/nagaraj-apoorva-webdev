@@ -7,10 +7,24 @@
         .module("Travelogue")
         .controller("experthomeController", experthomeController);
 
-    function experthomeController($routeParams,expertService,$location) {
+    function experthomeController($routeParams,expertService,$location,loggedin,userService,$cookies) {
         var vm=this;
-        vm.userId=$routeParams['uid'];
+        vm.userId=loggedin.data[0]._id;
         vm.deleteExpert=deleteExpert;
+
+        vm.logout = logout;
+        function logout(){
+            userService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $cookies.put('location', undefined);
+
+                        $location.url("/login");
+                    }
+                )
+        }
 
         function deleteExpert(user) {
             console.log("delete User userhomecontroller")

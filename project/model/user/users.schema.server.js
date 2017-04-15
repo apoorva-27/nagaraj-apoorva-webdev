@@ -7,13 +7,15 @@ module.exports = function (model) {
 
     var UsersSchema = mongoose.Schema({
 
-        username : String,
+        username : {type: String, unique:true},
         password : String,
         firstname : String,
         lastname : String,
         email : String,
         phone : String,
-        //_id:String,
+        google: {
+            id:    String
+        },
         role: {type: String, enum: ['EXPERT','ADMIN','USER'], default: 'USER'},
         entries :  [{type: mongoose.Schema.Types.ObjectId, ref:'EntryModel'}],
         dateCreated :  {type: Date, default: Date.now()},
@@ -23,7 +25,6 @@ module.exports = function (model) {
         title:String,
         suggestions : [{type: mongoose.Schema.Types.ObjectId, ref:'SuggestionModel'}],
         city:String,
-        google: {id:String}
     }, {collection: 'project.users'});
 
     UsersSchema.post("remove", function(user) {
@@ -32,11 +33,13 @@ module.exports = function (model) {
         console.log("user in schema",user)
         EntryModel.find({_id: {$in: user.entries}},function(err, entries) {
             if(err == null) {
+                console.log("Deleting Entry in schema",user);
                 EntryModel.remove({_id: {$in: user.entries}}).exec();
             }
         });
         SuggestionModel.find({_id: {$in: user.suggestions}},function(err, entries) {
             if(err == null) {
+                console.log("Deleting Suggestion in schema",user);
                 SuggestionModel.remove({_id: {$in: user.suggestions}}).exec();
             }
         });

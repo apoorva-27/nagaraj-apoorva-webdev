@@ -20,11 +20,29 @@ module.exports = function () {
         deleteEntry:deleteEntry,
         getModel:getModel,
         getAllEntries:getAllEntries,
-        findEntryById:findEntryById
+        findEntryById:findEntryById,
+        findEntriesByUserId:findEntriesByUserId
 
     };
 
     return api;
+    function findEntriesByUserId(user) {
+        var def = q.defer();
+        console.log("Coming till objectId");
+        EntryModel.find({userId:user},
+        function (err,entry) {
+            if (err) {
+                def.reject(err);
+            }
+            else {
+                def.resolve(entry);
+                console.log("Resolved",entry);
+            }
+
+        });
+        return def.promise;
+    }
+
 
     function findEntryById(entryId){
         var deffered = q.defer();
@@ -129,6 +147,7 @@ module.exports = function () {
                     model.UsersModel
                         .findUserById(en.userId)
                         .then(function(user) {
+                            console.log("USer found", user)
                             user[0].entries.push(en._id);
                             user[0].save();
                         })
