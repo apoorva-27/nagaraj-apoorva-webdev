@@ -16,7 +16,7 @@
         // vm.userId=$routeParams['uid'];
         vm.deleteUser=deleteUser;
         vm.openNav = openNav;
-        var isOpen = false;
+        var isOpen = true;
         vm.loadMain = loadMain;
         vm.includMain = '/project/views/settings/templates/settings-EDIT.view.client.html';
         vm.updateUser = updateUser;
@@ -36,7 +36,7 @@
              if (isOpen == false){
                  isOpen = true;
                  document.getElementById("mySidenav").style.width = "180px";
-                 document.getElementById("main").style.marginLeft = "180px";
+                 // document.getElementById("main").style.marginLeft = "180px";
              }
              else {
                  document.getElementById("mySidenav").style.width = "0px";

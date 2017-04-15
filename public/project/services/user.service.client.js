@@ -56,7 +56,7 @@
                     firstname: user.lastname ,
                     lastname: user.firstname ,
                     email: user.email,
-                    role:'ADMIN'
+                    role:'EXPERT'
                 };
            return $http.post("/api/user",newUser)
         }

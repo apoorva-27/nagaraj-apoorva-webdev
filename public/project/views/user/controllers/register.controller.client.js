@@ -37,8 +37,17 @@
                 vm.message ="";
             }
 
-        }
 
+        }
+        function matchPassword(P1,P2) {
+            if(P1!== P2){
+                vm.message ="Passwords Dont Match";
+            }
+            else{
+                vm.message ="";
+            }
+
+        }
 
         init();
 
@@ -47,16 +56,37 @@
             userService
                 .createUser(user)
                 .success(function (newuser) {
-                    console.log(newuser);
 
-                    $rootScope.currentUser = newuser;
-                    console.log($rootScope.newuser);
-                    $location.url("/user");
-
+                    console.log("new created",newuser);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
                     //console.log("error");
+                })
+
+            userService
+                .findUserByCredentials(user)
+                .success(function (usr) {
+                    if (usr) {
+                        console.log("loging USR",usr)
+                        $rootScope.currentUser = usr;
+                        $location.url("/user");
+                    } else {
+                        vm.error = 'User not found';
+                    }
+                });
+
+            var promise = userService
+                .findUserByCredentials(user);
+            promise
+                .success(function (usr) {
+                    if (usr) {
+                        console.log("loging USR",usr)
+                        $rootScope.currentUser = usr;
+
+                        $location.url("/user");
+
+                    }
                 })
 
         }

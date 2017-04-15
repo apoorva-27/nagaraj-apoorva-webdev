@@ -34,8 +34,8 @@
                 .then(
                     function (response) {
                         $rootScope.currentUser = null;
-                        $cookies.put('location', undefined);
 
+                        $cookies.put('location', null);
                         $location.url("/login");
                     }
                 )

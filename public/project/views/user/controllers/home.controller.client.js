@@ -7,7 +7,9 @@
         .module("Travelogue")
         .controller("homeController", homeController);
 
-    function homeController($location,attractionService,suggestionService,userService,$cookies, loggedin) {
+
+    function homeController($location,attractionService,suggestionService,userService, $rootScope,$route,
+                            $cookies, loggedin) {
 
         var vm = this;
         vm.searchPlace = searchPlace;
@@ -20,7 +22,9 @@
         var idfound;
         vm.suggestions;
         vm.switch;
+        vm.location = null;
         // vm.slide = slide;
+
         vm.logout = logout;
         function logout(){
             userService
@@ -28,15 +32,16 @@
                 .then(
                     function (response) {
                         $rootScope.currentUser = null;
-                        $cookies.put('location', undefined);
                         $location.url("/login");
                     }
                 )
         }
         function init() {
-            var locationCookie = $cookies.get('location');
+            var locationCookie = loggedin;
+            console.log(locationCookie,"cookie");
+            // searchPlace('asd')
 
-            if (locationCookie!=undefined){
+            if (locationCookie!=null){
                 searchPlace(locationCookie);
             }
         }
@@ -45,37 +50,34 @@
         function detailsPage(attractionId) {
             console.log("details page home controller")
             $location.url("/attraction/"+attractionId);
-            // if (vm.userId==undefined) {
-            //
-            // }
-            // else {
-            //     $location.url("/user/attraction/"+attractionId);
-            // }
+
         }
 
-        function searchPlace(searchText) {
-            $cookies.put('location', undefined);
 
-            var promise = attractionService
-                .findPlaceByText(searchText);
-            promise
+        function searchPlace(searchText) {
+
+            console.log("what is searchText",searchText)
+          attractionService
+                .findPlaceByText(searchText)
                 .success(function (usr) {
                     if (usr) {
+
+                        if (vm.userId) {
+                            $cookies.put('location', searchText.toLowerCase());
+                        }
+
                         var array = usr.response.destinations;
                         array.forEach(function (i) {
                             if (i.name.toLowerCase() == searchText.toLowerCase()) {
-                                // console.log(i.name);
                                 idfound = i.id;
-                                var promise2 = attractionService
+                                attractionService
                                     .findAttractionsInCity(i.id)
-                                promise2
                                     .success(function (places) {
                                         if (places) {
                                             // $cookies.put('location', searchText.toLowerCase());
                                             // console.log(searchText.toLowerCase(),"setting cookie");
                                             vm.attractions = places.response.venues;
-                                            $cookies.put('location', searchText.toLowerCase());
-
+                                            $rootScope.location = searchText.toLowerCase();
                                         }
                                         else {
                                             vm.error = "Attractions not found"
@@ -83,16 +85,17 @@
                                     })
                             }
                         })
-                    } else {
+                    }
+
+                    else {
                         vm.error = 'Place not found';
                     }
-                })
+                });
+
 
             vm.location = searchText;
-            var promise3 = suggestionService
-                .findSuggestionsForCity(searchText);
-            promise3
-                .success(function (usr) {
+            suggestionService
+                .findSuggestionsForCity(searchText).success(function (usr) {
                     console.log("success")
                     var name=null;
                     for (var i=0; i< usr.length;i++){

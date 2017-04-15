@@ -18,7 +18,7 @@
                         console.log("loging USR",usr)
                         $rootScope.currentUser = usr;
 
-                        if(usr.role =='ADMIN'){
+                        if(usr.role ==='ADMIN'){
                             $location.url("/admin")
                         }else {
                             $location.url("/user");
@@ -27,4 +27,5 @@
                         vm.error = 'User not found';
                     }
                 })
-        }}})();
+        }
+    }})();

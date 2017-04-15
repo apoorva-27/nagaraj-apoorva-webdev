@@ -7,7 +7,7 @@
         .module("Travelogue")
         .controller("adminhomeController", adminhomeController);
 
-    function adminhomeController($location,entryService, suggestionService, attractionService,userService) {
+    function adminhomeController($location,entryService,loggedin, suggestionService, attractionService,userService) {
         var vm = this;
         vm.getAllUsers = getAllUsers;
         vm.getAllAttractions=getAllAttractions;
@@ -38,6 +38,7 @@
         vm.author;
         vm.Cuser = null;
         vm.logout = logout;
+
         function logout(){
             userService
                 .logout()
@@ -51,15 +52,19 @@
         }
 
         function createUser(user) {
-            console.log("COMING HERE",user)
+            console.log("COMING HERE", user)
             var newU = userService
                 .createUser(user)
                 .error(function (err) {
                     vm.error = 'Unable to register';
                     //console.log("error");
+                })
+                .success(function (usr) {
+                    console.log("COMING HERE")
+                    vm.createUser = false;
+                    getAllUsers();
                 });
-            console.log("COMING HERE")
-            vm.createUser=false;
+
         }
 
         function deleteUser (userId) {
@@ -197,14 +202,19 @@
                 .findEntryById(entryId)
                 .success(function (entry) {
                     vm.entry=entry;
+                    vm.entries=null;
+                    vm.suggestions=null;
+                    vm.attractions=null;
+                    vm.attraction = null;
+                    vm.users=null;
 
                     console.log("vm.entry.userId[0] :",vm.entry.userId[0])
                     userService
                         .findUserById(vm.entry.userId[0])
                         .success(function (usr) {
-                            var x=usr
+                            var x=usr[0]
                             vm.author=x.firstname;
-                            console.log(vm.author);
+                            console.log("x:",x," vm.author : ",vm.author);
                         })
                             .error(function (err) {
                                 vm.error = 'unable to remove entry';
@@ -264,6 +274,11 @@
                 .success(function (usr) {
                     if (usr!=undefined) {
                         vm.suggestions=usr;
+                        vm.attractions=null;
+                        vm.users=null;
+                        vm.attraction = null;
+                        vm.suggestion=null
+                        vm.entry=null;
 
                     } else {
                         vm.suggestions=null;
@@ -299,9 +314,13 @@
                 .findSuggestionById(suggestionId)
                 .success(function (entry) {
                     vm.suggestion=entry;
+                    vm.entries=null;
+                    vm.suggestions=null;
+                    vm.attractions=null;
+                    vm.attraction = null;
+                    vm.users=null;
+                    vm.createNewUser = null;
 
-                    // $location.url("/user/"+vm.userId+"/attraction");
-                    // console.log(entry);
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
@@ -314,6 +333,9 @@
             vm.suggestions=null;vm.entry=null;
             vm.suggestion = null;vm.attraction=null;
             vm.entries=null;vm.attractions=null;
+
+            vm.admin=loggedin.data[0].role;
+
         }
 
         init();
@@ -334,6 +356,7 @@
                         vm.suggestions=null;
                         vm.suggestion = null;
                         vm.users=null;
+                        vm.createNewUser = null;
                     } else {
                         vm.entries=null;
                         vm.error = 'Entries not found';
@@ -355,6 +378,7 @@
                     vm.suggestions=null;
                     vm.suggestion = null;
                     vm.entries=null;
+                    vm.createNewUser = null;
                     if (usr) {
                         vm.attractions=usr;
                     } else {
@@ -379,6 +403,8 @@
                         vm.suggestions=null;
                         vm.attractions=null;
                         vm.attraction = null;
+                        vm.createNewUser = null;
+
                     } else {
                         vm.users=null;
                         vm.error = 'Users not found';
