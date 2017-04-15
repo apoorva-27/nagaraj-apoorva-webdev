@@ -20,7 +20,6 @@ module.exports = function () {
         setModel:setModel,
         getModel:getModel,
         deleteSuggestion:deleteSuggestion,
-        // createEntry:createEntry,
         findSuggestionsForCity:findSuggestionsForCity,
         getAllSuggestions:getAllSuggestions
     };
@@ -41,7 +40,7 @@ module.exports = function () {
                     // console.log("model server success :",suggestion)
                     deffered.resolve(suggestion);
                 }
-            })
+            });
         return deffered.promise;
     }
 
@@ -60,25 +59,21 @@ module.exports = function () {
 
     function createSuggestion(userId,suggestion){
         var deffered = q.defer();
-        console.log("model suggestion create :",suggestion)
         SuggestionModel
             .create(suggestion,function (err,sugg) {
-            // .update({_id:userId},{$set : suggestion}, function(err,user) {
                 if(err){
                     deffered.reject(err);
                 }
                 else{
-                    console.log("check for user update")
                     model.UsersModel
                         .findUserById(sugg.userId)
                         .then(function(user) {
-                            console.log("is user found :",user)
                             user[0].suggestions.push(sugg._id);
                             user[0].save();
-                        })
+                        });
                     deffered.resolve(sugg);
                 }
-            })
+            });
         return deffered.promise;
     }
 
@@ -104,7 +99,6 @@ module.exports = function () {
 
     function updateSuggestion(suggestionId,suggestion) {
         var deffered = q.defer();
-        console.log("update sserver model :",suggestion)
         SuggestionModel
             .update(
                 {_id: suggestionId},{$set : suggestion},function(err,usr) {
@@ -158,6 +152,4 @@ module.exports = function () {
         });
         return deffered.promise;
     }
-
-
 };

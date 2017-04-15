@@ -28,7 +28,6 @@ module.exports = function () {
     return api;
     function findEntriesByUserId(user) {
         var def = q.defer();
-        console.log("Coming till objectId");
         EntryModel.find({userId:user},
         function (err,entry) {
             if (err) {
@@ -36,9 +35,7 @@ module.exports = function () {
             }
             else {
                 def.resolve(entry);
-                console.log("Resolved",entry);
             }
-
         });
         return def.promise;
     }
@@ -48,11 +45,9 @@ module.exports = function () {
         var deffered = q.defer();
         EntryModel.find({_id:entryId}, function (err,entry) {
             if(err){
-                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                // console.log("web " + entry);
                 deffered.resolve(entry);
             }
         });
@@ -67,7 +62,6 @@ module.exports = function () {
                     deffered.reject(err);
                 }
                 else {
-                    // console.log("model server success")
                     deffered.resolve(user);
                 }
             })
@@ -78,7 +72,6 @@ module.exports = function () {
         return EntryModel.findByIdAndRemove(entryId, function (err, entry) {
             if (entry != null)
             {
-                console.log("does it come to delete");
                 entry.remove();
             }
         });
@@ -87,20 +80,15 @@ module.exports = function () {
 
     function updateEntry(entryId,entry) {
 
-        console.log("update entry in entry model server,entry : ",entry)
-
         var deffered = q.defer();
         EntryModel
             .update(
                 {_id: entryId},{$set : entry},function(err,usr) {
                     if(err){
-                        // console.log("hello   "+err);
                         deffered.reject(err);
                     }
                     else{
-                        // console.log("user :" + usr);
                         deffered.resolve(usr);
-                        // return usr
                     }
                 });
         return deffered.promise;
@@ -111,11 +99,9 @@ module.exports = function () {
         var deffered = q.defer();
         EntryModel.find({_id:entryId}, function (err,entry) {
             if(err){
-                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                // console.log("web " + web.length);
                 deffered.resolve(entry);
             }
         });
@@ -126,11 +112,9 @@ module.exports = function () {
         var deffered = q.defer();
         EntryModel.find({attractionId:attractionId}, function (err,entry) {
             if(err){
-                // console.log("hello   "+err);
                 deffered.reject(err);
             }
             else{
-                // console.log("web " + web.length);
                 deffered.resolve(entry);
             }
         });
@@ -147,7 +131,6 @@ module.exports = function () {
                     model.UsersModel
                         .findUserById(en.userId)
                         .then(function(user) {
-                            console.log("USer found", user)
                             user[0].entries.push(en._id);
                             user[0].save();
                         })
@@ -161,7 +144,6 @@ module.exports = function () {
         model = models;
         EntrySchema = require('./entry.schema.server')(models);
         EntryModel = mongoose.model('EntryModel', EntrySchema);
-
     }
 
     function getModel() {

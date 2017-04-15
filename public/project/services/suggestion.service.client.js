@@ -22,7 +22,6 @@
         return api;
 
         function getAllSuggestions(){
-            // console.log("service client get all suggestions")
             return $http.get("/api/admin/suggestions")
         }
 
@@ -40,7 +39,6 @@
         }
 
         function deleteSuggestion(suggestionId) {
-            // console.log("delete suggestion service client : ",suggestionId)
             return $http.delete("/api/suggestion/"+suggestionId);
         }
 

@@ -13,8 +13,6 @@ module.exports = function (model) {
         address: String,
         website: String,
         opening_hours: String,
-        // entries : diary entries
-        // entries: [{type: String}],
         favorited : [{type: mongoose.Schema.Types.ObjectId, ref:'UsersModel'}]
     }, {collection: 'attractions'});
 
@@ -33,7 +31,6 @@ module.exports = function (model) {
                         user[0].favorites.splice(index,1);
                         user[0].save()
                     }
-                    // EntryModel.remove({_id: {$in: user.entries}}).exec();
                 }
             });
         }

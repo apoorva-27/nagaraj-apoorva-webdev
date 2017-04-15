@@ -12,14 +12,10 @@ module.exports = function (app,AttractionModel) {
     app.delete("/api/attraction/:aid",deleteAttraction)
 
     function deleteAttraction(req,res) {
-        // var userId=req.params.uid;
         var attractionId=req.params.aid;
-        // var entryId=req.params.eid;
-        console.log("beofre deleting model")
         AttractionModel
             .deleteAttraction(attractionId)
             .then (function (entry) {
-                    console.log("deleteAttraction delete at server service"+entry)
                     res.json(entry);
                 },
                 function (err) {
@@ -30,12 +26,10 @@ module.exports = function (app,AttractionModel) {
     function updateAttraction(req,res){
         var attractionId=req.params.aid;
         var attraction=req.body;
-        // console.log("user  in request  body"+user);
 
         AttractionModel
             .updateAttraction(attractionId,attraction)
             .then (function (attraction) {
-                    console.log("entry update at server service"+attraction)
                     res.json(attraction);
                 },
                 function (err) {
@@ -45,14 +39,10 @@ module.exports = function (app,AttractionModel) {
 
     function findAttractionById(req,res) {
 
-        console.log("attraction server service")
-
         attractionId=req.params.aid;
         AttractionModel
             .findAttractionById(attractionId)
             .then (function (status) {
-                    // console.log("status at attraction service server : ",status)
-                    //     console.log("step 7: service server success : ",status[0])
                     res.json(status);
                 },
                 function (err) {
@@ -61,12 +51,9 @@ module.exports = function (app,AttractionModel) {
     }
 
     function getAllAttractions(req,res) {
-        // console.log("Step 3: attractin service server js")
         AttractionModel
             .getAllAttractions()
             .then (function (status) {
-                // console.log("status at attraction service server : ",status)
-                //     console.log("step 7: service server success : ",status[0])
                     res.json(status);
                 },
                 function (err) {
@@ -89,8 +76,6 @@ module.exports = function (app,AttractionModel) {
     }
 
     function favorite(req,res) {
-        // console.log("favorite : attraction service server attraction :",req.body)
-
         var userId=req.params.uid;
         var attractionId=req.params.aid;
         var status=req.params.sid;
@@ -107,9 +92,7 @@ module.exports = function (app,AttractionModel) {
     }
 
     function findPlaceByText(req,res) {
-        // console.log("server : findplacebytext")
         var searchParam=req.query.place;
-        // console.log("server search text: ",searchParam)
         AttractionModel
             .findPlaceByText(searchParam);
     }

@@ -2,7 +2,6 @@
  * Created by hiresave on 3/1/2017.
  */
 
-
 module.exports = function (app,UsersModel) {
     var passport = require('passport');
 
@@ -35,8 +34,6 @@ module.exports = function (app,UsersModel) {
 
         }), function(req, res){
             var t  = req.user;
-            console.log(t._id, typeof  t,"Coming here redirection");
-            console.log(t.google,"Coming here redirection");
             var url = '/project/index.html#/user/';
 
             res.redirect(url);
@@ -56,29 +53,23 @@ module.exports = function (app,UsersModel) {
     };
 
     function loggedin(req, res) {
-        console.log(req.body);
         res.send(req.isAuthenticated() ? req.user : '0');
     }
 
 
     function isUserNameTaken(req,res) {
         var uname=req.params.un;
-        console.log("uname",uname) ;
         UsersModel
             .findUserByUsername(uname)
             .then(function (usr){
                     if (usr[0]){
-                        // console.log(usr,"FoundUser");
-                        // console.log(false);
                         res.json(false)
                     }
                     else {
-                        // console.log(true)
                         res.json(true)
                     }
                 },
                 function(err){
-                    // console.log(true)
                     res.json(true)
                 })
     }
@@ -88,12 +79,9 @@ module.exports = function (app,UsersModel) {
         UsersModel.findUserByCredentials(username,password)
             .then(
                 function(user) {
-                    // console.log("Finding the particular User",password,username,user[0]);
                     if(user) {
-                        // console.log("================== user",user[0]);
                         return done(null, user[0]);
                     } else {
-                        // console.log("ERR user");
                         return done(null, false);
                     }
                 },
@@ -104,7 +92,6 @@ module.exports = function (app,UsersModel) {
     }
     function login(req, res) {
         var user = req.user;
-        console.log("User FOund", user)
         res.json(user);
     }
     function getAllUsers(req,res) {
@@ -118,7 +105,6 @@ module.exports = function (app,UsersModel) {
                     res.send(null)
                 })
     }
-
 
     function findFollowing(req,res) {
         userId=req.params.userId
@@ -215,8 +201,7 @@ module.exports = function (app,UsersModel) {
         UsersModel
             .updateUser(userId,user)
             .then (function (user) {
-                    console.log("user object at user service 4"+user)
-                    res.json(user);
+                   res.json(user);
                 },
                 function (err) {
                     res.sendStatus(400).send(err);
@@ -233,9 +218,6 @@ module.exports = function (app,UsersModel) {
             });
     }
 
-    // var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
-    console.log(process.env.GOOGLE_CLIENT_ID,process.env.GCS)
     var googleConfig = {
         clientID     : process.env.GOOGLE_CLIENT_ID,
         clientSecret : process.env.GCS,
@@ -252,7 +234,6 @@ module.exports = function (app,UsersModel) {
             .then(
                 function(user) {
                     if(user) {
-                        console.log("User ALREADY FOUND",user);
                         return done(null, user);
                     } else {
 
@@ -274,11 +255,9 @@ module.exports = function (app,UsersModel) {
                             .then(function(user){
                                 return done(null, user);
                             });
-
                     }
                 },
                 function(err) {
-                    console.log(err,"Not Calling")
                     if (err) { return done(err); }
                 })
     }
@@ -299,7 +278,4 @@ module.exports = function (app,UsersModel) {
                 }
             );
     }
-
-
-
 };

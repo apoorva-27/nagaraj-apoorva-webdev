@@ -10,7 +10,6 @@
     function userhomeController(userService,$location,entryService,$rootScope,
                                 loggedin,$cookies) {
         var vm=this;
-        // console.log( "logged in data", loggedin.data[0]._id)
         vm.userId=loggedin.data[0]._id;
         console.log(vm.userId);
         // vm.userId=$routeParams['uid'];
@@ -36,7 +35,6 @@
              if (isOpen == false){
                  isOpen = true;
                  document.getElementById("mySidenav").style.width = "180px";
-                 // document.getElementById("main").style.marginLeft = "180px";
              }
              else {
                  document.getElementById("mySidenav").style.width = "0px";
@@ -57,11 +55,8 @@
                              .success(function (us) {
                                  following.push(us[0])
                              });
-
                      }
-                     console.log(following);
                      vm.following = following;
-
 
                      var followers = [];
                      for(var i =0; i< user[0].followers.length; i++){
@@ -71,9 +66,7 @@
                              });
 
                      }
-                     console.log(followers);
                      vm.followers = followers;
-
                  })
                  .error (function (err) {
                      vm.error="unable to find user"
@@ -91,7 +84,6 @@
          init();
 
         function deleteUser(user) {
-            console.log("delete User userhomecontroller")
             var answer = confirm("Are you sure?");
             console.log(answer);
             if(answer) {
@@ -101,13 +93,12 @@
                         $location.url("/login");
                     })
                     .error(function () {
-                        vm.error = 'unable to remove user';
+                        vm.error = 'Unable to remove user';
                     });
             }
         }
 
         function unregisterUser(user) {
-            // console.log("do i come here at profile controller?")
             var answer = confirm("Are you sure?");
             console.log(answer);
             if(answer) {
@@ -121,7 +112,6 @@
                     });
             }
         }
-
 
         function updateUser(newuser) {
 
@@ -144,7 +134,6 @@
                 });
         }
 
-
         function logout(){
             userService
                 .logout()
@@ -153,13 +142,9 @@
                         $rootScope.currentUser = null;
                          $cookies.put('location', undefined);
                         $location.url("/login");
-
                     }
                 )
         }
-
     }
-
-
 })();
 

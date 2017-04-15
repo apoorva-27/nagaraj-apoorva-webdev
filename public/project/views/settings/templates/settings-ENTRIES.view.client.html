@@ -11,7 +11,8 @@
                 <div class="panel-body" >
                     <Label>Summary: </Label>
                     {{entry.story}}
-                    <a ng-if="model.username == null" href="#/user/attraction/{{entry.attractionId}}/entry/{{entry._id}}">
+                    <a ng-if="model.username == null"
+                       href="#/user/attraction/{{entry.attractionId}}/entry/{{entry._id}}">
                         <span class="glyphicon glyphicon-cog pull-right"> </span></a>
                 </div>
             </div>

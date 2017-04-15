@@ -36,8 +36,6 @@
             else{
                 vm.message ="";
             }
-
-
         }
         function matchPassword(P1,P2) {
             if(P1!== P2){
@@ -46,7 +44,6 @@
             else{
                 vm.message ="";
             }
-
         }
 
         init();
@@ -61,14 +58,12 @@
                 })
                 .error(function (err) {
                     vm.error = 'Unable to register';
-                    //console.log("error");
                 })
 
             userService
                 .findUserByCredentials(user)
                 .success(function (usr) {
                     if (usr) {
-                        console.log("loging USR",usr)
                         $rootScope.currentUser = usr;
                         $location.url("/user");
                     } else {
@@ -81,11 +76,8 @@
             promise
                 .success(function (usr) {
                     if (usr) {
-                        console.log("loging USR",usr)
                         $rootScope.currentUser = usr;
-
                         $location.url("/user");
-
                     }
                 })
 

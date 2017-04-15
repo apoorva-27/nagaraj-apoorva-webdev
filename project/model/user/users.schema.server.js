@@ -24,25 +24,22 @@ module.exports = function (model) {
         followers : [{type:mongoose.Schema.Types.ObjectId,ref:'UsersModel'}],
         title:String,
         suggestions : [{type: mongoose.Schema.Types.ObjectId, ref:'SuggestionModel'}],
-        city:String,
+        city:String
     }, {collection: 'project.users'});
 
     UsersSchema.post("remove", function(user) {
         var EntryModel = model.EntryModel.getModel();
         var SuggestionModel=model.SuggestionModel.getModel();
-        console.log("user in schema",user)
         EntryModel.find({_id: {$in: user.entries}},function(err, entries) {
             if(err == null) {
-                console.log("Deleting Entry in schema",user);
                 EntryModel.remove({_id: {$in: user.entries}}).exec();
             }
         });
         SuggestionModel.find({_id: {$in: user.suggestions}},function(err, entries) {
-            if(err == null) {
-                console.log("Deleting Suggestion in schema",user);
+            if(err == null){
                 SuggestionModel.remove({_id: {$in: user.suggestions}}).exec();
             }
         });
-    })
+    });
     return UsersSchema;
 };

@@ -22,25 +22,19 @@
             <form class="navbar-form navbar-right" ng-if="model.userId == undefined" >
                 <a href="#/login">  <button class="btn btn-danger" ng-click="model.logout()" >Logout</button> </a>
             </form>
-        </div><!--/.navbar-collapse -->
+        </div>
     </div>
 </nav>
 
 
 <div class="container-fluid">
-
     <div id="mySidenav" class="sidenav" ng-click="model.openNav()">
-        <!--<a class="btn" href="javascript:void(0)" onclick="closeNav()">&times;</a>-->
 
         <a class="btn" ng-click="model.loadMain('FOLLOWING')">Following</a>
         <a class="btn" ng-click="model.loadMain('FOLLOWERS')">Followers</a>
         <a class="btn" ng-click="model.loadMain('ENTRIES')">Entries</a>
 
     </div>
-
-    <!-- Use any element to open the sidenav -->
-    <!--<span onclick="model.openNav()">open</span>-->
-
 
     <div class="main" id="main" >
         <div ng-include="model.includMain" >

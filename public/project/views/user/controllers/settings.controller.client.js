@@ -5,14 +5,12 @@
 
     function settingsController($routeParams, userService,$location,loggedin) {
         var vm = this;
-        // event handlers
         vm.updateUser = updateUser;
         vm.unregisterUser = unregisterUser;
         vm.userId=loggedin.data[0]._id;
         vm.userId = userId;
         vm.openNav=openNav;
         vm.closeNav=closeNav;
-        // vm.deleteUser = deleteUsers;
         vm.followers = null;
 
         function init() {
@@ -28,18 +26,13 @@
                         .success(function (us) {
                             followers.append(us)
                         });
-
                 }
                 vm.followers = followers;
             });
-
-
-
         }
         init();
 
         function unregisterUser(user) {
-            // console.log("do i come here at profile controller?")
             var answer = confirm("Are you sure?");
             console.log(answer);
             if(answer) {
@@ -49,7 +42,7 @@
                         $location.url("/login");
                     })
                     .error(function () {
-                        vm.error = 'unable to remove user';
+                        vm.error = 'Unable to remove user!';
                     });
             }
         }
@@ -62,8 +55,6 @@
                     lastname: newuser.lastname ,
                     email: newuser.email
                 }
-
-            console.log("newuser in profile controller"+newU)
             userService
                 .updateUser(userId, newU)
                 .success(function (user) {

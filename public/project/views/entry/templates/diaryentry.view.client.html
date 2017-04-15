@@ -18,7 +18,7 @@
             <form class="navbar-form navbar-right" ng-if="model.userId != undefined" >
                 <a href="#/login">  <button class="btn btn-danger" ng-click="model.logout()" >Logout</button> </a>
             </form>
-        </div><!--/.navbar-collapse -->
+        </div>
     </div>
 </nav>
 
@@ -31,7 +31,6 @@
                     <input type="String" ng-model="model.entry.title"/>
                 </h5>
             </div>
-
 
             <div>
                 <div>
@@ -54,7 +53,6 @@
             <a class="btn btn-primary" ng-if="model.entryId!=null"
                ng-click="model.updateEntry(model.entry)">Update Entry</a>
 
-
             <a button class="btn btn-danger" ng-click="model.deleteEntry(model.entry)" >Delete Entry
                 </a>
             </button>
@@ -62,11 +60,8 @@
 
         <br>
     </div>
-
-
 </div>
 <div>
-
 
     <nav class="navbar navbar-dark navbar-fixed-bottom nav-color">
         <div class="container-fluid" ng-if="model.userId!=null">

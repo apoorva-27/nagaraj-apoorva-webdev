@@ -7,11 +7,6 @@ module.exports = function (model) {
 
     var SuggestionSchema = mongoose.Schema({
 
-        // username : String,
-        // password : String,
-        // firstname : String,
-        // lastname : String,
-        // email : String,
         userId:[{type: mongoose.Schema.Types.ObjectId, ref:'UsersModel'}],
         switch:String,
         phone : String,

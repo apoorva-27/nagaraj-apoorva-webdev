@@ -12,8 +12,6 @@
         var vm = this;
         vm.attractionId=$routeParams['aid']
         vm.userId=loggedin.data[0]._id;
-        // vm.username = loggedin.data[0].username;
-        // console.log("",vm.userId)
         vm.entries;
         vm.entry;
         vm.attraction;
@@ -39,7 +37,6 @@
         }
 
         function changeFollow(userId,entry) {
-            console.log("change follow in controller",userId)
             userService
                 .changeFollow(vm.userId,userId)
                 .success(function (success) {
@@ -49,8 +46,6 @@
                     else {
                         entry.follow='FOLLOW'
                     }
-                    console.log("In success", success)
-
                 })
                 .error(function (err) {
                     entry.follow = 'UNFOLLOW';
@@ -104,28 +99,22 @@
                     var i;
                     for (i = 0; i < entries.length; i++) {
                         entries[i].follow = 'FOLLOW'
-                        // console.log("vm.entries i", entries[i])
                         if (entries[i].userId == vm.userId) {
                             entries[i].follow = 'NONE'
                             entries[i].username = loggedin.data[0].username
                         }
                         else {
                             var x = entries[i];
-                            console.log("x",x.userId[0]);
 
                             userService
                                 .findFollowing(vm.userId)
                                 .success(function (following) {
-                                    console.log("following", following)
                                     var j;
                                     for (j = 0; j < following.length; j++) {
-                                        console.log("here it fails", x)
                                         if (x.userId == following[j]) {
-                                            console.log("checking if followed")
                                             x.follow = 'UNFOLLOW';
                                             continue;
                                         }
-                                        console.log("else un followed")
                                     }
                                 })
                                 .error(function (err) {
@@ -133,11 +122,9 @@
                                 })
                             userService.findUserById(x.userId[0])
                                 .success(function (user) {
-                                    // console.log(user,"Found user of entry",user[0].username)
                                     x.username = user[0].username;
 
                                 })
-                            // console.log("new x ??? ",x)
                             entries[i] = x;
                         }
                     }
@@ -156,11 +143,9 @@
                 .findFavoritesByUserId(vm.userId,vm.attractionId)
                 .success(function (user) {
                     vm.favorited=true;
-                    console.log("vm.fav :",vm.favorited)
                 })
                 .error (function (err) {
                     vm.favorited=false;
-                    console.log("false vm.fav :",vm.favorited)
                 })
         }
 

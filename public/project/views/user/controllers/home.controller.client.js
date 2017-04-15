@@ -7,7 +7,6 @@
         .module("Travelogue")
         .controller("homeController", homeController);
 
-
     function homeController($location,attractionService,suggestionService,userService, $rootScope,$route,
                             $cookies, loggedin) {
 
@@ -16,15 +15,10 @@
         vm.detailsPage=detailsPage;
 
         vm.userId = loggedin.data[0]._id;
-        // console.log(loggedin.data[0]._id)
-        // console.log($rootScope);
-        // vm.findSuggestionsForCity=findSuggestionsForCity;
         var idfound;
         vm.suggestions;
         vm.switch;
         vm.location = null;
-        // vm.slide = slide;
-
         vm.logout = logout;
         function logout(){
             userService
@@ -39,8 +33,6 @@
         function init() {
             var locationCookie = loggedin;
             console.log(locationCookie,"cookie");
-            // searchPlace('asd')
-
             if (locationCookie!=null){
                 searchPlace(locationCookie);
             }
@@ -50,9 +42,7 @@
         function detailsPage(attractionId) {
             console.log("details page home controller")
             $location.url("/attraction/"+attractionId);
-
         }
-
 
         function searchPlace(searchText) {
 
@@ -65,7 +55,6 @@
                         if (vm.userId) {
                             $cookies.put('location', searchText.toLowerCase());
                         }
-
                         var array = usr.response.destinations;
                         array.forEach(function (i) {
                             if (i.name.toLowerCase() == searchText.toLowerCase()) {
@@ -74,8 +63,6 @@
                                     .findAttractionsInCity(i.id)
                                     .success(function (places) {
                                         if (places) {
-                                            // $cookies.put('location', searchText.toLowerCase());
-                                            // console.log(searchText.toLowerCase(),"setting cookie");
                                             vm.attractions = places.response.venues;
                                             $rootScope.location = searchText.toLowerCase();
                                         }
@@ -86,7 +73,6 @@
                             }
                         })
                     }
-
                     else {
                         vm.error = 'Place not found';
                     }
@@ -106,18 +92,16 @@
                         else {
                             usr[i].switch='NONE'
                             console.log(usr[i].userId)
-                            // var name=null;
                             usr[i].username = undefined;
                             userService.findUserById(usr[i].userId)
                                 .success(function (u) {
                                     console.log("Not matched users",u[0].username)
                                     name = u[0].username;
                                 })
-                            console.log(name);
-                            // usr[i].username = name
                         }
                     }
                     vm.suggestions=usr;
                 })
         }
-    }})();
+    }
+})();

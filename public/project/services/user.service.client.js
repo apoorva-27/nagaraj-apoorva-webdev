@@ -23,7 +23,6 @@
         };
         return api;
 
-
         function logout() {
             return $http.post("/api/logout");
         }
@@ -62,8 +61,6 @@
         }
 
         function updateUser(userId, user) {
-
-            console.log("in update user client"+user);
             return $http.put("/api/user/"+userId,user);
         }
 

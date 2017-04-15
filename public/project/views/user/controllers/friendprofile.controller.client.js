@@ -10,11 +10,7 @@
 
     function friendController($routeParams,userService,$location,entryService,loggedin,$cookies) {
         var vm=this;
-        // console.log( "logged in data", loggedin.data[0]._id)
         vm.username = $routeParams['uname'];
-        // vm.userId=loggedin.data[0]._id;
-        // console.log(vm.userId);
-        // vm.userId=$routeParams['uid'];
         vm.deleteUser=deleteUser;
         vm.openNav = openNav;
         var isOpen = false;
@@ -65,7 +61,6 @@
             userService
                 .findUserByUsername(vm.username)
                 .success( function (user) {
-                    // vm.user = user;
                     vm.user=user;
                     console.log("user [0]",vm.user)
 
@@ -77,9 +72,7 @@
                             });
 
                     }
-                    console.log(following);
                     vm.following = following;
-
 
                     var followers = [];
                     for(var i =0; i< user.followers.length; i++){
@@ -87,14 +80,11 @@
                             .success(function (us) {
                                 followers.push(us[0])
                             });
-
                     }
-                    console.log("followers",followers);
                     vm.followers = followers;
-
                 })
                 .error (function (err) {
-                    vm.error="unable to find user"
+                    vm.error="Unable to find user"
                 });
 
             userService
@@ -106,8 +96,6 @@
                             vm.entries = entries;
                         })
                 });
-
-
             openNav();
         }
         init();
@@ -144,9 +132,7 @@
             }
         }
 
-
         function updateUser(newuser) {
-
             var newU=
                 {
                     firstname: newuser.firstname ,
@@ -165,10 +151,6 @@
                     }
                 });
         }
-
-
     }
-
-
 })();
 

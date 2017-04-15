@@ -12,29 +12,26 @@ module.exports = function (app,EntryModel) {
     app.get("/api/admin/entry/:eid",findEntryById);
     app.get("/api/user/:uid/entries",findEntriesByUserId);
 
-
     function findEntriesByUserId(req,res) {
         var userId = req.params.uid;
-        console.log("captureing here",userId)
         EntryModel.findEntriesByUserId(userId)
             .then(function (entries) {
-                    res.json(entries)
+                    res.json(entries);
                 },
                 function (err) {
                     res.sendStatus(400).send(err);
                 });
-
     }
     function findEntryById(req,res) {
         entryId=req.params.eid;
         EntryModel
             .findEntryById(entryId)
             .then (function (array){
-                    console.log(array)
-                    res.json(array[0])
+                    console.log(array);
+                    res.json(array[0]);
                 },
                 function(err){
-                    res.sendStatus(400).send(err)
+                    res.sendStatus(400).send(err);
                 })
     }
 
@@ -42,11 +39,10 @@ module.exports = function (app,EntryModel) {
         EntryModel
             .getAllEntries()
             .then (function (array){
-                    // console.log(array)
-                    res.json(array)
+                    res.json(array);
                 },
                 function(err){
-                    res.send(null)
+                    res.send(null);
                 })
     }
 
@@ -54,11 +50,9 @@ module.exports = function (app,EntryModel) {
         var userId=req.params.uid;
         var attractionId=req.params.aid;
         var entryId=req.params.eid;
-        console.log("beofre deleting model")
         EntryModel
             .deleteEntry(entryId)
             .then (function (entry) {
-                    console.log("entry delete at server service"+entry)
                     res.json(entry);
                 },
                 function (err) {
@@ -68,19 +62,15 @@ module.exports = function (app,EntryModel) {
 
     function updateEntry(req,res) {
 
-        console.log("update entry in entry service server object :",entry)
-
-
         var userId=req.params.uid;
         var attractionId=req.params.aid;
         var entryId=req.params.eid;
         var entry=req.body;
-        // console.log("user  in request  body"+user);
 
         EntryModel
             .updateEntry(entryId,entry)
             .then (function (entry) {
-                    console.log("entry update at server service"+entry)
+                    console.log("entry update at server service"+entry);
                     res.json(entry);
                 },
                 function (err) {
@@ -96,7 +86,6 @@ module.exports = function (app,EntryModel) {
         EntryModel
             .findEntryByEntryId(entryId)
             .then (function (entry) {
-                    // console.log("user object at user service 3"+user)
                     res.json(entry);
                 },
                 function (err) {
@@ -111,7 +100,6 @@ module.exports = function (app,EntryModel) {
          EntryModel
             .findEntriesByAttraction(attractionId)
             .then (function (entries) {
-                    // console.log("user object at user service"+user)
                     res.json(entries);
                 },
                 function (err) {
@@ -120,7 +108,6 @@ module.exports = function (app,EntryModel) {
     }
 
     function createEntry(req, res) {
-        console.log("enty service create entry server")
         var newE = req.body;
         var userId=req.params.uid;
         var attractionId=req.params.aid;
@@ -130,16 +117,13 @@ module.exports = function (app,EntryModel) {
             story:newE.story,
             date:newE.date,
             userId:userId,
-            attractionId:attractionId,
-
-        }
-
+            attractionId:attractionId
+        };
 
         EntryModel
             .createEntry(newEntry)
             .then(function (entry) {
                     res.json(entry);
-
                 },
                 function (err) {
                     res.sendStatus(400).send(err);

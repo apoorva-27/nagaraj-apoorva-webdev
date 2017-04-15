@@ -38,51 +38,41 @@ module.exports = function () {
             .update(
                 {_id: attractionId},{$set : attraction},function(err,usr) {
                     if(err){
-                        // console.log("hello   "+err);
                         deffered.reject(err);
                     }
                     else{
-                        // console.log("user :" + usr);
                         deffered.resolve(attraction);
-                        // return usr
                     }
                 });
         return deffered.promise;
     }
 
-
     function findAttractionById(attractionId) {
         var deffered = q.defer();
-        console.log("attraction server service")
 
         AttractionModel
             .find({"_id":attractionId},function(err,user) {
                 if(user[0]==undefined) {
-                    deffered.reject(err)
+                    deffered.reject(err);
                 }
                 else {
-                    // console.log("success object :",user)
-                    console.log("step 6 : model success :",user)
-                    deffered.resolve(user[0])
+                    deffered.resolve(user[0]);
                 }
-            })
+            });
         return deffered.promise;
     }
 
     function getAllAttractions() {
         var deffered = q.defer();
-        // console.log("step 5 : model")
         AttractionModel
             .find({},function(err,user) {
                 if(user[0]==undefined) {
                     deffered.reject(err)
                 }
                 else {
-                    // console.log("success object :",user)
-                    // console.log("step 6 : model success")
                     deffered.resolve(user)
                 }
-            })
+            });
         return deffered.promise;
     }
 
@@ -90,22 +80,19 @@ module.exports = function () {
         var deffered = q.defer();
         AttractionModel.find({attractionId:attractionId},function (err,en) {
             if (en[0]==undefined) {
-                console.log("case 1")
                 deffered.reject();
             }
             else {
                 var i = en[0].favorited.indexOf(userId);
                 if (i<0)
                 {
-                    console.log("case 2")
                     deffered.reject()
                 }
                 else {
-                    console.log("case 3 :",en[0])
                     deffered.resolve(en[0]);
                 }
             }
-            })
+            });
         return deffered.promise;
     }
 
@@ -120,8 +107,7 @@ module.exports = function () {
             website:attraction.response.venues[0].website,
             opening_hours:attraction.response.venues[0].opening_hours,
             tripexpert_score:attraction.response.venues[0].tripexpert_score
-        }
-        console.log("newattraction object :",newattraction)
+        };
         AttractionModel.find({attractionId:attractionId},function (err,en) {
             if (en[0]==undefined) {
                 AttractionModel
@@ -130,9 +116,7 @@ module.exports = function () {
                         model.UsersModel
                             .findUserById(userId)
                             .then (function (success_user) {
-
                                 founduser=success_user[0];
-                                    console.log("found user frst :",founduser.favorites);
                                     success_user[0].favorites.push(succ._id);
                                     success_user[0].save();
                             },
@@ -148,12 +132,7 @@ module.exports = function () {
                     .findUserById(userId)
                     .then (function (succ) {
                             founduser=succ[0];
-                            console.log("found user sec :",founduser);
                             succ[0].favorites.push(en[0]._id);
-                            console.log("founduser be4 save :",succ[0]);
-                            // succ[0].save()
-                        console.log("founduser after save :",founduser);
-
                         },
                         function (err) {
                             res.sendStatus(400).send(err);

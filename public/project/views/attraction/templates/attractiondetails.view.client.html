@@ -22,11 +22,9 @@
                     <button class="btn btn-danger" ng-click="model.logout()" >Logout</button>
                 </a>
             </form>
-        </div><!--/.navbar-collapse -->
+        </div>
     </div>
 </nav>
-
-
 
 <div class="panel panel-default smoke" >
     <div class="col-xs-10 col-md-11 container-fluid smoke" >
@@ -39,7 +37,8 @@
             <h3>{{model.name}}</h3>
             <div>
                 <div class="col-xs-1">
-                    <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change')" >
+                    <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}"
+                       ng-click="model.favorite('change')" >
                         <div ng-switch="model.favorited">
                     <span>
                         <div ng-switch-when="true">
@@ -63,22 +62,14 @@
                 </h5>
                <h5>Opening Hours: {{model.opening_hours}}
                </h5>
-
-
-
-                    <h5> Official Website:
+                <h5> Official Website:
                           {{model.website}}
-                    </h5>
+                </h5>
             </div>
-
-
                 <h5>Address:
                      {{model.address}}
                 </h5>
-
-
             </div>
-
         </div>
         <div>
     </div>
@@ -103,7 +94,7 @@
     <div ng-if="model.userId" class="panel col-xs-10 col-md-11">
         <br/>
         <div class="panel-info">
-            <div class="panel-heading">Entries
+            <div ng-if="model.entries" class="panel-heading">Entries
             </div>
         </div>
 
@@ -145,9 +136,7 @@
 
                             </span>
                 </div>
-
             </div>
-
         </div>
         <a class="btn btn-info btn-block col-md-4"
            href="#/user/attraction/{{model.attractionId}}/entry">New Entry</a>
