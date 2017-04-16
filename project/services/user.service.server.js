@@ -221,7 +221,7 @@ module.exports = function (app,UsersModel) {
     var googleConfig = {
         clientID     : process.env.GOOGLE_CLIENT_ID,
         clientSecret : process.env.GCS,
-        callbackURL  : 'http://localhost:3000/auth/google/callback'
+        callbackURL  : 'https://nagaraj-apoorva-webdev.herokuapp.com/auth/google/callback'
     };
 
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
