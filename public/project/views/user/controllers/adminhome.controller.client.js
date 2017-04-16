@@ -9,6 +9,7 @@
 
     function adminhomeController($location,entryService,loggedin, suggestionService, attractionService,userService) {
         var vm = this;
+        vm.userId=loggedin.data[0]._id;
         vm.getAllUsers = getAllUsers;
         vm.getAllAttractions=getAllAttractions;
         vm.getAllEntries=getAllEntries;

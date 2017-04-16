@@ -6,52 +6,54 @@
     angular
         .module("Travelogue")
         .controller("homeController", homeController);
-
-    function homeController($location,attractionService,suggestionService,userService, $rootScope,$route,
+    function homeController($location,attractionService,suggestionService,userService, $rootScope,
                             $cookies, loggedin) {
 
         var vm = this;
         vm.searchPlace = searchPlace;
         vm.detailsPage=detailsPage;
-
         vm.userId = loggedin.data[0]._id;
         var idfound;
         vm.suggestions;
+        vm.location=' ';
         vm.switch;
-        vm.location = null;
         vm.logout = logout;
+
         function logout(){
             userService
                 .logout()
                 .then(
                     function (response) {
                         $rootScope.currentUser = null;
+                        $cookies.put('location', null);
                         $location.url("/login");
                     }
                 )
         }
         function init() {
-            var locationCookie = loggedin;
+            var locationCookie = $cookies.get('location');
             console.log(locationCookie,"cookie");
-            if (locationCookie!=null){
-                searchPlace(locationCookie);
+
+            if (locationCookie != 'null' && locationCookie !=null &&
+                vm.userId!=undefined && vm.userId != undefined ){
+                console.log("coiming here ???")
+                searchPlace(locationCookie)
             }
         }
         init();
 
         function detailsPage(attractionId) {
-            console.log("details page home controller")
             $location.url("/attraction/"+attractionId);
         }
 
-        function searchPlace(searchText) {
 
-            console.log("what is searchText",searchText)
-          attractionService
+        function searchPlace(searchText) {
+            vm.location = searchText.toLowerCase();
+
+            attractionService
                 .findPlaceByText(searchText)
                 .success(function (usr) {
                     if (usr) {
-
                         if (vm.userId) {
                             $cookies.put('location', searchText.toLowerCase());
                         }
@@ -64,7 +66,6 @@
                                     .success(function (places) {
                                         if (places) {
                                             vm.attractions = places.response.venues;
-                                            $rootScope.location = searchText.toLowerCase();
                                         }
                                         else {
                                             vm.error = "Attractions not found"
@@ -78,30 +79,31 @@
                     }
                 });
 
-
-            vm.location = searchText;
             suggestionService
                 .findSuggestionsForCity(searchText).success(function (usr) {
-                    console.log("success")
-                    var name=null;
-                    for (var i=0; i< usr.length;i++){
-                        if (usr[i].userId==vm.userId) {
-                            usr[i].switch='EDIT'
-                            usr[i].username = loggedin.data[0]._id;
-                        }
-                        else {
-                            usr[i].switch='NONE'
-                            console.log(usr[i].userId)
-                            usr[i].username = undefined;
-                            userService.findUserById(usr[i].userId)
-                                .success(function (u) {
-                                    console.log("Not matched users",u[0].username)
-                                    name = u[0].username;
-                                })
-                        }
+                console.log("success")
+                var name=null;
+                for (var i=0; i< usr.length;i++){
+                    if (usr[i].userId==vm.userId) {
+                        usr[i].switch='EDIT'
+                        usr[i].username = loggedin.data[0]._id;
                     }
-                    vm.suggestions=usr;
-                })
+                    else {
+                        usr[i].switch='NONE'
+                        console.log(usr[i].userId);
+                        usr[i].username = undefined;
+                        userService.findUserById(usr[i].userId)
+                            .success(function (u) {
+                                console.log("Not matched users",u[0].username)
+                                name = u[0].username;
+                            })
+                        console.log(name);
+                    }
+                }
+                vm.suggestions=usr;
+            });
+
+            console.log("what is searchText",searchText, vm.location)
+
         }
-    }
-})();
+    }})();

@@ -8,6 +8,11 @@
                 <span class="icon-bar"></span>
             </button>
 
+            <a  href="#/attraction/{{model.attractionId}}">
+                <span class="navbar-brand glyphicon glyphicon-chevron-left left">
+                </span>
+            </a>
+
             <a class="navbar-brand" href="">Travelogue</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -35,12 +40,13 @@
             <div>
                 <div>
                     <h5> Desribe your experience: </h5>
-                    <textarea rows="6" style="width: 80%"
+                    <textarea rows="6"
                               type="String"
                               ng-model="model.entry.story"></textarea>
                 </div>
                 <div>
                     <h6> Date: <input type="date"
+                                      value="{{model.entry.date}}"
                                       ng-model="model.entry.date"/></h6>
                 </div>
             </div>

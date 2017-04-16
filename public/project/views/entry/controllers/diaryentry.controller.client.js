@@ -8,7 +8,7 @@
         .controller("diaryentryController", diaryentryController);
 
     function diaryentryController($location,attractionService,entryService,$routeParams,loggedin,
-                                  userService,$cookies) {
+                                  userService,$cookies,$filter) {
         var vm = this;
         // vm.login = login;
         vm.attractionId=$routeParams['aid']
@@ -75,6 +75,7 @@
                 entryService
                     .findEntryByEntryId(vm.userId,vm.attractionId,vm.entryId)
                     .success(function (entry) {
+                        entry[0].date=entry[0].date.slice(0,10);
                         vm.entry=entry[0];
                     })
                     .error(function (err) {
@@ -90,6 +91,7 @@
                 title:entry.title,
                 date:entry.date,
                 story:entry.story,
+                username: loggedin.data[0].username
             }
             entryService
                 .createEntry(vm.userId,vm.attractionId,newEntry)

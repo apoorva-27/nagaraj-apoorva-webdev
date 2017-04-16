@@ -11,8 +11,6 @@
                                 loggedin,$cookies) {
         var vm=this;
         vm.userId=loggedin.data[0]._id;
-        console.log(vm.userId);
-        // vm.userId=$routeParams['uid'];
         vm.deleteUser=deleteUser;
         vm.openNav = openNav;
         var isOpen = true;

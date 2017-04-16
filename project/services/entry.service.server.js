@@ -117,7 +117,8 @@ module.exports = function (app,EntryModel) {
             story:newE.story,
             date:newE.date,
             userId:userId,
-            attractionId:attractionId
+            attractionId:attractionId,
+            username:newE.username,
         };
 
         EntryModel

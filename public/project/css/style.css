@@ -275,6 +275,13 @@ body {
     z-index: 20;
 }
 
+img
+{
+    background-image:url('../views/user/img/01.png');
+    height:400px;
+    width:400px;
+}
+
 /* Flip around the padding for proper display in narrow viewports */
 .navbar-wrapper > .container {
     padding-right: 0;

@@ -27,5 +27,8 @@
                         vm.error = 'User not found';
                     }
                 })
+                .error(function (err) {
+                    vm.error = 'Un-matched Username and Password';
+                })
         }
     }})();

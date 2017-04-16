@@ -10,7 +10,11 @@
 
     function friendController($routeParams,userService,$location,entryService,loggedin,$cookies) {
         var vm=this;
+        // console.log( "logged in data", loggedin.data[0]._id)
         vm.username = $routeParams['uname'];
+        // vm.userId=loggedin.data[0]._id;
+        // console.log(vm.userId);
+        // vm.userId=$routeParams['uid'];
         vm.deleteUser=deleteUser;
         vm.openNav = openNav;
         var isOpen = false;
@@ -22,21 +26,46 @@
         vm.followers = null;
         vm.entries = null;
         vm.user = null;
+        vm.otherID=null;
         vm.logout = logout;
+        vm.follow = true;
+        vm.followFun=followFun;
+
+        function followFun() {
+
+            console.log("change follow in controller",loggedin.data[0]._id,vm.otherID)
+            userService
+                .changeFollow(loggedin.data[0]._id,vm.otherID)
+                .success(function (success) {
+                    if(vm.follow){
+                        vm.follow=false;
+                    }else
+                    {
+                        vm.follow=true;
+                    }
+                    console.log("In success", success)
+
+                })
+                .error(function (err) {
+                    // entry.follow = 'UNFOLLOW';
+                    vm.follow=true;
+                    console.log("Unable to change Follow!",err)
+                })
+
+        }
         function logout(){
             userService
                 .logout()
                 .then(
                     function (response) {
                         $rootScope.currentUser = null;
-                        $cookies.
+                        cookies.put('location', null);
                         $location.url("/login");
                     }
                 )
         }
 
         function loadMain(type) {
-
             vm.includMain = '/project/views/settings/templates/settings-'+ type +'.view.client.html';
         }
 
@@ -44,7 +73,7 @@
             if (isOpen == false){
                 isOpen = true;
                 document.getElementById("mySidenav").style.width = "180px";
-                document.getElementById("main").style.marginLeft = "180px";
+                // document.getElementById("main").style.marginLeft = "180px";
             }
             else {
                 document.getElementById("mySidenav").style.width = "0px";
@@ -61,7 +90,9 @@
             userService
                 .findUserByUsername(vm.username)
                 .success( function (user) {
+                    // vm.user = user;
                     vm.user=user;
+                    vm.otherID = user._id;
                     console.log("user [0]",vm.user)
 
                     var following = [];
@@ -72,7 +103,9 @@
                             });
 
                     }
+                    console.log(following);
                     vm.following = following;
+
 
                     var followers = [];
                     for(var i =0; i< user.followers.length; i++){
@@ -80,11 +113,28 @@
                             .success(function (us) {
                                 followers.push(us[0])
                             });
+
                     }
+                    console.log("followers",followers);
                     vm.followers = followers;
+
+
+                    vm.follow = true;
+
+                    if (user.followers != null) {
+                        // console.log("Coming here")
+                        for(var i =0; i< user.followers.length; i++) {
+                            // console.log(user.followers[i])
+                            if (user.followers[i] == loggedin.data[0]._id) {
+                                vm.follow = false;
+                            }
+                        }
+                    }
+
+
                 })
                 .error (function (err) {
-                    vm.error="Unable to find user"
+                    vm.error="unable to find user"
                 });
 
             userService
@@ -96,6 +146,7 @@
                             vm.entries = entries;
                         })
                 });
+
             openNav();
         }
         init();
@@ -132,7 +183,9 @@
             }
         }
 
+
         function updateUser(newuser) {
+
             var newU=
                 {
                     firstname: newuser.firstname ,
@@ -153,4 +206,3 @@
         }
     }
 })();
-

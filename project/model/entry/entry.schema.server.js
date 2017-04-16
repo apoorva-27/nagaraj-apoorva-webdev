@@ -11,6 +11,7 @@ module.exports = function (model) {
         attractionId: String,
         date:Date,
         title:String,
+        username:String,
         follow:String,
         userId: [{type: mongoose.Schema.Types.ObjectId, ref:'UsersModel'}]
     }, {collection: 'entries'});
@@ -21,11 +22,11 @@ module.exports = function (model) {
         model.UsersModel
             .findUserById(entry.userId)
             .then(function (user) {
-                console.log("Google Delete", user)
+                console.log("Google Delete", user);
                 var entry_index = user.entries.indexOf(entry._id);
                 user.entries.splice(entry_index, 1);
                 user.save();
             });
-    })
+    });
     return EntrySchema;
-}
+};
