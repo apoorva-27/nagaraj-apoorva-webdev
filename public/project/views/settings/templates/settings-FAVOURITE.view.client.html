@@ -1,0 +1,22 @@
+<div>
+    <h4 class="text-color"> Favorites </h4>
+    <br>
+    <br>
+    <ul>
+        <div >
+            <div class="container-fluid row smoke col-xs-11 col-sm-6 col-md-4" data-ng-repeat="attraction in model.attractonsAll">
+                <div class="thumbnail">
+                    <img src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.attractionId}}.jpg?1402340533"
+                         alt="Image not avaliable"/>
+
+                    <div class="caption">
+                        <h4>{{attraction.name}}</h4>
+                        <h6>Expert Score : {{attraction.tripexpert_score}}</h6>
+                        <a href="#/attraction/{{attraction.attractionId}}">
+                            Details here </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ul>
+</div>

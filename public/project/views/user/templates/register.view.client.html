@@ -117,12 +117,14 @@
 
     <nav class="navbar navbar-dark navbar-fixed-bottom nav-color">
         <div class="container-fluid" ng-if="model.userId!=null">
-            <a href="#/user" class="navbar-link navbar-text pull-right">
-                <span class="glyphicon glyphicon-user user-color"></span>
-            </a>
-            <h5 class="text-color">
-                Powered by tripexpert
-            </h5>
+            <div class="col-xd-1 tripdiv">
+                <img class="tripimg" src="../../../../img/powered-by.png" >
+            </div>
+            <div class="col-xd-2" >
+                <a href="#/user" class="navbar-link navbar-text pull-right">
+                    <span class="glyphicon glyphicon-user user-color"></span>
+                </a>
+            </div>
         </div>
     </nav>
 </div>

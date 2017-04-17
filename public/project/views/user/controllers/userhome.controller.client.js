@@ -8,7 +8,7 @@
         .controller("userhomeController", userhomeController);
 
     function userhomeController(userService,$location,entryService,$rootScope,
-                                loggedin,$cookies) {
+                                loggedin,$cookies,attractionService) {
         var vm=this;
         vm.userId=loggedin.data[0]._id;
         vm.deleteUser=deleteUser;
@@ -21,6 +21,7 @@
         vm.following = null;
         vm.followers = null;
         vm.entries = null;
+        vm.attractonsAll = [];
         vm.logout = logout;
 
 
@@ -75,9 +76,27 @@
                      console.log(entries);
                      vm.entries = entries;
                  });
-
-
              openNav();
+
+
+             attractionService.getAllAttractions()
+                 .success(function (attract) {
+                     console.log("attract",attract);
+
+                     for(var i = 0; i < attract.length; i++){
+                         attractionService.findFavoritesByUserId(vm.userId,attract[i].attractionId)
+                             .success(function (userA) {
+                                 console.log("Users LIke", userA)
+                                 if (userA != null){
+                                     vm.attractonsAll.push(userA)
+                                 }
+
+                             })
+
+                     }
+
+                 })
+
          }
          init();
 

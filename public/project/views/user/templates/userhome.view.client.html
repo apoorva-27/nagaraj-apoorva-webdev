@@ -34,11 +34,12 @@
 <div class="container-fluid">
 
     <div id="mySidenav" class="sidenav" ng-click="model.openNav()">
-        <a class="glyphicon glyphicon-search btn" href="#/attraction">Search</a>
-        <a class="btn" ng-click="model.loadMain('EDIT')">About</a>
+        <a class="glyphicon glyphicon-search btn" href="#/attraction"> Search</a>
+        <a class="btn" ng-click="model.loadMain('EDIT')">About me</a>
         <a class="btn" ng-click="model.loadMain('FOLLOWING')">Following</a>
         <a class="btn" ng-click="model.loadMain('FOLLOWERS')">Followers</a>
         <a class="btn" ng-click="model.loadMain('ENTRIES')">Entries</a>
+        <a class="btn" ng-click="model.loadMain('FAVOURITE')">Favorites</a>
         <a class="btn" href="#/suggestion" ng-if="model.user.role == 'EXPERT'"> New Suggestion </a>
     </div>
 
