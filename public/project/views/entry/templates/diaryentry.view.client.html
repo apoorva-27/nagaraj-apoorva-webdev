@@ -30,39 +30,62 @@
 <div class="col-xs-0 col-md-12 smoke">
     <br>
     <div class="col-md-6">
-        <form>
+        <form class="container" name="form">
             <div class="title" >
                 <h5><lablel>Title</lablel>
-                    <input type="String" ng-model="model.entry.title"/>
+                    <input type="String" name="title" ng-model="model.entry.title"
+                    placeholder="Title" required/>
+                    <span class="red" ng-show="form.title.$dirty">
+                        <span ng-show="form.title.$error.required">
+                            Please choose a Title
+                        </span>
+                    </span>
                 </h5>
             </div>
-
             <div>
                 <div>
                     <h5> Desribe your experience: </h5>
-                    <textarea rows="6"
+                    <textarea rows="9" cols="100"
                               type="String"
-                              ng-model="model.entry.story"></textarea>
+                              ng-model="model.entry.story"
+                    placeholder="Your experience" required
+                              name="story"
+                              ng-required="true"></textarea>
+                    <span class="red" ng-show="form.story.$dirty">
+                        <span ng-show="form.story.$error.required">
+                            Please choose a Title
+                        </span>
+                    </span>
                 </div>
                 <div>
-                    <h6> Date: <input type="date"
+                    <h6> Date: <input type="date" required
                                       value="{{model.entry.date}}"
                                       ng-model="model.entry.date"/></h6>
                 </div>
             </div>
+            <div>
+
+                <input type="submit" value="Create Entry" class="btn btn-primary"
+                       ng-if="model.entryId==null"
+                       ng-disabled="form.story.$error.required ||
+                                    form.title.$error.required"
+                       ng-click="model.createEntry(model.entry)">
+
+                <input value="Update Entry" type="submit" class="btn btn-primary"
+                   ng-if="model.entryId!=null"
+                       ng-disabled="form.story.$error.required ||
+                                    form.title.$error.required"
+                       ng-click="model.updateEntry(model.entry)">
+
+                <input type="submit" value="Delete Entry"
+                       class="btn btn-danger" ng-click="model.deleteEntry(model.entry)">
+
+                <div class="red" ng-show="form.story.$error.required==true
+                    || form.title.$error.required==true">Enter details
+                </div>
+            </div>
         </form>
-        <div>
 
-            <a class="btn btn-primary" ng-if="model.entryId==null"
-               ng-click="model.createEntry(model.entry)">Create Entry</a>
-
-            <a class="btn btn-primary" ng-if="model.entryId!=null"
-               ng-click="model.updateEntry(model.entry)">Update Entry</a>
-
-            <a button class="btn btn-danger" ng-click="model.deleteEntry(model.entry)" >Delete Entry
-                </a>
-            </button>
-        </div>
 
         <br>
     </div>
@@ -71,10 +94,14 @@
 
     <nav class="navbar navbar-dark navbar-fixed-bottom nav-color">
         <div class="container-fluid" ng-if="model.userId!=null">
+            <div class="col-xd-1" >
             <a href="#/user" class="navbar-link navbar-text pull-right">
                 <span class="glyphicon glyphicon-user user-color"></span>
             </a>
-
+            </div>
+            <div class="col-md-8 tripdiv">
+                <img class="tripimg" src="../../../../img/powered-by.png" >
+            </div>
         </div>
     </nav>
 

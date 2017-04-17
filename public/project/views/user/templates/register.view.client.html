@@ -22,46 +22,96 @@
 
 <div class="container-fluid">
     <div class="col-md-4 col-md-offset-4" >
-        <div class="container-fluid ">
+        <div class="container-fluid smoke">
             <div>
                 <h1>Register</h1>
 
                 <div class="alert alert-danger" ng-show="model.message">
                     {{model.message}}
                 </div>
-                <form><input type="text"
+                <form name="user">
+                    <input type="text" name="uname2"
                        ng-change="model.onchange(user.username)"
                        ng-model="user.username"
                        class="form-control"
-                       placeholder="username"/>
-                <input type="password"
+                       placeholder="username" required/>
+                    <span class="red" ng-show="user.uname2.$dirty" >
+                        <span ng-show="user.uname2.$error.required">
+                            Select a username
+                        </span>
+                    </span>
+                <input type="password" name="password2"
                        ng-model="user.password"
                        class="form-control"
-                       placeholder="password"/>
-                <input type="password"
+                       placeholder="password" required/>
+                    <span class="red" ng-show="user.password2.$dirty">
+                        <span ng-show="user.password2.$error.required">
+                            Enter a password
+                        </span>
+                    </span>
+                <input type="password" name="passwordV"
                        ng-change="model.matchPassword(user.verifypassword,user.password)"
                        ng-model="user.verifypassword"
                        class="form-control"
-                       placeholder="verify password"/>
-                <input type="text"
+                       placeholder="verify password" required/>
+                    <span class="red" ng-show="user.passwordV.$dirty">
+                        <span ng-show="user.passwordV.$error.required">
+                            Re-enter password
+                        </span>
+                    </span>
+                <input type="text" name="firstname2"
                        ng-model="user.firstname"
                        class="form-control"
-                       placeholder="FirstName"/>
-                <input type="text"
+                       placeholder="FirstName" required/>
+                    <span class="red" ng-show="user.firstname2.$dirty">
+                        <span ng-show="user.firstname2.$error.required">
+                            Enter your firstname
+                        </span>
+                    </span>
+                <input type="text" name="lastname2"
                        ng-model="user.lastname"
                        class="form-control"
-                       placeholder="LastName"/>
-                <input type="email"
+                       placeholder="LastName" required/>
+                    <span class="red" ng-show="user.lastname2.$dirty">
+                        <span ng-show="user.lastname2.$error.required">
+                            Enter your lastname
+                        </span>
+                    </span>
+                <input type="email" name="email2"
                        ng-model="user.email"
                        class="form-control"
-                       placeholder="email"/>
+                       placeholder="email" required/>
+                    <span class="red" ng-show="user.email2.$dirty">
+                        <span ng-show="user.email2.$error.required">
+                            Enter your Email
+                        </span>
+                    </span>
+                    <div class="red" ng-show="user.email2.$error.required ||
+                                        user.lastname2.$error.required ||
+                                        user.firstname2.$error.required ||
+                                        user.passwordV.$error.required ||
+                                        user.password2.$error.required ||
+                                        user.uname2.$error.required ">
+                        Enter all registration details
+                    </div>
+
+                    <input type="submit" value="Register"
+                           class="btn btn-primary btn-block"
+                           ng-click="model.create(user)"
+                           ng-disabled="user.email2.$error.required ||
+                                        user.lastname2.$error.required ||
+                                        user.firstname2.$error.required ||
+                                        user.passwordV.$error.required ||
+                                        user.password2.$error.required ||
+                                        user.uname2.$error.required ">
                 </form>
 
-                <a class="btn btn-primary btn-block" ng-click="model.create(user)">Register</a>
 
                 <a class="btn btn-danger  btn-block"
                    href="#/login">Cancel</a>
+                </form>
             </div>
+            <br/>
         </div>
     </div>
 
@@ -70,7 +120,9 @@
             <a href="#/user" class="navbar-link navbar-text pull-right">
                 <span class="glyphicon glyphicon-user user-color"></span>
             </a>
-
+            <h5 class="text-color">
+                Powered by tripexpert
+            </h5>
         </div>
     </nav>
 </div>

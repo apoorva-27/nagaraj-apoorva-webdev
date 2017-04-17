@@ -17,6 +17,7 @@
         vm.suggestions;
         vm.location=' ';
         vm.switch;
+        vm.error=null;
         vm.logout = logout;
 
         function logout(){
@@ -32,11 +33,10 @@
         }
         function init() {
             var locationCookie = $cookies.get('location');
-            console.log(locationCookie,"cookie");
-
+            vm.error = null;
+            vm.attractions=null;
             if (locationCookie != 'null' && locationCookie !=null &&
                 vm.userId!=undefined && vm.userId != undefined ){
-                console.log("coiming here ???")
                 searchPlace(locationCookie)
             }
         }
@@ -49,17 +49,21 @@
 
         function searchPlace(searchText) {
             vm.location = searchText.toLowerCase();
-
+            vm.attractions = null;
             attractionService
                 .findPlaceByText(searchText)
                 .success(function (usr) {
+
                     if (usr) {
                         if (vm.userId) {
                             $cookies.put('location', searchText.toLowerCase());
                         }
                         var array = usr.response.destinations;
+                        var flag = false;
                         array.forEach(function (i) {
-                            if (i.name.toLowerCase() == searchText.toLowerCase()) {
+                            if (i.name.toLowerCase() == searchText.toLowerCase())
+                                {
+                                 flag = true;
                                 idfound = i.id;
                                 attractionService
                                     .findAttractionsInCity(i.id)
@@ -72,31 +76,38 @@
                                         }
                                     })
                             }
-                        })
+                            if (flag == false ){
+                                vm.error = "City not found"
+                            }
+                            else{
+                                vm.error = null;
+                            }
+                        });
+
                     }
                     else {
                         vm.error = 'Place not found';
                     }
                 });
 
+
             suggestionService
                 .findSuggestionsForCity(searchText).success(function (usr) {
-                console.log("success")
                 var name=null;
                 for (var i=0; i< usr.length;i++){
                     if (usr[i].userId==vm.userId) {
-                        usr[i].switch='EDIT'
+                        usr[i].switch='EDIT';
                         usr[i].username = loggedin.data[0]._id;
                     }
                     else {
-                        usr[i].switch='NONE'
+                        usr[i].switch='NONE';
                         console.log(usr[i].userId);
                         usr[i].username = undefined;
                         userService.findUserById(usr[i].userId)
                             .success(function (u) {
                                 console.log("Not matched users",u[0].username)
                                 name = u[0].username;
-                            })
+                            });
                         console.log(name);
                     }
                 }

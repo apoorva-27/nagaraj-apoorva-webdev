@@ -49,6 +49,7 @@
         init();
 
         function create(user) {
+            if(user)
 
             userService
                 .createUser(user)

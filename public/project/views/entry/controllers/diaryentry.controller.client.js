@@ -86,7 +86,10 @@
         init();
 
         function createEntry(entry) {
-            console.log("create entry controller")
+            console.log("create entry controller");
+            if(entry.date == null){
+                entry.date = Date.now();
+            }
             var newEntry={
                 title:entry.title,
                 date:entry.date,

@@ -11,6 +11,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+
+            <a  href="#/user">
+                <span class="navbar-brand glyphicon glyphicon-chevron-left left">
+                </span>
+            </a>
+
             <a class="navbar-brand" href="">
                 Travelogue
             </a>
@@ -24,49 +30,78 @@
     </div>
 </nav>
 
-<h1>A day in the city</h1>
 
 <div class="col-xs-0 col-md-12 smoke">
+    <h3>A day in the city</h3>
+
     <br>
     <div class="col-md-6">
-        <form>
+        <form name="entry">
             <div class="title" >
                 <h5><lablel>Title</lablel>
-                    <input type="String" ng-model="model.suggestion.title"/>
+                    <input required name="title" type="String" ng-model="model.suggestion.title"
+                     placeholder="Title"/>
+                    <span class="red" ng-show="entry.title.$dirty">
+                        <span ng-show="entry.title.$error.required">
+                            Please choose a Title
+                        </span>
+                </span>
                 </h5>
             </div>
 
             <div>
                 <div>
                     <h5> Top Local Attractions </h5>
-                    <textarea rows="6" style="width: 80%"
-                              type="String"
-                              ng-model="model.suggestion.suggestion"></textarea>
+                    <textarea rows="6" style="width: 50%" required
+                              type="String" name="suggestion"
+                              ng-model="model.suggestion.suggestion"
+                    placeholder="Describe your adventure in the city"></textarea>
+                    <span class="red"  ng-show="entry.suggestion.$dirty">
+                        <span ng-show="entry.suggestion.$error.required">
+                            Enter your top suggestions
+                        </span>
+                </span>
+
                 </div>
                 <div>
                     <input type="String"
-                           placeholder="city"
+                           placeholder="city" required name="city"
                            ng-model="model.suggestion.city"/>
+                    <span class="red" ng-show="entry.city.$dirty">
+                        <span ng-show="entry.city.$error.required">
+                            Select a city
+                        </span>
+                </span>
                 </div>
             </div>
-        </form>
-        <div>
             <div ng-if="model.suggestionId==undefined">
-            <a class="btn btn-primary" ng-if="model.entryId==null" href="#/user"
-               ng-click="model.createSuggestion(model.suggestion)">Create Itinerary</a>
+            <a href="#/user">
+                <input type="submit" value="Create Itinerary"
+                     class="btn btn-primary" ng-if="model.entryId==null" href="#/user"
+                       ng-disabled="entry.city.$error.required ||
+                                    entry.title.$error.required||
+                                    entry.suggestion.$error.required"
+                     ng-click="model.createSuggestion(model.suggestion)">
+            </a>
+                <div class="red" ng-show="entry.city.$error.required==true
+                    || entry.suggestion.$error.required==true ||
+                    entry.title.$error.required==true ">Enter details
+                </div>
             </div>
 
             <div ng-if="model.suggestionId">
-            <a class="btn btn-primary" href="#/user"
-               ng-click="model.updateSuggestion(model.suggestion)">Update Itinerary</a>
-
-                <a class="btn btn-danger" href="#/user" ng-click="model.deleteSuggestion(model.suggestion)">
+                <a href="#/attraction">
+                    <input type="submit" value="Update Itinerary" class="btn btn-primary"
+                       ng-click="model.updateSuggestion(model.suggestion)">
+                </a>
+                <a class="btn btn-danger" href="#/attraction"
+                   ng-click="model.deleteSuggestion(model.suggestion)">
                     Delete Itinerary</a>
             </div>
-
-            </button>
-        </div>
-        <br>
+        </form>
+        <br/>
+    </div>
+        <br/>
     </div>
 </div>
 <div>
@@ -76,6 +111,8 @@
         <a href="#/user" class="navbar-link navbar-text pull-right">
             <span class="glyphicon glyphicon-user user-color"></span>
         </a>
-
+        <div class="col-md-8 tripdiv">
+            <img class="tripimg" src="../../../../img/powered-by.png" >
+        </div>
     </div>
 </nav>

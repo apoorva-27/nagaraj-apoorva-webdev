@@ -28,7 +28,7 @@
     </div>
 </nav>
 
-<div style="background-color:whitesmoke">
+    <div style="background-color:whitesmoke">
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -47,8 +47,10 @@
                  ng-click="model.searchPlace(model.search)" href="">
                 <i class="glyphicon glyphicon-search">
                 </i>
+
             </a>
         </div>
+        {{model.error}}
     </div>
     <div class="carousel-inner" role="listbox">
         <div class="item active">
@@ -56,7 +58,7 @@
         </div>
 
         <div class="item">
-            <img src="http://www.baltana.com/files/wallpapers-2/Japan-04375.jpg" alt="SS">
+            <img src="http://cdn.wonderfulengineering.com/wp-content/uploads/2016/01/Tokyo-Wallpaper-4.jpg" alt="SS">
         </div>
 
         <div class="item">
@@ -82,6 +84,7 @@
 <div>
 
 <div class="container-fluid">
+    <h3>Your online travel diary </h3>
     <div ng-show="model.suggestions" ng-if="model.userId != undefined">
 
         <div class="intro-header">
@@ -131,15 +134,21 @@
     <div class="row" ng-if="model.attractions">
         <div class="col-xs-18 col-sm-8 col-md-4" data-ng-repeat="attraction in model.attractions">
             <div class="thumbnail">
-                <img src="http://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.id}}.jpg?1402340533"/>
+                <img src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.id}}.jpg?1402340533"
+                alt="Image not avaliable"/>
 
                 <div class="caption">
                     <h4>{{attraction.name}}</h4>
                     <h6>Expert Score : {{attraction.tripexpert_score}}</h6>
                     <a ng-click="model.detailsPage(attraction.id)">
                     Details here </a>
-
+                    <!--<br/><br/>-->
+                    <!--<div class="col-md-3">-->
+                        <!--<img src="../../../../img/powered-by.png" style="width: 100%" >-->
+                    <!--</div>-->
+                    <!--<br/><br/>-->
                 </div>
+
             </div>
         </div>
 
@@ -153,10 +162,10 @@
                 <span class="glyphicon glyphicon-user user-color"></span>
             </a>
 
+            <div class="col-md-8 tripdiv">
+                <img class="tripimg" src="../../../../img/powered-by.png" >
+            </div>
+
         </div>
     </nav>
-
-
-
-
 </div>

@@ -169,7 +169,13 @@ body a:hover {
     position: relative;
 
 }
-
+.red{
+    color: lightcoral;
+}
+.follow-left{
+    position: relative;
+    left: 35px;
+}
 .nav-color{
     background-color: black;
 }
@@ -207,6 +213,20 @@ body a:hover {
 .following-header Label{
     background: transparent;
     background-color: transparent;
+}
+.tripdiv{
+    position: relative;
+    top: 15px;
+}
+.footertext{
+    position:relative;
+    top: -25px;
+    left: 20px;
+    opacity: 0;
+}
+.tripimg{
+    background-color: white;
+    width: 15%
 }
 
 @media screen and (min-width: 1000px ){
@@ -274,14 +294,6 @@ body {
     left: 0;
     z-index: 20;
 }
-
-img
-{
-    background-image:url('../views/user/img/01.png');
-    height:400px;
-    width:400px;
-}
-
 /* Flip around the padding for proper display in narrow viewports */
 .navbar-wrapper > .container {
     padding-right: 0;

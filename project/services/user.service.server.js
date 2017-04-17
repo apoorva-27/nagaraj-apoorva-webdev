@@ -107,11 +107,11 @@ module.exports = function (app,UsersModel) {
     }
 
     function findFollowing(req,res) {
-        userId=req.params.userId
+        userId=req.params.userId;
         UsersModel
             .findFollowing(userId)
             .then (function (array){
-                console.log(array)
+                console.log(array);
                 res.json(array)
                 },
             function(err){
@@ -221,7 +221,7 @@ module.exports = function (app,UsersModel) {
     var googleConfig = {
         clientID     : process.env.GOOGLE_CLIENT_ID,
         clientSecret : process.env.GCS,
-        callbackURL  : 'https://nagaraj-apoorva-webdev.herokuapp.com/auth/google/callback'
+        callbackURL  : process.env.callback
     };
 
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
@@ -237,7 +237,7 @@ module.exports = function (app,UsersModel) {
                         return done(null, user);
                     } else {
 
-                        console.log("NEW PROFILE", profile)
+                        console.log("NEW PROFILE", profile);
                         var email = profile.emails[0].value;
                         var emailParts = email.split("@");
                         var newGoogleUser = {

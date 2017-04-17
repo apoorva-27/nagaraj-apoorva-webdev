@@ -35,9 +35,9 @@
         <a class="btn" ng-click="model.loadMain('ENTRIES')">Entries</a>
 
         <a ng-if="model.follow == true" ng-click="model.followFun()" href="">
-        <button class="btn btn-success"> Follow</button></a>
+        <button class="btn btn-success follow-left"> Follow</button></a>
         <a ng-if="model.follow == false" ng-click="model.followFun()">
-        <button class="btn btn-danger"> Unfollow</button></a>
+        <button class="btn btn-danger follow-left" > Unfollow</button></a>
 
     </div>
 
@@ -47,5 +47,19 @@
         </div>
     </div>
 
+    <div>
+
+        <nav class="navbar navbar-dark navbar-fixed-bottom nav-color">
+            <div class="container-fluid">
+                <a href="#/user" class="navbar-link navbar-text pull-right">
+                    <span class="glyphicon glyphicon-user user-color"></span>
+                </a>
+                <div class="col-md-8 tripdiv">
+                    <img class="tripimg" src="../../../../img/powered-by.png" >
+                </div>
+            </div>
+        </nav>
+
+    </div>
 </div>
 
