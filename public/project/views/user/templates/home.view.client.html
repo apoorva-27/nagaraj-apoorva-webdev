@@ -137,7 +137,7 @@
     <div class="row" ng-if="model.attractions">
         <div class="col-xs-18 col-sm-8 col-md-4" data-ng-repeat="attraction in model.attractions">
             <div class="thumbnail">
-                <img src="https://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.id}}.jpg?1402340533"
+                <img src="http://static.tripexpert.com/images/venues/index_photos/index_retina/{{attraction.id}}.jpg?1402340533"
                 alt="Image not avaliable"/>
 
                 <div class="caption">
@@ -145,11 +145,6 @@
                     <h6>Expert Score : {{attraction.tripexpert_score}}</h6>
                     <a ng-click="model.detailsPage(attraction.id)">
                     Details here </a>
-                    <!--<br/><br/>-->
-                    <!--<div class="col-md-3">-->
-                        <!--<img src="../../../../img/powered-by.png" style="width: 100%" >-->
-                    <!--</div>-->
-                    <!--<br/><br/>-->
                 </div>
 
             </div>

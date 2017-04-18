@@ -101,20 +101,14 @@
                     }
                     else {
                         usr[i].switch='NONE';
-                        console.log(usr[i].userId);
                         usr[i].username = undefined;
                         userService.findUserById(usr[i].userId)
                             .success(function (u) {
-                                console.log("Not matched users",u[0].username)
                                 name = u[0].username;
                             });
-                        console.log(name);
                     }
                 }
                 vm.suggestions=usr;
             });
-
-            console.log("what is searchText",searchText, vm.location)
-
         }
     }})();

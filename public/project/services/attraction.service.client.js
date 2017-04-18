@@ -55,7 +55,6 @@
             var urlBase = "https://api.tripexpert.com/v1/venues/attractionId?api_key=API_KEY";
             var results = urlBase.replace("API_KEY", API_KEY).replace("attractionId",attractionId);
             var response= $http.get(results);
-            console.log(response);
             return response
         }
 

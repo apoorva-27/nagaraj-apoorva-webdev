@@ -46,7 +46,6 @@
              userService
                  .findUserById(vm.userId)
                  .success( function (user) {
-                     console.log("user [0]",user)
                      vm.user=user[0];
                      var following = [];
                      for(var i =0; i< user[0].following.length; i++){
@@ -63,7 +62,6 @@
                              .success(function (us) {
                                  followers.push(us[0])
                              });
-
                      }
                      vm.followers = followers;
                  })
@@ -81,22 +79,16 @@
 
              attractionService.getAllAttractions()
                  .success(function (attract) {
-                     console.log("attract",attract);
 
                      for(var i = 0; i < attract.length; i++){
                          attractionService.findFavoritesByUserId(vm.userId,attract[i].attractionId)
                              .success(function (userA) {
-                                 console.log("Users LIke", userA)
                                  if (userA != null){
                                      vm.attractonsAll.push(userA)
                                  }
-
                              })
-
                      }
-
                  })
-
          }
          init();
 

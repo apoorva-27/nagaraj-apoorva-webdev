@@ -15,7 +15,6 @@
             promise
                 .success(function (usr) {
                     if (usr) {
-                        console.log("loging USR",usr)
                         $rootScope.currentUser = usr;
 
                         if(usr.role ==='ADMIN'){

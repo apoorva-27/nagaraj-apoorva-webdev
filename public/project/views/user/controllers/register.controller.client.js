@@ -81,7 +81,6 @@
                         $location.url("/user");
                     }
                 })
-
         }
     }
 })();

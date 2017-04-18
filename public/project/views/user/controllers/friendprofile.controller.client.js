@@ -10,11 +10,7 @@
 
     function friendController($routeParams,userService,$location,entryService,loggedin,$cookies) {
         var vm=this;
-        // console.log( "logged in data", loggedin.data[0]._id)
         vm.username = $routeParams['uname'];
-        // vm.userId=loggedin.data[0]._id;
-        // console.log(vm.userId);
-        // vm.userId=$routeParams['uid'];
         vm.deleteUser=deleteUser;
         vm.openNav = openNav;
         var isOpen = false;
@@ -32,8 +28,6 @@
         vm.followFun=followFun;
 
         function followFun() {
-
-            console.log("change follow in controller",loggedin.data[0]._id,vm.otherID)
             userService
                 .changeFollow(loggedin.data[0]._id,vm.otherID)
                 .success(function (success) {
@@ -43,13 +37,9 @@
                     {
                         vm.follow=true;
                     }
-                    console.log("In success", success)
-
                 })
                 .error(function (err) {
-                    // entry.follow = 'UNFOLLOW';
                     vm.follow=true;
-                    console.log("Unable to change Follow!",err)
                 })
 
         }
@@ -73,7 +63,6 @@
             if (isOpen == false){
                 isOpen = true;
                 document.getElementById("mySidenav").style.width = "180px";
-                // document.getElementById("main").style.marginLeft = "180px";
             }
             else {
                 document.getElementById("mySidenav").style.width = "0px";
@@ -93,8 +82,6 @@
                     // vm.user = user;
                     vm.user=user;
                     vm.otherID = user._id;
-                    console.log("user [0]",vm.user)
-
                     var following = [];
                     for(var i =0; i< user.following.length; i++){
                         userService.findUserById(user.following[i])
@@ -103,35 +90,23 @@
                             });
 
                     }
-                    console.log(following);
                     vm.following = following;
-
-
                     var followers = [];
                     for(var i =0; i< user.followers.length; i++){
                         userService.findUserById(user.followers[i])
                             .success(function (us) {
                                 followers.push(us[0])
                             });
-
                     }
-                    console.log("followers",followers);
                     vm.followers = followers;
-
-
                     vm.follow = true;
-
                     if (user.followers != null) {
-                        // console.log("Coming here")
                         for(var i =0; i< user.followers.length; i++) {
-                            // console.log(user.followers[i])
                             if (user.followers[i] == loggedin.data[0]._id) {
                                 vm.follow = false;
                             }
                         }
                     }
-
-
                 })
                 .error (function (err) {
                     vm.error="unable to find user"
@@ -146,7 +121,6 @@
                             vm.entries = entries;
                         })
                 });
-
             openNav();
         }
         init();

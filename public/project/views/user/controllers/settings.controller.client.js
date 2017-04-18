@@ -14,11 +14,9 @@
         vm.followers = null;
 
         function init() {
-            console.log("init settings");
             var promise = userService.findUserById(userId);
             promise.success(function (user) {
                 vm.user = user;
-                console.log("vm user",vm.user);
                 var followers = null;
 
                 for(var i =0; i< user.followers.length; i++){
