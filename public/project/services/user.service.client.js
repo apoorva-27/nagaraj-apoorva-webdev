@@ -48,6 +48,8 @@
         }
 
         function createUser(user) {
+
+
             var newUser=
                 {
                     username: user.username,
@@ -55,8 +57,13 @@
                     firstname: user.lastname ,
                     lastname: user.firstname ,
                     email: user.email,
-                    role:'USER'
                 };
+            if (user.role == undefined){
+                newUser.role = 'USER'
+            }
+            else{
+                newUser.role = user.role;
+            }
            return $http.post("/api/user",newUser)
         }
 

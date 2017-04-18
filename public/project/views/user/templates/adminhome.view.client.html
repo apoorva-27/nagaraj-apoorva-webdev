@@ -261,7 +261,8 @@
             <div class="col-xs-6 pull-left">
 
                 <label ng-if="model.user.role=='ADMIN'">{{model.user.role}}</label>
-                <select ng-if="model.user.role!='ADMIN'" ng-model="model.user.role" ng-options="x for x in ['USER','EXPERT']">
+                <select ng-if="model.user.role!='ADMIN'"
+                        ng-model="model.user.role" ng-options="x for x in ['USER','EXPERT']">
                 </select>
             </div>
         </div>
@@ -325,7 +326,7 @@
                 <label> Role </label>
             </div>
             <div class="col-xs-6">
-                <select ng-model="Cuser.role" ng-options="x for x in ['USER','EXPERT']">
+                <select ng-model="model.Cuser.role" ng-options="x for x in ['USER','EXPERT']">
                 </select>
             </div>
         </div>
