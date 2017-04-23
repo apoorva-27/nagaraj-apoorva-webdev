@@ -44,6 +44,7 @@
                 <div>
                     <div class="col-xs-1">
                         <a href="#/user/{{model.userId}}/attraction/{{model.attractionId}}" ng-click="model.favorite('change')" >
+                            <div ng-if="model.userId!=undefined">
                             <div ng-switch="model.favorited">
                         <span>
                             <div ng-switch-when="true">
@@ -56,6 +57,7 @@
                                 <span class="glyphicon glyphicon-star-empty"></span>
                             </div>
                         </span>
+                            </div>
                             </div>
                         </a>
                     </div>
