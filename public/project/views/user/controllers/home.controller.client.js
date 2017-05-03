@@ -58,9 +58,9 @@
                         if (vm.userId) {
                             $cookies.put('location', searchText.toLowerCase());
                         }
-                        var array = usr.response.destinations;
+                        var array1 = usr.response.venues;
                         var flag = false;
-                        array.forEach(function (i) {
+                        array1.forEach(function (i) {
                             if (i.name.toLowerCase() == searchText.toLowerCase())
                                 {
                                  flag = true;
